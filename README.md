@@ -1,11 +1,11 @@
-# 🎓 ECE — Modèles Typst Non Officiels
+<h1 align="center">🎓 ECE — Modèles de Rapport avec Typst</h1>
 
 <p align="center">
   <a href="https://typst.app">
     <img alt="Typst" src="https://img.shields.io/badge/Typst-%232f90ba.svg?&logo=Typst&logoColor=white" />
   </a>
   <a href="LICENSE">
-    <img alt="MIT" src="https://img.shields.io/github/license/leonpwd/ece-reports" />
+    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg" />
   </a>
   <a href="#-avertissement--disclaimer">
     <img alt="Status: Unofficial" src="https://img.shields.io/badge/Status-Non%20Officiel-lightgrey.svg" />
@@ -14,14 +14,14 @@
 
 <p align="center">
   <img src="assets/preview-tp.png" width="46%" alt="Aperçu Rapport de TP" />
-  &nbsp;&nbsp;
+    
   <img src="assets/preview-projet.png" width="46%" alt="Aperçu Rapport de Projet" />
 </p>
 
-Modèles **Typst** modernes, rapides et élégants pour la rédaction de **Rapports de Travaux Pratiques (`tp`)** et de **Rapports de Projet (`projet`)** à l'**ECE (École Centrale d'Électronique)**.
+Modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)** et de **Rapports de Projet (`projet`)** à l'**ECE (École Centrale d'Électronique)**.
 
 > [!NOTE]
-> **Avertissement** : Ce projet est un gabarit **non officiel**, non affilié à l'administration de l'établissement.
+> **Avertissement** : Ce projet est un template **non officiel**, non affilié à l'administration de l'établissement.
 
 ---
 
