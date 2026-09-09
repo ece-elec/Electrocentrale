@@ -1,0 +1,24 @@
+# Modèle Typst - Rapport de Projet d'Ingénierie
+
+Modèle Typst bilingue (Français / Anglais) pour la rédaction de rapports de projet à l'ECE Paris.
+
+## 🚀 Utilisation rapide
+
+```bash
+# Compiler la version française
+typst compile rapport-projet-fr.typ
+
+# Compiler la version anglaise
+typst compile rapport-projet-en.typ
+
+# Mode live-reload pendant la rédaction
+typst watch rapport-projet-fr.typ
+```
+
+## ⚙️ Options principales
+
+- **Langue** : `lang: "fr"` ou `lang: "en"`
+- **Police** : `#let style-police = "latex"` (`"latex"`, `"typst-modern"`, `"modern-sans"`, `"editorial"`)
+- **Table des matières** : `table_of_contents: true`, `toc_depth: 3`
+- **Résumé / Abstract** : encart dédié sur la page de titre
+- **Utilitaires** : `#table-termes(...)`, `#table-acronymes(...)`, `#nb[...]`, `#attention[...]`, `#todo[...]`

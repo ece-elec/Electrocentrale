@@ -1,0 +1,24 @@
+.DS_Store
+
+# Typst and LaTeX build artifacts
+*.pdf
+*.synctex.gz
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+
+# Editor and IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+
+# Temporary files
+/tmp/
+build/
+dist/
