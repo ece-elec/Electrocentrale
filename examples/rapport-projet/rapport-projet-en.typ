@@ -19,7 +19,7 @@
 )
 
 #show: projet.with(
-  lang: "en",
+  lang: "fr",
   title: "Autonomous Embedded Node",
   promo: "ING5",
   major: "Embedded Systems",
@@ -34,7 +34,7 @@
   show-supervisor-email: true, // Set to false to hide supervisor email
   date: auto,  // or date: "October 15, 2026" for a fixed date
   city: "Paris",
-  draft: false, // Set to true to enable "DRAFT" watermark
+  draft: true, // Set to true to enable "DRAFT" watermark
   table-of-figures: false, // Set to true to enable list of figures
   table-of-tables: false, // Set to true to enable list of tables
   // equation-numbering: "(1)",  // Uncomment to number equations
@@ -57,8 +57,9 @@ What will the reader find here?
 
 Provide the main technical terms and their definitions in table format.
 
-#table-termes(
-  header-term: "Term", header-def: "Definition",
+#table(
+  columns: (1.5fr, 3.5fr),
+  table.header([Term], [Definition]),
   [Sample term], [Precise definition of the term within the project context.],
   [Another term], [Detailed explanation of the function or role of the term.],
 )
@@ -67,8 +68,9 @@ Provide the main technical terms and their definitions in table format.
 
 Provide the main acronyms, their meanings, and explanations in table format.
 
-#table-acronymes(
-  header-acr: "Acronym", header-mean: "Meaning", header-exp: "Explanation",
+#table(
+  columns: (1fr, 1.8fr, 2.7fr),
+  table.header([Acronym], [Meaning], [Explanation]),
   [ADC], [Analog-to-Digital Converter], [Component that converts an analog signal into a digital signal.],
   [UART], [Universal Asynchronous Receiver-Transmitter], [Asynchronous serial communication protocol.],
 )
@@ -103,9 +105,21 @@ What problem does the project solve?
 
 == Technical Specifications
 
-What are the technical specifications of the project?
+Functional requirements and operational constraints are summarized in @tab:spec :
 
-#note[Some electronics projects at ECE do not have specific ones.]
+#figure(
+  table(
+    columns: (1.2fr, 3fr, 1.5fr, 1.3fr),
+    align: (col, row) => if col in (0, 2, 3) { center + horizon } else { left + horizon },
+    table.header([Ref.], [Technical Requirement], [Target Value], [Priority]),
+    [SPEC-01], [Nominal Supply Voltage], [3.3 V ± 5%], [Critical],
+    [SPEC-02], [Average Standby Current], [< 15 µA], [High],
+    [SPEC-03], [IMU Sampling Rate], [100 Hz], [Critical],
+    [SPEC-04], [Wireless Range], [> 30 m (indoor)], [Medium],
+    [SPEC-05], [Battery Autonomy (Li-Po)], [> 72 hours], [High],
+  ),
+  caption: [System technical specifications and performance requirements],
+) <tab:spec>
 
 = Design
 
@@ -137,12 +151,10 @@ Analog signal conditioning and power subsystems are designed according to standa
 The complete component bill is listed in @tab:bom and the microcontroller pin connections in @tab:pinout.
 
 #figure(
-  table-composants(
-    header-ref: "Ref.",
-    header-comp: "Part Name",
-    header-val: "Value / Package",
-    header-qty: "Qty",
-    header-note: "Description",
+  table(
+    columns: (1fr, 2.2fr, 2fr, 0.8fr, 2fr),
+    align: (col, row) => if col in (0, 3) { center + horizon } else { left + horizon },
+    table.header([Ref.], [Part Name], [Value / Package], [Qty], [Description]),
     [U1], [STM32F401RE], [LQFP-64], [1], [Main 84 MHz MCU],
     [U2], [MPU-6050], [QFN-24], [1], [6-axis I2C IMU sensor],
     [C1-C4], [Ceramic Capacitors], [100 nF, 0805], [4], [Power decoupling],
@@ -154,11 +166,10 @@ The complete component bill is listed in @tab:bom and the microcontroller pin co
 === Pinout Assignment
 
 #figure(
-  table-brochage(
-    header-pin: "Pin",
-    header-sig: "Signal",
-    header-mode: "I/O Mode",
-    header-desc: "Function",
+  table(
+    columns: (1.2fr, 1.5fr, 1.3fr, 3fr),
+    align: (col, row) => if col in (0, 1, 2) { center + horizon } else { left + horizon },
+    table.header([Pin], [Signal], [I/O Mode], [Function]),
     [PA5], [SPI1_SCK], [Output Alternate], [SPI Master Clock],
     [PA7], [SPI1_MOSI], [Output Alternate], [Master Out Slave In],
     [PB6], [I2C1_SCL], [Open Drain], [I2C Sensor Clock],
@@ -218,11 +229,24 @@ $ T_("autonomie") = (C_("bat") dot eta) / I_("avg") $ <eq:autonomy_en>
 
 where $eta = 0.85$ represents the Buck DC/DC regulator efficiency.
 
+The power consumption breakdown across operating modes is summarized in @tab:modes :
+
+#figure(
+  table-double-entree(
+    headers: ("Module / Mode", "Sleep", "Eco", "Active", "Boost"),
+    [MCU (STM32)], [15 µA], [2 mA], [15 mA], [40 mA],
+    [IMU Sensor], [5 µA], [100 µA], [3.8 mA], [3.8 mA],
+    [RF Link], [1 µA], [Inactive], [18 mA], [25 mA],
+    [Estimated Total], [21 µA], [2.1 mA], [36.8 mA], [68.8 mA],
+  ),
+  caption: [Energy consumption matrix across operational modes],
+) <tab:modes>
+
 == Module 2: Signal Conditioning and Analog Filtering
 
 Sensor analog conditioning relies on a low-noise preamplifier stage. The passive $R C$ anti-aliasing low-pass filter is designed with $R_("filter") = 4.7#kohm$ and $C_("filter") = 10#nf$, yielding a theoretical cutoff frequency of:
 
-$ #fcut = 1 / (2 pi R_("filter") C_("filter")) approx 3.39" kHz" $
+$ #fcut = 1 / (2 pi R_("filter") C_("filter")) approx 3.39#khz $
 
 The regulated microcontroller power rail provides $V_("dd") = 3.3#vdc$ with a peak-to-peak voltage ripple $V_("ripple") < 20#vpp$.
 
@@ -238,6 +262,23 @@ Each test result should be described as follows:
 - what was expected and success criteria;
 - what was obtained;
 - conclusion: validation or non-validation of module operation.
+
+=== Test Campaign Summary
+
+The verification matrix summarizes the test results across all modules in @tab:tests :
+
+#figure(
+  table(
+    columns: (1fr, 2.2fr, 2fr, 2fr, 1.2fr),
+    align: (col, row) => if col in (0, 4) { center + horizon } else { left + horizon },
+    table.header([Test ID], [Feature], [Expected Criteria], [Measured Result], [Status]),
+    [TEST-01], [3.3V Buck Regulator], [$V_("out") in [3.2, 3.4]" V"$], [3.31 V regulated], [*Passed*],
+    [TEST-02], [IMU Sensor I2C Link], [ACK response @ 100 kHz], [Frame verified], [*Passed*],
+    [TEST-03], [Anti-aliasing Filter], [$f_(-3"dB") approx 3.4" kHz"$], [3.38 kHz (-3 dB)], [*Passed*],
+    [TEST-04], [Indoor Radio Range], [Packet error rate < 1% @ 30 m], [0.3% measured], [*Passed*],
+  ),
+  caption: [Experimental test verification and compliance matrix],
+) <tab:tests>
 
 == Module 1
 == Module 2
@@ -270,8 +311,26 @@ How could the team have organized better? Propose an action plan for the next pr
 
 = Complete Hardware Schematics
 
-Full schematic diagrams and PCB layouts.
+The complete PCB routing and ground plane layout are shown in @fig:pcb :
+
+#figure(
+  logo-ece(width: 5cm),
+  caption: [Complete PCB routing and ground plane layout],
+) <fig:pcb>
 
 = Datasheets and Sensor Specifications
+
+@tab:datasheet summarizes the electrical ratings for the inertial measurement unit:
+
+#figure(
+  table(
+    columns: (2fr, 2fr, 2fr),
+    table.header([Parameter], [Nominal Value], [Tolerance]),
+    [Supply voltage], [3.3 V], [± 5 %],
+    [Max active current], [40 mA], [± 10 %],
+    [Operating temperature], [-40 °C to +85 °C], [Nominal],
+  ),
+  caption: [Electrical specifications for the inertial measurement unit],
+) <tab:datasheet>
 
 Extensive documentation, sensor register maps and raw source code (#attention[no raw code in the main report body]).

@@ -97,6 +97,40 @@ authors: (
 Les adresses e-mail sont automatiquement rendues sous forme de liens `mailto:` cliquables.
 
 Vous pouvez masquer globalement les rôles ou les e-mails tout en conservant les dictionnaires d'auteurs via les options :
-- `show_roles: false` (ou `show_role: false`) pour masquer la ligne du rôle (ex: *"Chef de projet & Électronique"*).
-- `show_emails: false` (ou `show_email: false`) pour masquer la ligne d'adresse e-mail.
+- `show-roles: false` (ou `show-role: false`) pour masquer la ligne du rôle (ex: *"Chef de projet & Électronique"*).
+- `show-emails: false` (ou `show-email: false`) pour masquer la ligne d'adresse e-mail.
 - Ou individuellement en omettant le champ `role` ou en lui assignant `none`.
+
+---
+
+## 🎓 Tuteur ou enseignant encadrant (`supervisor`)
+
+Le paramètre `supervisor` (avec les alias `tuteur` et `enseignant`) permet de mentionner l'enseignant ou le tuteur industriel sur la page de garde sous la mention *"Sous la direction de : "* (FR) ou *"Supervised by: "* (EN).
+
+Il accepte deux formats :
+
+### 1. Format simple (chaîne de caractères)
+
+```typst
+supervisor: "Dr. Jean DUPONT"
+// ou
+tuteur: "Dr. Jean DUPONT"
+```
+
+### 2. Format structuré (dictionnaire avec e-mail)
+
+```typst
+supervisor: (
+  name: "Dr. Jean DUPONT",
+  email: "jean.dupont@ece.fr",
+)
+```
+
+L'adresse e-mail est automatiquement convertie en lien `mailto:` cliquable.
+
+### Contrôle de l'affichage de l'e-mail du tuteur
+
+Vous pouvez piloter précisément la visibilité de l'e-mail de l'encadrant via `show-supervisor-email` :
+- `show-supervisor-email: auto` (défaut) : suit automatiquement la valeur globale de `show-emails`.
+- `show-supervisor-email: false` : masque l'e-mail du tuteur même si `show-emails: true`.
+- `show-supervisor-email: true` : affiche l'e-mail du tuteur même si les e-mails des étudiants sont masqués.

@@ -11,13 +11,6 @@
 // =============================================================================
 #let style-police = "latex" // Changez par : "latex" | "typst-modern" | "modern-sans" | "editorial"
 
-#let polices-presets = (
-  "latex": "New Computer Modern",
-  "typst-modern": "Libertinus Serif",
-  "modern-sans": ("Helvetica Neue", "Arial"),
-  "editorial": ("Charter", "PT Serif", "Times New Roman"),
-)
-
 #show: projet.with(
   lang: "fr",
   title: "Système Embarqué Autonome",
@@ -34,7 +27,7 @@
   show-supervisor-email: true, // Passer à false pour masquer l'email du tuteur
   date: auto,  // ou date: "15 octobre 2026" pour une date fixe
   city: "Paris",
-  draft: false, // Passer à true pour activer le filigrane "BROUILLON"
+  draft: true, // Passer à true pour activer le filigrane "BROUILLON"
   table-of-figures: false, // Passer à true pour générer la liste des figures
   table-of-tables: false, // Passer à true pour générer la liste des tableaux
   // equation-numbering: "(1)",  // Décommenter pour numéroter les équations
@@ -57,7 +50,9 @@ Que va y trouver le lecteur ?
 
 Renseigner ici sous forme de tableau les principaux termes techniques et leurs définitions.
 
-#table-termes(
+#table(
+  columns: (1.5fr, 3.5fr),
+  table.header([Terme], [Définition]),
   [Exemple de terme], [Définition précise du terme dans le cadre du projet.],
   [Autre terme], [Explication détaillée du fonctionnement ou rôle du terme.],
 )
@@ -66,7 +61,9 @@ Renseigner ici sous forme de tableau les principaux termes techniques et leurs d
 
 Renseigner ici sous forme de tableau les principaux acronymes, leurs significations et leurs explications.
 
-#table-acronymes(
+#table(
+  columns: (1fr, 1.8fr, 2.7fr),
+  table.header([Acronyme], [Signification], [Explication]),
   [CAN], [Convertisseur Analogique-Numérique], [Composant permettant d'échantillonner et numériser un signal analogique.],
   [UART], [Universal Asynchronous Receiver-Transmitter], [Protocole de communication série asynchrone.],
 )
@@ -101,9 +98,21 @@ Comment est née l’invention / la technologie du projet, comment a-t-elle évo
 
 == Spécifications techniques
 
-Quelles sont les spécifications techniques du projet ?
+Les exigences fonctionnelles et contraintes opérationnelles du système sont synthétisées dans le @tab:spec :
 
-#nb[Certains projets d’électronique à l’ECE n’en ont pas.]
+#figure(
+  table(
+    columns: (1.2fr, 3fr, 1.5fr, 1.3fr),
+    align: (col, row) => if col in (0, 2, 3) { center + horizon } else { left + horizon },
+    table.header([Réf.], [Exigence technique], [Valeur cible], [Priorité]),
+    [SPEC-01], [Tension d'alimentation nominale], [3.3 V ± 5%], [Critique],
+    [SPEC-02], [Consommation moyenne en veille], [< 15 µA], [Haute],
+    [SPEC-03], [Cadence d'échantillonnage IMU], [100 Hz], [Critique],
+    [SPEC-04], [Portée de communication sans fil], [> 30 m (intérieur)], [Moyenne],
+    [SPEC-05], [Autonomie sur batterie Li-Po], [> 72 heures], [Haute],
+  ),
+  caption: [Spécifications techniques et exigences de performance du système],
+) <tab:spec>
 
 = Conception
 
@@ -135,7 +144,10 @@ L'étage analogique et les alimentations sont dimensionnés selon les règles de
 La liste des composants nécessaires est détaillée dans le @tab:bom et le câblage associé dans le @tab:pinout.
 
 #figure(
-  table-composants(
+  table(
+    columns: (1fr, 2.2fr, 2fr, 0.8fr, 2fr),
+    align: (col, row) => if col in (0, 3) { center + horizon } else { left + horizon },
+    table.header([Réf.], [Désignation], [Valeur / Boîtier], [Qté], [Remarques]),
     [U1], [STM32F401RE], [LQFP-64], [1], [Microcontrôleur principal 84 MHz],
     [U2], [MPU-6050], [QFN-24], [1], [Centrale inertielle 6 axes I2C],
     [C1-C4], [Condensateurs céramiques], [100 nF, 0805], [4], [Découplage alimentations],
@@ -145,9 +157,11 @@ La liste des composants nécessaires est détaillée dans le @tab:bom et le câb
 ) <tab:bom>
 
 === Affectation des broches (Pinout)
-
 #figure(
-  table-brochage(
+  table(
+    columns: (1.2fr, 1.5fr, 1.3fr, 3fr),
+    align: (col, row) => if col in (0, 1, 2) { center + horizon } else { left + horizon },
+    table.header([Broche], [Signal], [Mode I/O], [Description]),
     [PA5], [SPI1_SCK], [Output Alternate], [Horloge maître du bus SPI],
     [PA7], [SPI1_MOSI], [Output Alternate], [Données maître vers esclave],
     [PB6], [I2C1_SCL], [Open Drain], [Horloge capteur I2C],
@@ -207,11 +221,24 @@ $ T_("autonomie") = (C_("bat") dot eta) / I_("moy") $ <eq:autonomie>
 
 où $eta = 0.85$ représente le rendement du régulateur abaisseur (Buck DC/DC).
 
+Le bilan de consommation selon les modes opérationnels est détaillé dans le @tab:modes :
+
+#figure(
+  table-double-entree(
+    headers: ("Module / Bloc", "Veille", "Éco", "Actif", "Boost"),
+    [Microcontrôleur], [15 µA], [2 mA], [15 mA], [40 mA],
+    [Capteur IMU], [5 µA], [100 µA], [3.8 mA], [3.8 mA],
+    [Émetteur RF], [1 µA], [Inactif], [18 mA], [25 mA],
+    [Total estimé], [21 µA], [2.1 mA], [36.8 mA], [68.8 mA],
+  ),
+  caption: [Matrice de consommation énergétique selon les modes de fonctionnement],
+) <tab:modes>
+
 == Module 2 : Traitement du signal et conditionnement analogique
 
 Le conditionnement du signal capteur utilise un étage préamplificateur à faible bruit. Le filtre passe-bas anti-repliement passif $R C$ est dimensionné avec $R_("filtre") = 4.7#kohm$ et $C_("filtre") = 10#nf$, fixant la fréquence de coupure théorique à :
 
-$ #fcut = 1 / (2 pi R_("filtre") C_("filtre")) approx 3.39" kHz" $
+$ #fcut = 1 / (2 pi R_("filtre") C_("filtre")) approx 3.39#khz $
 
 L'alimentation stabilisée du microcontrôleur délivre $V_("dd") = 3.3#vdc$ avec une ondulation résiduelle crête-à-crête $V_("ondulation") < 20#vpp$.
 
@@ -229,6 +256,23 @@ Chaque résultat (bien souvent des courbes) doit être décrit comme suit :
 - ce que l’on est censé obtenir et critère de réussite du test ;
 - ce que l’on obtient ;
 - conclusion : validation ou non du bon fonctionnement du module.
+
+=== Synthèse de la campagne de tests
+
+La matrice de validation récapitule les résultats obtenus sur l'ensemble des modules dans le @tab:tests :
+
+#figure(
+  table(
+    columns: (1fr, 2.2fr, 2fr, 2fr, 1.2fr),
+    align: (col, row) => if col in (0, 4) { center + horizon } else { left + horizon },
+    table.header([ID Test], [Fonctionnalité], [Critère attendu], [Résultat mesuré], [Statut]),
+    [TEST-01], [Régulateur Buck 3.3V], [$V_("out") in [3.2, 3.4]" V"$], [3.31 V régulé], [*Validé*],
+    [TEST-02], [Liaison I2C capteur IMU], [Réponse ACK @ 100 kHz], [Trame conforme], [*Validé*],
+    [TEST-03], [Filtre anti-repliement], [$f_(-3"dB") approx 3.4" kHz"$], [3.38 kHz (-3 dB)], [*Validé*],
+    [TEST-04], [Portée radio intérieure], [Taux d'erreur < 1% @ 30 m], [0.3% mesuré], [*Validé*],
+  ),
+  caption: [Matrice de validation et conformité des tests expérimentaux],
+) <tab:tests>
 
 == Module 1
 == Module 2
@@ -261,8 +305,26 @@ Comment l’équipe aurait pu mieux s’organiser ? Proposer un plan d’action 
 
 = Schémas électroniques complets
 
-Schéma structurel Altium / KiCad et routage PCB.
+Le routage du circuit imprimé et le plan de masse sont présentés sur la @fig:pcb :
+
+#figure(
+  logo-ece(width: 5cm),
+  caption: [Routage complet du circuit imprimé et plan de masse],
+) <fig:pcb>
 
 = Datasheets et caractéristiques des capteurs
+
+Le @tab:datasheet consigne les spécifications électriques de la centrale inertielle :
+
+#figure(
+  table(
+    columns: (2fr, 2fr, 2fr),
+    table.header([Paramètre], [Valeur nominale], [Tolérance]),
+    [Tension d'alimentation], [3.3 V], [± 5 %],
+    [Courant actif maximal], [40 mA], [± 10 %],
+    [Plage de température], [-40 °C à +85 °C], [Nominal],
+  ),
+  caption: [Spécifications électriques de la centrale inertielle],
+) <tab:datasheet>
 
 Documents volumineux, extraits de documentation constructeur et éventuels codes exhaustifs (#attention[pas de code brut dans le corps du rapport]).

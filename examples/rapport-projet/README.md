@@ -19,6 +19,6 @@ typst watch rapport-projet-fr.typ
 
 - **Langue** : `lang: "fr"` ou `lang: "en"`
 - **Police** : `#let style-police = "latex"` (`"latex"`, `"typst-modern"`, `"modern-sans"`, `"editorial"`)
-- **Table des matières** : `table_of_contents: true`, `toc_depth: 3`
+- **Table des matières** : `table-of-contents: true`, `toc-depth: 3`
 - **Résumé / Abstract** : encart dédié sur la page de titre
-- **Utilitaires** : `#table-termes(...)`, `#table-acronymes(...)`, `#nb[...]`, `#attention[...]`, `#todo[...]`
+- **Utilitaires** : `#table(...)`, `#table-double-entree(...)`, `#nb[...]`, `#attention[...]`, `#todo[...]`

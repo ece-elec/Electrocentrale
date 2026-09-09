@@ -47,8 +47,8 @@
 The theoretical transfer function can be written in canonical form:
 $ H(j omega) = (V_("out")) / (V_("in")) = - (R_2 / R_1) 1 / (1 + j (omega / omega_0)) $ <eq:transfer_en>
 
-For component values $R_1 = 10#kohm$, $R_2 = 100#kohm$, and $C = 10#nf$, the theoretical $-3"dB"$ cutoff frequency is:
-$ #fcut = 1 / (2 pi R_2 C) approx 159.15" Hz" $
+For component values $R_1 = 10#kohm$, $R_2 = 100#kohm$, and $C = 10#nf$, the theoretical $-3#db$ cutoff frequency is:
+$ #fcut = 1 / (2 pi R_2 C) approx 159.15#hz $
 
 The input sinusoidal test signal from the generator has a DC bias $V_("offset") = 0#vdc$ and an amplitude $V_("in") = 1#vpp$ ($approx 0.35#vrms$). The experimental testbench is shown in @fig:setup.
 
@@ -62,6 +62,41 @@ The input sinusoidal test signal from the generator has a DC bias $V_("offset") 
 ]
 
 #e(1)[Gain measurement and data processing.]
+
+Measurement data acquired with the digital oscilloscope is recorded in @tab:measurements :
+
+#figure(
+  table(
+    columns: (1.5fr, 2fr, 2fr, 1.5fr),
+    align: (col, row) => if col == 0 { center + horizon } else { horizon },
+    table.header(
+      [Frequency ($"Hz"$)],
+      [Measured $V_("out")$ ($"V"_("pp")$)],
+      [Gain $G$ ($"dB"$)],
+      [Relative Error],
+    ),
+    [10], [9.95], [-0.04], [0.4 %],
+    [50], [9.51], [-0.44], [0.8 %],
+    [100], [8.48], [-1.43], [1.2 %],
+    [159], [7.07], [-3.01], [0.3 %],
+    [500], [3.02], [-10.4], [1.5 %],
+    [1 000], [1.57], [-16.1], [0.9 %],
+  ),
+  caption: [Experimental frequency response of the active low-pass filter],
+) <tab:measurements>
+
+@tab:comparative compares the theoretical, simulated, and measured key parameters:
+
+#figure(
+  table-double-entree(
+    headers: ("Metric", "Theory", "Simulation", "Measurement", "Deviation (%)"),
+    [DC Gain $G_0$], [20.0 dB], [19.9 dB], [19.8 dB], [1.0 %],
+    [Cutoff frequency $f_c$], [159 Hz], [158 Hz], [155 Hz], [2.5 %],
+    [Roll-off rate], [-20 dB/dec], [-20 dB/dec], [-19.5 dB/dec], [2.5 %],
+    [Phase shift at $f_c$], [-45.0°], [-45.2°], [-46.1°], [2.4 %],
+  ),
+  caption: [Comparison matrix of theoretical, simulated, and experimental filter responses],
+) <tab:comparative>
 
 The following Python script automates data acquisition and plots the Bode response:
 

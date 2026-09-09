@@ -6,24 +6,24 @@ Le paquet `ece-reports` inclut un ensemble d'outils et de composants prêts à l
 
 ## 📑 Récapitulatif rapide
 
-| Fonction / Macro | Syntaxe | Rôle |
-| :--- | :--- | :--- |
-| `#logo-ece(width: ...)` | `#logo-ece(width: 4cm)` | Insère le logo SVG officiel haute résolution de l'ECE |
-| `#t(num)[...]` | `#t(1)[Calculer la fréquence...]` | Question théorique numérotée (ex: **T1.**) |
-| `#e(num)[...]` | `#e(1)[Mesurer le signal...]` | Question expérimentale numérotée (ex: **E1.**) |
-| `#question("Label")[...]` | `#question("Q1")[...]` | Question avec label personnalisé |
-| `#callout(title: ..., type: ...)[...]` | `#callout(title: "Info", type: "info")[...]` | Encart stylisé (`"info"`, `"tip"`, `"warning"`, `"danger"`) |
-| `#table-composants(...)` | `#table-composants([R1], [Résistance], ...)` | Nomenclature BOM électronique avec en-tête stylisé |
-| `#table-brochage(...)` | `#table-brochage([PA5], [SPI_SCK], ...)` | Tableau d'affectation des broches (Pinout microcontrôleur) |
-| `#table-termes(...)` | `#table-termes([Terme], [Définition], ...)` | Tableau de glossaire technique |
-| `#table-acronymes(...)` | `#table-acronymes([CAN], [Signif.], [Explic.])` | Tableau d'acronymes et abréviations |
-| `#show: annexes` | `#show: annexes` | Bascule automatique en mode Annexes (A, B, A.1...) |
-| `#ohm`, `#kohm`, `#mohm` | `$R_1 = 10#kohm$` | Notations d'unités électroniques ($\Omega$, $\text{k}\Omega$, $\text{M}\Omega$) |
-| `#uf`, `#nf`, `#pf` | `$C_1 = 100#nf$` | Notations de capacités ($\mu\text{F}$, $\text{nF}$, $\text{pF}$) |
-| `#vpp`, `#vrms`, `#vdc` | `$V_("in") = 2.5#vpp$` | Tensions crête-à-crête, efficace et continue |
-| `#attention[...]` | `#attention[Avertissement]` | Texte d'avertissement en rouge gras |
-| `#nb[...]` | `#nb[Remarque]` | Encart **NB :** |
-| `#todo[...]` | `#todo[Section à compléter]` | Surlignage TODO jaune |
+| Fonction / Macro                         | Syntaxe                                                                                                                         | Rôle                                                                                                |
+| :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------- |
+| `#logo-ece(width: ...)`                | `#logo-ece(width: 4cm)`                                                                                                       | Insère le logo SVG officiel haute résolution de l'ECE                                              |
+| `#t(num)[...]`                         | `#t(1)[Calculer la fréquence...]`                                                                                            | Question théorique numérotée (ex:**T1.**)                                                   |
+| `#e(num)[...]`                         | `#e(1)[Mesurer le signal...]`                                                                                                 | Question expérimentale numérotée (ex:**E1.**)                                               |
+| `#question("Label")[...]`              | `#question("Q1")[...]`                                                                                                        | Question avec label personnalisé                                                                    |
+| `#callout(title: ..., type: ...)[...]` | `#callout(title: "Info", type: "info")[...]`                                                                                  | Encart stylisé (`"info"`, `"tip"`, `"warning"`, `"danger"`)                                 |
+| `#table(...)`                          | `#table(columns: ..., ...)`                                                                                                   | Tableaux standards Typst (automatiquement stylisés aux couleurs ECE)                                |
+| `#table-double-entree(...)`            | `#table-double-entree(headers: (...), ...)`                                                                                   | Tableaux à double entrée (en-tête haut + en-tête de côté)                                      |
+| `#show: annexes`                       | `#show: annexes`                                                                                                              | Mode Annexes (A, B, A.1...) + préfixage auto des figures/tableaux (`Figure A.1`, `Tableau A.1`) |
+| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |                                                                                                      |
+| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |                                                                                                      |
+| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |                                                                                                      |
+| `#vpp`, `#vrms`, `#vdc`, `#vac`  | `$V_("in") = 2.5#vpp$`                                                                                                        | Tensions caractéristiques, millivolt (`#mv`), microvolt (`#uv`)                                 |
+| `#db`, `#dbm`, `#degc`             | `$G = -20#db$`                                                                                                                | Décibels, puissances RF (`#dbm`, `#mw`), température (`#degc`)                               |
+| `#attention[...]`                      | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                                  |
+| `#nb[...]`                             | `#nb[Remarque]`                                                                                                               | Encart**NB :**                                                                                 |
+| `#todo[...]`                           | `#todo[Section à compléter]`                                                                                                | Surlignage TODO jaune                                                                                |
 
 ---
 
@@ -64,6 +64,7 @@ Des boîtes d'information colorées avec bordures arrondies facilitent la mise e
 ```
 
 Encarts rapides :
+
 ```typst
 #nb[Certains projets d’électronique à l’ECE n’ont pas de cahier des charges imposé.]
 #attention[Pas de code source volumineux dans le corps principal du rapport.]
@@ -72,13 +73,23 @@ Encarts rapides :
 
 ---
 
-## 🔩 Tableaux d'ingénierie matérielle
+## 📊 Tableaux au style ECE (`#table`)
 
-### Nomenclature BOM (`#table-composants` / `#table-bom`)
+Tous les tableaux standards de Typst créés avec `#table(...)` adoptent **automatiquement** la charte graphique de l'école lorsqu'ils sont utilisés dans un rapport (`tp` ou `projet`) :
+
+- **En-tête stylisé :** fond vert pastel doux (`#EBF5F5`), texte en gras automatique sur la première ligne et bordure inférieure en vert canard ECE (`1.5pt`).
+- **Alternance zébrée :** fond blanc cassé (`#FAFAFA`) sur les lignes paires pour faciliter la lecture.
+- **Grille fine :** bordures intérieures gris clair (`0.5pt`) et marge intérieure aérée (`7pt`).
+- **Aucune fonction personnalisée requise :** vous utilisez directement la syntaxe officielle de Typst !
+
+### 1. Nomenclature BOM (Bill of Materials)
 
 ```typst
 #figure(
-  table-composants(
+  table(
+    columns: (1fr, 2.2fr, 2fr, 0.8fr, 2fr),
+    align: (col, row) => if col in (0, 3) { center + horizon } else { left + horizon },
+    table.header([Réf.], [Désignation], [Valeur / Boîtier], [Qté], [Remarques]),
     [U1], [STM32F401RE], [LQFP-64], [1], [Microcontrôleur principal 84 MHz],
     [U2], [MPU-6050], [QFN-24], [1], [Centrale inertielle 6 axes I2C],
     [C1-C4], [Condensateurs céramiques], [100 nF, 0805], [4], [Découplage alimentations],
@@ -88,11 +99,14 @@ Encarts rapides :
 ) <tab:bom>
 ```
 
-### Brochage et Pinout (`#table-brochage` / `#table-pinout`)
+### 2. Brochage et Pinout
 
 ```typst
 #figure(
-  table-brochage(
+  table(
+    columns: (1.2fr, 1.5fr, 1.3fr, 3fr),
+    align: (col, row) => if col in (0, 1, 2) { center + horizon } else { left + horizon },
+    table.header([Broche], [Signal], [Mode I/O], [Description]),
     [PA5], [SPI1_SCK], [Output Alternate], [Horloge maître du bus SPI],
     [PA7], [SPI1_MOSI], [Output Alternate], [Données maître vers esclave],
     [PB6], [I2C1_SCL], [Open Drain], [Horloge capteur I2C],
@@ -102,21 +116,43 @@ Encarts rapides :
 ) <tab:pinout>
 ```
 
----
-
-## 📖 Glossaires et Acronymes
+### 3. Relevés de mesures expérimentales
 
 ```typst
-#table-termes(
-  [Bode], [Représentation graphique de la réponse en fréquence d'un système linéaire.],
-  [Aliasing], [Phénomène de repliement de spectre lors de l'échantillonnage.],
-)
-
-#table-acronymes(
-  [CAN], [Convertisseur Analogique-Numérique], [Échantillonne et quantifie un signal analogique.],
-  [UART], [Universal Asynchronous Receiver-Transmitter], [Liaison série asynchrone point-à-point.],
-)
+#figure(
+  table(
+    columns: (1.5fr, 2fr, 2fr, 1.5fr),
+    align: (col, row) => if col == 0 { center + horizon } else { horizon },
+    table.header([Fréquence ($"Hz"$)], [$V_("out")$ ($"V"_("pp")$)], [Gain $G$ ($"dB"$)], [Écart]),
+    [10], [9.95], [-0.04], [0.4 %],
+    [100], [8.48], [-1.43], [1.2 %],
+    [1 000], [1.57], [-16.1], [0.9 %],
+  ),
+  caption: [Relevé expérimental de la réponse en fréquence],
+) <tab:mesures>
 ```
+
+### 4. Tableaux à double entrée / En-tête de côté (`#table-double-entree`)
+
+Pour créer des matrices, bilans énergétiques ou tableaux de correspondance avec **à la fois un en-tête horizontal (en haut) et un en-tête vertical (de côté)**, utilisez `#table-double-entree` (alias : `#tableau-double-entree`, `#table-matrice`, `#tableau-matrice`) :
+
+- La ligne d'en-tête (haut) et la première colonne (gauche) reçoivent toutes deux le fond pastel ECE (`#EBF5F5`) et une police en gras.
+- Une double ligne en vert canard ECE sépare distinctement les deux en-têtes (en bas et à droite) des cellules intérieures.
+
+```typst
+#figure(
+  table-double-entree(
+    headers: ("Module / Bloc", "Veille", "Éco", "Actif", "Boost"),
+    [Microcontrôleur], [15 µA], [2 mA], [15 mA], [40 mA],
+    [Capteur IMU], [5 µA], [100 µA], [3.8 mA], [3.8 mA],
+    [Émetteur RF], [1 µA], [Inactif], [18 mA], [25 mA],
+    [Total estimé], [21 µA], [2.1 mA], [36.8 mA], [68.8 mA],
+  ),
+  caption: [Matrice de consommation énergétique selon les modes de fonctionnement],
+) <tab:modes>
+```
+
+> **Astuce - Pleine largeur dans un document à deux colonnes :** Si votre document utilise une mise en page à deux colonnes (`#show: columns.with(2)`), étendez un tableau sur les deux colonnes via `#figure(placement: top, scope: "parent")[ #table(...) ]`.
 
 ---
 
@@ -124,11 +160,11 @@ Encarts rapides :
 
 Le paquet configure automatiquement les étiquettes et suppléments selon le contenu de la figure :
 
-| Type de contenu | Supplément FR | Supplément EN | Exemple de renvoi | Rendu du renvoi |
-| :--- | :--- | :--- | :--- | :--- |
-| Image / Graphique | `Figure` | `Figure` | `@fig:montage` | *Figure 1* |
-| Tableau (`table`) | `Tableau` | `Table` | `@tab:bom` | *Tableau 1* / *Table 1* |
-| Code brut (`raw`) | `Code` | `Listing` | `@code:driver` | *Code 1* / *Listing 1* |
+| Type de contenu     | Supplément FR | Supplément EN | Exemple de renvoi | Rendu du renvoi             |
+| :------------------ | :------------- | :------------- | :---------------- | :-------------------------- |
+| Image / Graphique   | `Figure`     | `Figure`     | `@fig:montage`  | *Figure 1*                |
+| Tableau (`table`) | `Tableau`    | `Table`      | `@tab:bom`      | *Tableau 1* / *Table 1* |
+| Code brut (`raw`) | `Code`       | `Listing`    | `@code:driver`  | *Code 1* / *Listing 1*  |
 
 ---
 
@@ -143,30 +179,32 @@ Placez simplement la règle `#show: annexes` (ou `#show: appendix.with(lang: "en
 = Code source des scripts d'acquisition
 ```
 
-La numérotation bascule automatiquement en lettres alphabétiques (**Annexe A**, **Annexe B**, sous-sections **A.1**, **A.2**), et les en-têtes sont mis à jour sans modifier la numérotation des pages.
+La numérotation bascule automatiquement en lettres alphabétiques (**Annexe A**, **Annexe B**, sous-sections **A.1**, **A.2**). De plus, les **figures**, **tableaux**, **extraits de code** et **équations** sont automatiquement préfixés par la lettre de l'annexe correspondante (**Figure A.1**, **Tableau B.1**, équation **(A.1)**), et leurs compteurs respectifs sont réinitialisés à chaque annexe.
 
 ---
 
-## ⚡ Notations scientifiques & unités électroniques
+## ⚡ Notations scientifiques & unités d'ingénierie
 
-Pour simplifier l'écriture des formules mathématiques et unités :
+Pour simplifier l'écriture des formules mathématiques et unités sans erreurs de casse ou d'italique :
 
 ```typst
-$ R_1 = 10#kohm, quad C_1 = 100#nf, quad f_0 = 1 / (2 pi R_1 C_1) $
+$ R_1 = 10#kohm, quad C_1 = 100#nf, quad f_0 = 3.39#khz $
 
-$ V_("in") = 3.3#vdc, quad V_("ripple") = 50#vpp $
+$ V_("dd") = 3.3#vdc, quad I_("actif") = 15#ma, quad I_("veille") = 15#ua $
+
+$ G = -20#db, quad P_("rf") = 10#dbm, quad T = 25#degc $
 ```
 
-| Raccourci | Rendu | Signification |
-| :--- | :--- | :--- |
-| `#ohm` | $\Omega$ | Ohm |
-| `#kohm` | $\text{k}\Omega$ | Kilo-ohm |
-| `#mohm` | $\text{M}\Omega$ | Méga-ohm |
-| `#uf` | $\mu\text{F}$ | Microfarad |
-| `#nf` | $\text{nF}$ | Nanofarad |
-| `#pf` | $\text{pF}$ | Picofarad |
-| `#vpp` | $V_{\text{pp}}$ | Tension crête-à-crête (Peak-to-Peak) |
-| `#vrms` | $V_{\text{rms}}$ | Tension efficace (RMS) |
-| `#vdc` | $V_{\text{dc}}$ | Tension continue (DC) |
-| `#fcut` | $f_0$ | Fréquence de coupure |
-
+| Raccourci                               | Rendu                                                                       | Signification                         |
+| :-------------------------------------- | :-------------------------------------------------------------------------- | :------------------------------------ |
+| `#ohm`, `#kohm`, `#mohm`          | $\Omega$, $\text{k}\Omega$, $\text{M}\Omega$                          | Résistances et impédances           |
+| `#uf`, `#nf`, `#pf`               | $\mu\text{F}$, $\text{nF}$, $\text{pF}$                               | Capacités                            |
+| `#hz`, `#khz`, `#mhz`, `#ghz`   | $\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$               | Fréquences                           |
+| `#ma`, `#ua`, `#na`               | $\text{mA}$, $\mu\text{A}$, $\text{nA}$                               | Courants                              |
+| `#vpp`, `#vrms`, `#vdc`, `#vac` | $V_{\text{pp}}$, $V_{\text{rms}}$, $V_{\text{dc}}$, $V_{\text{ac}}$ | Tensions caractéristiques            |
+| `#mv`, `#uv`                        | $\text{mV}$, $\mu\text{V}$                                              | Millivolt, Microvolt                  |
+| `#ms`, `#us`, `#ns`, `#ps`      | $\text{ms}$, $\mu\text{s}$, $\text{ns}$, $\text{ps}$                | Durées et constantes de temps        |
+| `#mw`, `#uw`                        | $\text{mW}$, $\mu\text{W}$                                              | Puissances                            |
+| `#db`, `#dbm`                       | $\text{dB}$, $\text{dBm}$                                               | Gains, atténuations et puissances RF |
+| `#degc`, `#celsius`                 | $^\circ\text{C}$                                                          | Degrés Celsius                       |
+| `#fcut`                               | $f_0$                                                                     | Fréquence de coupure                 |

@@ -47,8 +47,8 @@
 La fonction de transfert théorique s'exprime sous la forme canonique :
 $ H(j omega) = (V_("out")) / (V_("in")) = - (R_2 / R_1) 1 / (1 + j (omega / omega_0)) $ <eq:transfert>
 
-Pour les valeurs de composants $R_1 = 10#kohm$, $R_2 = 100#kohm$ et $C = 10#nf$, la fréquence de coupure à $-3"dB"$ théorique vaut :
-$ #fcut = 1 / (2 pi R_2 C) approx 159.15" Hz" $
+Pour les valeurs de composants $R_1 = 10#kohm$, $R_2 = 100#kohm$ et $C = 10#nf$, la fréquence de coupure à $-3#db$ théorique vaut :
+$ #fcut = 1 / (2 pi R_2 C) approx 159.15#hz $
 
 Le signal d'entrée appliqué par le GBF est sinusoïdal de tension continue $V_("offset") = 0#vdc$ et d'amplitude $V_("in") = 1#vpp$ ($approx 0.35#vrms$). Le montage sous banc de test est présenté sur la @fig:montage.
 
@@ -62,6 +62,41 @@ Le signal d'entrée appliqué par le GBF est sinusoïdal de tension continue $V_
 ]
 
 #e(1)[Mesure expérimentale du gain et traitement des données.]
+
+Les points de mesure acquis à l'oscilloscope numérique sous banc de test sont consignés dans le @tab:mesures :
+
+#figure(
+  table(
+    columns: (1.5fr, 2fr, 2fr, 1.5fr),
+    align: (col, row) => if col == 0 { center + horizon } else { horizon },
+    table.header(
+      [Fréquence ($"Hz"$)],
+      [$V_("out")$ mesuré ($"V"_("pp")$)],
+      [Gain $G$ ($"dB"$)],
+      [Écart relatif],
+    ),
+    [10], [9.95], [-0.04], [0.4 %],
+    [50], [9.51], [-0.44], [0.8 %],
+    [100], [8.48], [-1.43], [1.2 %],
+    [159], [7.07], [-3.01], [0.3 %],
+    [500], [3.02], [-10.4], [1.5 %],
+    [1 000], [1.57], [-16.1], [0.9 %],
+  ),
+  caption: [Relevé expérimental de la réponse fréquentielle du filtre actif],
+) <tab:mesures>
+
+Le @tab:comparatif met en vis-à-vis les grandeurs caractéristiques calculées, simulées et relevées expérimentalement :
+
+#figure(
+  table-double-entree(
+    headers: ("Grandeur", "Théorie", "Simulation", "Mesure", "Écart (%)"),
+    [Gain statique $G_0$], [20.0 dB], [19.9 dB], [19.8 dB], [1.0 %],
+    [Fréquence de coupure $f_c$], [159 Hz], [158 Hz], [155 Hz], [2.5 %],
+    [Pente d'atténuation], [-20 dB/déc], [-20 dB/déc], [-19.5 dB/déc], [2.5 %],
+    [Déphasage à $f_c$], [-45.0°], [-45.2°], [-46.1°], [2.4 %],
+  ),
+  caption: [Matrice de comparaison théorique, simulée et expérimentale du filtre],
+) <tab:comparatif>
 
 Le script Python ci-dessous permet d'acquérir les points de mesure et de tracer le diagramme de Bode :
 
