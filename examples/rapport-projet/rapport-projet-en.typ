@@ -28,16 +28,16 @@
     (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Project Lead & Hardware"),
     (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Firmware Engineer"),
   ),
-  show_roles: true, // Set to false to hide roles/titles under author names
-  show_emails: true, // Set to false to hide email links
+  show-roles: true, // Set to false to hide roles/titles under author names
+  show-emails: true, // Set to false to hide email links
   supervisor: (name: "Dr. John DOE", email: "john.doe@ece.fr"),
-  show_supervisor_email: true, // Set to false to hide supervisor email
+  show-supervisor-email: true, // Set to false to hide supervisor email
   date: auto,  // or date: "October 15, 2026" for a fixed date
   city: "Paris",
   draft: false, // Set to true to enable "DRAFT" watermark
-  table_of_figures: false, // Set to true to enable list of figures
-  table_of_tables: false, // Set to true to enable list of tables
-  // equation_numbering: "(1)",  // Uncomment to number equations
+  table-of-figures: false, // Set to true to enable list of figures
+  table-of-tables: false, // Set to true to enable list of tables
+  // equation-numbering: "(1)",  // Uncomment to number equations
   abstract: [
     What is the context and problem statement of the project? What are the technical objectives?
     In what context are you carrying out this project? [maximum 20 lines]
@@ -58,7 +58,7 @@ What will the reader find here?
 Provide the main technical terms and their definitions in table format.
 
 #table-termes(
-  header_term: "Term", header_def: "Definition",
+  header-term: "Term", header-def: "Definition",
   [Sample term], [Precise definition of the term within the project context.],
   [Another term], [Detailed explanation of the function or role of the term.],
 )
@@ -68,7 +68,7 @@ Provide the main technical terms and their definitions in table format.
 Provide the main acronyms, their meanings, and explanations in table format.
 
 #table-acronymes(
-  header_acr: "Acronym", header_mean: "Meaning", header_exp: "Explanation",
+  header-acr: "Acronym", header-mean: "Meaning", header-exp: "Explanation",
   [ADC], [Analog-to-Digital Converter], [Component that converts an analog signal into a digital signal.],
   [UART], [Universal Asynchronous Receiver-Transmitter], [Asynchronous serial communication protocol.],
 )
@@ -138,11 +138,11 @@ The complete component bill is listed in @tab:bom and the microcontroller pin co
 
 #figure(
   table-composants(
-    header_ref: "Ref.",
-    header_comp: "Part Name",
-    header_val: "Value / Package",
-    header_qty: "Qty",
-    header_note: "Description",
+    header-ref: "Ref.",
+    header-comp: "Part Name",
+    header-val: "Value / Package",
+    header-qty: "Qty",
+    header-note: "Description",
     [U1], [STM32F401RE], [LQFP-64], [1], [Main 84 MHz MCU],
     [U2], [MPU-6050], [QFN-24], [1], [6-axis I2C IMU sensor],
     [C1-C4], [Ceramic Capacitors], [100 nF, 0805], [4], [Power decoupling],
@@ -155,10 +155,10 @@ The complete component bill is listed in @tab:bom and the microcontroller pin co
 
 #figure(
   table-brochage(
-    header_pin: "Pin",
-    header_sig: "Signal",
-    header_mode: "I/O Mode",
-    header_desc: "Function",
+    header-pin: "Pin",
+    header-sig: "Signal",
+    header-mode: "I/O Mode",
+    header-desc: "Function",
     [PA5], [SPI1_SCK], [Output Alternate], [SPI Master Clock],
     [PA7], [SPI1_MOSI], [Output Alternate], [Master Out Slave In],
     [PB6], [I2C1_SCL], [Open Drain], [I2C Sensor Clock],

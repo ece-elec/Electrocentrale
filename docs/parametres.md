@@ -18,15 +18,15 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | `city` | `str` / `none` | `none` | Campus / Ville (défaut : `"Paris"` en FR, `"City"` en EN) |
 | `lang` | `str` | `"fr"` | Langue du document (`"fr"` pour français, `"en"` pour anglais) |
 | `attestation` | `auto` / `str` / `content` / `none` | `auto` | Déclaration sur l'honneur (`auto` = texte officiel ECE, `none` ou `false` pour masquer) |
-| `table_of_contents` | `bool` | `false` (TP) / `true` (Projet) | Activer ou désactiver la génération de la table des matières |
-| `toc_depth` | `int` | `3` | Profondeur d'imbrication des titres dans le sommaire |
+| `table-of-contents` | `bool` | `false` (TP) / `true` (Projet) | Activer ou désactiver la génération de la table des matières |
+| `toc-depth` | `int` | `3` | Profondeur d'imbrication des titres dans le sommaire |
 | `draft` | `bool` | `false` | Affiche un filigrane diagonal *"BROUILLON"* (FR) ou *"DRAFT"* (EN) |
-| `show_roles` | `bool` | `true` | Afficher ou masquer le rôle/titre sous les auteurs (alias : `show_role`) |
-| `show_emails` | `bool` | `true` | Afficher ou masquer les liens e-mail sous les auteurs (alias : `show_email`) |
-| `show_supervisor_email` | `auto` / `bool` | `auto` | Afficher ou masquer l'adresse e-mail du tuteur/enseignant (`auto` suit `show_emails`) |
-| `equation_numbering` | `str` / `none` | `none` | Format de numérotation des équations mathématiques (ex: `"(1)"`) |
+| `show-roles` | `bool` | `true` | Afficher ou masquer le rôle/titre sous les auteurs (alias : `show-role`) |
+| `show-emails` | `bool` | `true` | Afficher ou masquer les liens e-mail sous les auteurs (alias : `show-email`) |
+| `show-supervisor-email` | `auto` / `bool` | `auto` | Afficher ou masquer l'adresse e-mail du tuteur/enseignant (`auto` suit `show-emails`) |
+| `equation-numbering` | `str` / `none` | `none` | Format de numérotation des équations mathématiques (ex: `"(1)"`) |
 | `font` | `str` / `array` | `"New Computer Modern"` | Famille(s) de polices typographiques du document |
-| `font_size` | `length` | `11pt` | Taille de la police du corps de texte |
+| `font-size` | `length` | `11pt` | Taille de la police du corps de texte |
 | `logo` | `auto` / `none` / `image` | `auto` | Logo vectoriel ECE officiel en en-tête et page de garde |
 
 ---
@@ -35,9 +35,9 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 
 | Paramètre | Type | Valeur par défaut | Description |
 | :--- | :--- | :--- | :--- |
-| `tp_num` | `str` | `"[X]"` | Numéro de la séance de TP (ex: `"1"`, `"02"`) |
-| `doc_prefix` | `str` / `none` | `none` | Préfixe du type de document (défaut : `"TP"` en FR, `"LAB"` en EN) |
-| `cover_image` | `auto` / `none` / `image` | `auto` | Illustration centrale optionnelle sur la page de titre |
+| `tp-num` | `str` | `"[X]"` | Numéro de la séance de TP (ex: `"1"`, `"02"`) |
+| `doc-prefix` | `str` / `none` | `none` | Préfixe du type de document (défaut : `"TP"` en FR, `"LAB"` en EN) |
+| `cover-image` | `auto` / `none` / `image` | `auto` | Illustration centrale optionnelle sur la page de titre |
 
 ---
 
@@ -46,11 +46,11 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | Paramètre | Type | Valeur par défaut | Description |
 | :--- | :--- | :--- | :--- |
 | `abstract` | `content` / `none` | `none` | Résumé / Abstract encadré sur la page de garde (max ~20 lignes) |
-| `table_of_figures` | `bool` | `false` | Génération automatique de la liste des figures |
-| `table_of_tables` | `bool` | `false` | Génération automatique de la liste des tableaux |
-| `same_page_figures_tables` | `bool` | `true` | Regrouper la liste des figures et des tableaux sur la même page si les deux sont activées (alias : `group_figures_tables`) |
-| `same_page_toc` | `bool` | `false` | Regrouper le sommaire général, la liste des figures et des tableaux sur la même page si court (alias : `group_outlines`) |
-| `numbering_format` | `str` | `"1.1"` | Format de numérotation des sections et sous-sections |
+| `table-of-figures` | `bool` | `false` | Génération automatique de la liste des figures |
+| `table-of-tables` | `bool` | `false` | Génération automatique de la liste des tableaux |
+| `same-page-figures-tables` | `bool` | `true` | Regrouper la liste des figures et des tableaux sur la même page si les deux sont activées (alias : `group-figures-tables`) |
+| `same-page-toc` | `bool` | `false` | Regrouper le sommaire général, la liste des figures et des tableaux sur la même page si court (alias : `group-outlines`) |
+| `numbering-format` | `str` | `"1.1"` | Format de numérotation des sections et sous-sections |
 
 ---
 

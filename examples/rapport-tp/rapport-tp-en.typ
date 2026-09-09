@@ -21,7 +21,7 @@
 #show: tp.with(
   lang: "en",
   title: "Active Filters and Signal Processing",
-  tp_num: "1",
+  tp-num: "1",
   promo: "ING5",
   major: "Embedded Systems",
   groupe: "Group 02",
@@ -30,12 +30,12 @@
     (name: "Alessandro VOLTA", email: "volta@ece.fr"),
   ),
   supervisor: (name: "Dr. John DOE", email: "john.doe@ece.fr"),
-  show_emails: true, // Set to false to hide email links
-  show_supervisor_email: true, // Set to false to hide supervisor email
+  show-emails: true, // Set to false to hide email links
+  show-supervisor-email: true, // Set to false to hide supervisor email
   date: auto,  // or date: "October 15, 2026" for a fixed date
   city: "Paris",
   draft: false, // Set to true to enable "DRAFT" watermark
-  // equation_numbering: "(1)",  // Uncomment to number equations
+  // equation-numbering: "(1)",  // Uncomment to number equations
   font: polices-presets.at(style-police, default: "New Computer Modern"),
 )
 

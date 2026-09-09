@@ -21,7 +21,7 @@
 #show: tp.with(
   lang: "fr",
   title: "Filtres Actifs et Traitement du Signal",
-  tp_num: "1",
+  tp-num: "1",
   promo: "ING5",
   major: "Systèmes Embarqués",
   groupe: "Groupe 02",
@@ -30,12 +30,12 @@
     (name: "Alessandro VOLTA", email: "volta@ece.fr"),
   ),
   supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"),
-  show_emails: true, // Passer à false pour masquer les adresses email
-  show_supervisor_email: true, // Passer à false pour masquer l'email du tuteur
+  show-emails: true, // Passer à false pour masquer les adresses email
+  show-supervisor-email: true, // Passer à false pour masquer l'email du tuteur
   date: auto,  // ou date: "15 octobre 2026" pour une date fixe
   city: "Paris",
   draft: false, // Passer à true pour activer le filigrane "BROUILLON"
-  // equation_numbering: "(1)",  // Décommenter pour numéroter les équations
+  // equation-numbering: "(1)",  // Décommenter pour numéroter les équations
   font: polices-presets.at(style-police, default: "New Computer Modern"),
 )
 

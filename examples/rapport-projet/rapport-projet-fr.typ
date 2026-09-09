@@ -28,16 +28,16 @@
     (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Chef de projet & Électronique"),
     (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Développement Embarqué"),
   ),
-  show_roles: true, // Passer à false pour masquer les rôles/titres sous les auteurs
-  show_emails: true, // Passer à false pour masquer les adresses email
+  show-roles: true, // Passer à false pour masquer les rôles/titres sous les auteurs
+  show-emails: true, // Passer à false pour masquer les adresses email
   supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"),
-  show_supervisor_email: true, // Passer à false pour masquer l'email du tuteur
+  show-supervisor-email: true, // Passer à false pour masquer l'email du tuteur
   date: auto,  // ou date: "15 octobre 2026" pour une date fixe
   city: "Paris",
   draft: false, // Passer à true pour activer le filigrane "BROUILLON"
-  table_of_figures: false, // Passer à true pour générer la liste des figures
-  table_of_tables: false, // Passer à true pour générer la liste des tableaux
-  // equation_numbering: "(1)",  // Décommenter pour numéroter les équations
+  table-of-figures: false, // Passer à true pour générer la liste des figures
+  table-of-tables: false, // Passer à true pour générer la liste des tableaux
+  // equation-numbering: "(1)",  // Décommenter pour numéroter les équations
   abstract: [
     Quel est le contexte et la problématique du projet ? Quels sont les objectifs techniques ?
     Dans quel contexte faites-vous ce projet ? [maximum 20 lignes]
