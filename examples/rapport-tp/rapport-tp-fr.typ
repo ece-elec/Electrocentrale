@@ -1,23 +1,9 @@
 #import "@preview/ece-reports:0.1.0": *
 
-// =============================================================================
-// OPTIONS DE TYPOGRAPHIE ET POLICE (MODIFIABLE DIRECTEMENT ICI)
-// =============================================================================
-// Choisissez l'un des styles prédéfinis ci-dessous :
-// - "latex"        : Style Scientifique LaTeX classique (New Computer Modern avec sérifs)
-// - "typst-modern" : Style Scientifique Typst moderne (Libertinus Serif - élégant et aéré)
-// - "modern-sans"  : Style Moderne Sans-Serif / Clean (Helvetica Neue / Arial)
-// - "editorial"    : Style Éditorial / Revue scientifique (Charter / PT Serif)
-// =============================================================================
-#let style-police = "latex" // Changez par : "latex" | "typst-modern" | "modern-sans" | "editorial"
+// Style de police : "latex" | "typst-modern" | "modern-sans" | "editorial"
+#let style-police = "latex"
 
-#let polices-presets = (
-  "latex": "New Computer Modern",
-  "typst-modern": "Libertinus Serif",
-  "modern-sans": ("Helvetica Neue", "Arial"),
-  "editorial": ("Charter", "PT Serif", "Times New Roman"),
-)
-
+// Modèle de TP (changeable en `projet.with` sans modifier les arguments)
 #show: tp.with(
   lang: "fr",
   title: "Filtres Actifs et Traitement du Signal",
@@ -26,17 +12,18 @@
   major: "Systèmes Embarqués",
   groupe: "Groupe 02",
   authors: (
-    (name: "André-Marie AMPÈRE", email: "ampere@ece.fr"),
-    (name: "Alessandro VOLTA", email: "volta@ece.fr"),
+    (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Mesures & Câblage"),
+    (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Calculs théoriques"),
   ),
   supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"),
+  show-roles: true,
   show-emails: true, // Passer à false pour masquer les adresses email
   show-supervisor-email: true, // Passer à false pour masquer l'email du tuteur
   date: auto,  // ou date: "15 octobre 2026" pour une date fixe
   city: "Paris",
   draft: false, // Passer à true pour activer le filigrane "BROUILLON"
   // equation-numbering: "(1)",  // Décommenter pour numéroter les équations
-  font: polices-presets.at(style-police, default: "New Computer Modern"),
+  font: font-presets.at(style-police, default: "New Computer Modern"),
 )
 
 = Première partie : Étude théorique et expérimentale

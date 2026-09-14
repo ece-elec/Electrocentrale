@@ -1,23 +1,9 @@
 #import "@preview/ece-reports:0.1.0": *
 
-// =============================================================================
-// TYPOGRAPHY AND FONT OPTIONS (CUSTOMIZE HERE)
-// =============================================================================
-// Available presets:
-// - "latex"        : Classic LaTeX scientific style (New Computer Modern serif)
-// - "typst-modern" : Modern Typst scientific style (Libertinus Serif - clean and elegant)
-// - "modern-sans"  : Modern Sans-Serif / Tech style (Helvetica Neue / Arial)
-// - "editorial"    : Editorial / Journal style (Charter / PT Serif)
-// =============================================================================
-#let style-police = "latex" // Change to: "latex" | "typst-modern" | "modern-sans" | "editorial"
+// Font preset: "latex" | "typst-modern" | "modern-sans" | "editorial"
+#let style-police = "latex"
 
-#let polices-presets = (
-  "latex": "New Computer Modern",
-  "typst-modern": "Libertinus Serif",
-  "modern-sans": ("Helvetica Neue", "Arial"),
-  "editorial": ("Charter", "PT Serif", "Times New Roman"),
-)
-
+// Lab report model (can be switched to `projet.with` without modifying arguments)
 #show: tp.with(
   lang: "en",
   title: "Active Filters and Signal Processing",
@@ -26,17 +12,18 @@
   major: "Embedded Systems",
   groupe: "Group 02",
   authors: (
-    (name: "André-Marie AMPÈRE", email: "ampere@ece.fr"),
-    (name: "Alessandro VOLTA", email: "volta@ece.fr"),
+    (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Measurements & Wiring"),
+    (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Theoretical Analysis"),
   ),
   supervisor: (name: "Dr. John DOE", email: "john.doe@ece.fr"),
+  show-roles: true,
   show-emails: true, // Set to false to hide email links
   show-supervisor-email: true, // Set to false to hide supervisor email
   date: auto,  // or date: "October 15, 2026" for a fixed date
   city: "Paris",
   draft: false, // Set to true to enable "DRAFT" watermark
   // equation-numbering: "(1)",  // Uncomment to number equations
-  font: polices-presets.at(style-police, default: "New Computer Modern"),
+  font: font-presets.at(style-police, default: "New Computer Modern"),
 )
 
 = Part 1: Theoretical Analysis and Measurements

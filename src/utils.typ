@@ -1,10 +1,6 @@
-// Utilitaires de rédaction, tableaux avancés, annexes et rendu d'actifs pour l'ECE Paris
-
 #import "theme.typ": *
 
-// =============================================================================
-// GESTION DES ASSETS & LOGOS
-// =============================================================================
+// Gestion du logo et de la couverture
 #let logo-ece(width: 5.5cm) = image("../assets/images/logo-ece.svg", width: width)
 
 #let _render-logo(logo, width: 5.5cm) = {
@@ -35,9 +31,7 @@
   }
 }
 
-// =============================================================================
-// FONCTIONS UTILITAIRES DE RÉDACTION
-// =============================================================================
+// Éléments de rédaction (questions de TP, notes, alertes)
 #let question(label, body) = [
   #v(0.6em, weak: true)
   #text(fill: ece, weight: "bold")[#label.] #body
@@ -98,11 +92,9 @@
   ]
 }
 
-#let note-cadre = callout // Alias de compatibilité
+#let note-cadre = callout
 
-// =============================================================================
-// TABLEAUX STYLISÉS POUR L'INGÉNIERIE
-// =============================================================================
+// Tableaux d'ingénierie
 #let table-ece(headers: (), ..args) = {
   let header-row = if headers != () {
     (table.header(..headers.map(h => if type(h) == str { text(weight: "bold")[#h] } else { h })),)
@@ -214,9 +206,7 @@
 #let table-double-colonne = table-2col
 #let tableau-double-colonne = table-2col
 
-// =============================================================================
-// GESTION DES ANNEXES
-// =============================================================================
+// Annexes
 #let annexes(body, lang: "fr", title-prefix: auto) = {
   pagebreak()
   counter(heading).update(0)

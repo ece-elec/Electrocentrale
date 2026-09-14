@@ -1,18 +1,11 @@
 #import "@preview/ece-reports:0.1.0": *
 
-// =============================================================================
-// OPTIONS DE TYPOGRAPHIE ET POLICE (MODIFIABLE DIRECTEMENT ICI)
-// =============================================================================
-// Choisissez l'un des styles prédéfinis ci-dessous :
-// - "latex"        : Style Scientifique LaTeX classique (New Computer Modern avec sérifs)
-// - "typst-modern" : Style Scientifique Typst moderne (Libertinus Serif - élégant et aéré)
-// - "modern-sans"  : Style Moderne Sans-Serif / Clean (Helvetica Neue / Arial)
-// - "editorial"    : Style Éditorial / Revue scientifique (Charter / PT Serif)
-// =============================================================================
-#let style-police = "latex" // Changez par : "latex" | "typst-modern" | "modern-sans" | "editorial"
+// Style de police : "latex" | "typst-modern" | "modern-sans" | "editorial"
+#let style-police = "latex"
 
+// Modèle de Projet (changeable en `tp.with` sans modifier les arguments)
 #show: projet.with(
-  lang: "fr",
+  lang: "en",
   title: "Système Embarqué Autonome",
   promo: "ING5",
   major: "Systèmes Embarqués",
@@ -28,14 +21,14 @@
   date: auto,  // ou date: "15 octobre 2026" pour une date fixe
   city: "Paris",
   draft: true, // Passer à true pour activer le filigrane "BROUILLON"
-  table-of-figures: false, // Passer à true pour générer la liste des figures
-  table-of-tables: false, // Passer à true pour générer la liste des tableaux
+  table-of-figures: true, // Liste automatique des figures et diagrammes
+  table-of-tables: true,  // Liste automatique des tableaux
   // equation-numbering: "(1)",  // Décommenter pour numéroter les équations
   abstract: [
     Quel est le contexte et la problématique du projet ? Quels sont les objectifs techniques ?
     Dans quel contexte faites-vous ce projet ? [maximum 20 lignes]
   ],
-  font: polices-presets.at(style-police, default: "New Computer Modern"),
+  font: font-presets.at(style-police, default: "New Computer Modern"),
 )
 
 = Objectifs
@@ -72,17 +65,39 @@ Renseigner ici sous forme de tableau les principaux acronymes, leurs significati
 
 == Présentation de l’équipe
 
-Qui sont les membres qui composent l’équipe ?
-
-Quelles sont leurs compétences et qualités ?
+L'équipe projet est constituée de deux élèves-ingénieurs de la majeure Systèmes Embarqués, encadrés par un enseignant-chercheur du département Électronique.
 
 == Organisation de l’équipe
 
-Comment est organisée l’équipe ? Comment est réparti le travail ?
+La répartition des rôles et l'organigramme fonctionnel sont détaillés sur la @fig:orga :
+
+#figure(
+  orga-equipe(
+    responsable: carte-membre("Dr. Jean DUPONT", role: "Tuteur & Enseignant-chercheur", affiliation: "Département Électronique & Physique", responsable: true),
+    membres: (
+      carte-membre("André-Marie AMPÈRE", role: "Chef de projet & Routage PCB", affiliation: "ING5 Systèmes Embarqués", tag: "HARDWARE"),
+      carte-membre("Alessandro VOLTA", role: "Développement Firmware C / STM32", affiliation: "ING5 Systèmes Embarqués", tag: "FIRMWARE"),
+    ),
+  ),
+  caption: [Organigramme fonctionnel de l'équipe projet],
+) <fig:orga>
 
 == Diagramme de Gantt
 
-Comment est utilisé le temps alloué au projet ?
+Le calendrier prévisionnel des différentes phases de conception, de développement et de validation en laboratoire est illustré sur la @fig:gantt :
+
+#figure(
+  gantt(
+    unites: ("S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"),
+    taches: (
+      (nom: "Étude théorique & Spécifications", debut: 1, fin: 3),
+      (nom: "Conception Schématique & Routage PCB", debut: 2, fin: 5, couleur: darkpowderblue),
+      (nom: "Développement Firmware (Pilotes I2C/SPI)", debut: 4, fin: 7),
+      (nom: "Banc de tests & Validation en laboratoire", debut: 6, fin: 8, couleur: gamboge),
+    ),
+  ),
+  caption: [Planning prévisionnel des tâches du projet (Gantt)],
+) <fig:gantt>
 
 = Contexte et problématique
 
@@ -118,11 +133,20 @@ Les exigences fonctionnelles et contraintes opérationnelles du système sont sy
 
 == Architecture fonctionnelle
 
-Quelle est l’architecture fonctionnelle du projet ?
+La chaîne fonctionnelle globale d'acquisition, de traitement et de communication du système est représentée sur la @fig:chaine-fonc :
 
-#nb[Les fonctionnalités sont des verbes à l’infinitif suivi de compléments.]
-
-À ce stade, aucun choix technique n’est fait.
+#figure(
+  chaine-blocs(
+    bloc-fonctionnel("Mesurer", sous-titre: "Grandeur physique (accélération)"),
+    "Signal analogique",
+    bloc-fonctionnel("Conditionner & Échantillonner", sous-titre: "Filtre anti-repliement & ADC"),
+    "Données brutes",
+    bloc-fonctionnel("Traiter & Calculer", sous-titre: "Filtrage numérique et calibration"),
+    "Trames",
+    bloc-fonctionnel("Transmettre", sous-titre: "Liaison radiofréquence"),
+  ),
+  caption: [Synoptique de la chaîne fonctionnelle globale du système],
+) <fig:chaine-fonc>
 
 == Architecture matérielle
 
@@ -135,8 +159,18 @@ L'étage analogique et les alimentations sont dimensionnés selon les règles de
 ]
 
 #figure(
-  logo-ece(width: 5.5cm),
-  caption: [Synoptique de l'architecture matérielle globale du système],
+  chaine-blocs(
+    bloc-fonctionnel("Batterie Li-Po", sous-titre: "3.7 V / 1200 mAh"),
+    "V_bat",
+    bloc-fonctionnel("Régulateur LDO", sous-titre: "3.3 V faible bruit"),
+    "3.3 V",
+    bloc-fonctionnel("Capteur MPU-6050", sous-titre: "IMU 6 axes"),
+    "I2C",
+    bloc-fonctionnel("STM32F401RE", sous-titre: "MCU ARM Cortex-M4"),
+    "SPI",
+    bloc-fonctionnel("Module LoRa / RF", sous-titre: "SX1276 (868 MHz)"),
+  ),
+  caption: [Synoptique de l'architecture matérielle et des bus d'interconnexion],
 ) <fig:archi>
 
 === Nomenclature des composants principaux (BOM)
@@ -172,9 +206,56 @@ La liste des composants nécessaires est détaillée dans le @tab:bom et le câb
 
 == Architecture logicielle
 
-Comment fonctionne le programme embarqué ?
+L'ordonnancement de la boucle principale de mesure et de transmission radio est synthétisé par l'algorigramme de la @fig:algo :
 
-#nb[Présenter un algorigramme ou la machine à états de votre code.]
+#figure(
+  algorigramme(
+    algo-debut("Démarrage du système"),
+    "",
+    algo-action("Initialisation matérielle", sous-titre: "Horloges, GPIO, I2C1, SPI1"),
+    "",
+    algo-action("Configuration du capteur IMU", sous-titre: "Plage ±2g, filtre passe-bas interne"),
+    "",
+    algo-action("Lecture des registres accéléromètre"),
+    "",
+    algo-decision("Données valides"),
+    "OUI",
+    algo-action("Calcul de la moyenne glissante"),
+    "OUI",
+    algo-action("Téléversement de la trame radio"),
+    "",
+    algo-fin("Mise en veille temporaire (Low Power)"),
+  ),
+  caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],
+) <fig:algo>
+
+== Modélisation de la base de données (Informatique & Télémétrie)
+
+Pour les projets intégrant un volet logiciel ou une passerelle IoT, les données reçues sont persistées dans une base de données relationnelle dont le schéma entité-association est illustré sur la @fig:bdd :
+
+#figure(
+  grid(
+    columns: (auto, auto),
+    gutter: 20pt,
+    align: top,
+    table-bdd("CAPTEUR", (
+      ("id", "INT", "PK"),
+      ("nom", "VARCHAR(50)", ""),
+      ("adresse_mac", "VARCHAR(17)", "UNIQUE"),
+      ("frequence_ech", "INT", ""),
+    )),
+    table-bdd("RELEVE_TELEMETRIE", (
+      ("id", "BIGINT", "PK"),
+      ("capteur_id", "INT", "FK"),
+      ("timestamp", "DATETIME", ""),
+      ("valeur_x", "FLOAT", ""),
+      ("valeur_y", "FLOAT", ""),
+      ("valeur_z", "FLOAT", ""),
+    )),
+    
+  ),
+  caption: [Schéma relationnel des données de télémétrie capteurs (MCD / Tables SQL)],
+) <fig:bdd>
 
 L'implémentation logicielle du pilote I2C pour l'acquisition de données est présentée sur le @code:i2c :
 

@@ -16,14 +16,20 @@ Le paquet `ece-reports` inclut un ensemble d'outils et de composants prêts à l
 | `#table(...)`                          | `#table(columns: ..., ...)`                                                                                                   | Tableaux standards Typst (automatiquement stylisés aux couleurs ECE)                                |
 | `#table-double-entree(...)`            | `#table-double-entree(headers: (...), ...)`                                                                                   | Tableaux à double entrée (en-tête haut + en-tête de côté)                                      |
 | `#show: annexes`                       | `#show: annexes`                                                                                                              | Mode Annexes (A, B, A.1...) + préfixage auto des figures/tableaux (`Figure A.1`, `Tableau A.1`) |
-| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |                                                                                                      |
-| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |                                                                                                      |
-| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |                                                                                                      |
+| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |
+| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |
+| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |
 | `#vpp`, `#vrms`, `#vdc`, `#vac`  | `$V_("in") = 2.5#vpp$`                                                                                                        | Tensions caractéristiques, millivolt (`#mv`), microvolt (`#uv`)                                 |
 | `#db`, `#dbm`, `#degc`             | `$G = -20#db$`                                                                                                                | Décibels, puissances RF (`#dbm`, `#mw`), température (`#degc`)                               |
-| `#attention[...]`                      | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                                  |
-| `#nb[...]`                             | `#nb[Remarque]`                                                                                                               | Encart**NB :**                                                                                 |
-| `#todo[...]`                           | `#todo[Section à compléter]`                                                                                                | Surlignage TODO jaune                                                                                |
+| `#orga-equipe(...)`                | `#orga-equipe(responsable: ..., membres: (...))`                                                                               | Organigramme d'équipe projet avec connecteur arborescent vectoriel                            |
+| `#orga-entreprise(...)`            | `#orga-entreprise(direction: ..., poles: (...))`                                                                             | Organigramme d'entreprise/stage hiérarchique multi-pôles                                      |
+| `#gantt(...)`                      | `#gantt(unites: (...), taches: (...))`                                                                                        | Diagramme de Gantt pour plannings projet et stage                                             |
+| `#chaine-blocs(...)`               | `#chaine-blocs(bloc-fonctionnel(...), ...)`                                                                                   | Chaîne de blocs fonctionnels et flux de signaux                                               |
+| `#table-bdd(...)`                  | `#table-bdd("Nom", ((col, type, key), ...))`                                                                                 | Schéma relationnel de base de données avec clés PK/FK                                         |
+| `#algorigramme(...)`               | `#algorigramme(algo-debut(...), ...)`                                                                                         | Algorigramme et logigramme séquentiel                                                         |
+| `#attention[...]`                  | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                           |
+| `#nb[...]`                         | `#nb[Remarque]`                                                                                                               | Encart **NB :**                                                                               |
+| `#todo[...]`                       | `#todo[Section à compléter]`                                                                                                  | Surlignage TODO jaune                                                                         |
 
 ---
 
@@ -208,3 +214,211 @@ $ G = -20#db, quad P_("rf") = 10#dbm, quad T = 25#degc $
 | `#db`, `#dbm`                       | $\text{dB}$, $\text{dBm}$                                               | Gains, atténuations et puissances RF |
 | `#degc`, `#celsius`                 | $^\circ\text{C}$                                                          | Degrés Celsius                       |
 | `#fcut`                               | $f_0$                                                                     | Fréquence de coupure                 |
+
+---
+
+## 📊 Diagrammes d'ingénierie & Organigrammes
+
+Le paquet intègre des générateurs de diagrammes 100 % vectoriels en Typst natif (sans dépendances externes ni compilation lourde).
+
+### 1. Organigramme d'équipe projet (`#orga-equipe`)
+
+Conçu pour illustrer la structure hiérarchique d'un projet étudiant (tuteur / chef de projet et membres de l'équipe) reliés par un connecteur arborescent vectoriel continu et des cartes stylisées avec bandeaux de couleur et badges pilules.
+
+```typst
+#figure(
+  orga-equipe(
+    responsable: carte-membre(
+      "Dr. Jean DUPONT",
+      role: "Tuteur & Enseignant-chercheur",
+      affiliation: "Département Électronique",
+      responsable: true,
+    ),
+    membres: (
+      carte-membre(
+        "André-Marie AMPÈRE",
+        role: "Chef de projet & Routage PCB",
+        affiliation: "ING5 Systèmes Embarqués",
+        tag: "HARDWARE",
+      ),
+      carte-membre(
+        "Alessandro VOLTA",
+        role: "Développement Firmware C / STM32",
+        affiliation: "ING5 Systèmes Embarqués",
+        tag: "FIRMWARE",
+      ),
+    ),
+  ),
+  caption: [Organigramme fonctionnel de l'équipe projet],
+) <fig:orga>
+```
+
+**Options de `#carte-membre` :**
+- `nom` : Nom complet (texte ou contenu).
+- `role` : Rôle ou fonction dans le projet ou le service.
+- `affiliation` / `service` : Majeure, département, ou laboratoire.
+- `tag` : Badge textuel en pilule (ex: `"HARDWARE"`, `"FIRMWARE"`, `"LEAD"`). Facultatif.
+- `badge` : Contrôle précis de la pilule (`auto` par défaut, `false` ou `none` pour masquer la pilule, ou texte personnalisé `"CHEF"`).
+- `email` : Adresse e-mail cliquable sous forme de lien.
+- `responsable` : Si `true`, applique l'accent vert canard ECE.
+- `stagiaire` : Si `true`, applique l'accent jaune/or et la mise en valeur.
+- `couleur` : Couleur d'accentuation personnalisée (par défaut : `auto`).
+- `compact` : Si `true`, réduit le padding et la taille de police (idéal pour les grands organigrammes denses).
+
+---
+
+### 2. Organigramme d'entreprise ou de stage (`#orga-entreprise`)
+
+Indispensable pour les rapports de stage (ING4, PFE/ING5) et projets avec partenaire industriel. Il modélise la Direction générale au sommet, les rôles transverses (PMO, Qualité, Adjoint), puis les Pôles / Départements en colonnes avec leurs sous-équipes et collaborateurs.
+
+```typst
+#figure(
+  orga-entreprise(
+    direction: carte-membre(
+      "Dr. Alexandre DE LA TOUR",
+      role: "Directeur Technique & R&D (CTO)",
+      responsable: true,
+      compact: true,
+    ),
+    transverse: carte-membre(
+      "Claire M.",
+      role: "PMO & Qualité",
+      tag: "TRANSVERSE",
+      couleur: rgb("#7C3AED"),
+      compact: true,
+    ),
+    poles: (
+      (
+        nom: "Pôle Systèmes Embarqués",
+        couleur: ece,
+        responsable: carte-membre(
+          "Dr. Sophie LAURENT",
+          role: "Tuteur Entreprise & Lead R&D",
+          responsable: true,
+          compact: true,
+        ),
+        sous-poles: (
+          (
+            nom: "Équipe Firmware & Capteurs",
+            membres: (
+              carte-membre(
+                "Léon P.",
+                role: "Stagiaire R&D Firmware",
+                stagiaire: true,
+                compact: true,
+              ),
+              carte-membre("Thomas D.", role: "Ingénieur Linux", tag: "FIRMWARE", compact: true),
+            ),
+          ),
+          (
+            nom: "Équipe Électronique & CAO",
+            membres: (
+              carte-membre("Camille R.", role: "Ingénieure PCB", tag: "HARDWARE", compact: true),
+            ),
+          ),
+        ),
+      ),
+      (
+        nom: "Pôle Logiciel & Cloud IoT",
+        couleur: darkpowderblue,
+        responsable: carte-membre("Marc B.", role: "Lead Cloud", compact: true),
+        membres: (
+          carte-membre("Alexandre B.", role: "Dev Full-Stack", tag: "BACKEND", compact: true),
+          carte-membre("Julie L.", role: "Dev Web / UI", tag: "FRONTEND", compact: true),
+        ),
+      ),
+      (
+        nom: "Pôle Bancs d'Essais & Validation",
+        couleur: gamboge,
+        responsable: carte-membre("Marc D.", role: "Resp. Bancs", compact: true),
+        membres: (
+          carte-membre("Sarah B.", role: "Ingénieure CEM", tag: "QUALIF", compact: true),
+          carte-membre("Julien K.", role: "Technicien Mesures", tag: "LABO", compact: true),
+        ),
+      ),
+    ),
+  ),
+  caption: [Structure organisationnelle multi-branches de l'entreprise d'accueil],
+) <fig:orga-entreprise>
+```
+
+> **Astuce - Équipe projet multi-pôles :** Vous pouvez également passer le paramètre `poles: (...)` directement à `#orga-equipe(responsable: ..., poles: (...))` pour structurer une grande équipe projet étudiante en plusieurs sous-groupes thématiques.
+
+---
+
+### 3. Planning & Diagramme de Gantt (`#gantt`)
+
+Permet de représenter les phases d'un projet ou stage avec des barres colorées et des jalons :
+
+```typst
+#figure(
+  gantt(
+    unites: ("S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"),
+    taches: (
+      (nom: "Étude théorique & Spécifications", debut: 1, fin: 3),
+      (nom: "Conception Schématique & Routage PCB", debut: 2, fin: 5, couleur: darkpowderblue),
+      (nom: "Développement Firmware (Pilotes I2C/SPI)", debut: 4, fin: 7),
+      (nom: "Banc de tests & Validation finale", debut: 6, fin: 8, couleur: gamboge),
+    ),
+  ),
+  caption: [Planning prévisionnel des tâches du projet],
+) <fig:gantt>
+```
+
+---
+
+### 4. Chaîne de blocs fonctionnels (`#chaine-blocs`)
+
+Idéal pour modéliser le synoptique d'un système matériel ou logiciel, avec des blocs rectangulaires et des bus de liaison :
+
+```typst
+#figure(
+  chaine-blocs(
+    bloc-fonctionnel("Mesurer", sous-titre: "Capteurs IMU"),
+    "I2C (400 kHz)",
+    bloc-fonctionnel("Traiter", sous-titre: "STM32F4 / FreeRTOS"),
+    "UART (115200 bps)",
+    bloc-fonctionnel("Transmettre", sous-titre: "Module LoRa"),
+  ),
+  caption: [Synoptique fonctionnel de la chaîne de mesure],
+) <fig:chaine>
+```
+
+---
+
+### 5. Schéma de base de données relationnelle (`#table-bdd`)
+
+Affiche une table de base de données avec typage des attributs et mise en évidence des clés primaires (`PK`) et étrangères (`FK`) :
+
+```typst
+#table-bdd(
+  "TelemetryRecord",
+  (
+    ("id", "BIGINT", "PK"),
+    ("device_id", "UUID", "FK"),
+    ("timestamp", "DATETIME", ""),
+    ("temperature", "FLOAT", ""),
+    ("battery_level", "TINYINT", ""),
+  ),
+)
+```
+
+---
+
+### 6. Algorigrammes & Logigrammes (`#algorigramme`)
+
+Permet de structurer des organigrammes de traitement séquentiel (initialisation, action, prise de décision conditionnelle, fin) :
+
+```typst
+#algorigramme(
+  algo-debut("Mise sous tension du système"),
+  "Démarrage bootloader",
+  algo-action("Initialisation des horloges & bus I2C"),
+  "Vérification communication",
+  algo-decision("Capteur IMU détecté"),
+  "Oui",
+  algo-action("Lancement de la tâche FreeRTOS"),
+  "Prêt",
+  algo-fin("Boucle principale active"),
+)
+```

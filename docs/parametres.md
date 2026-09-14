@@ -2,9 +2,11 @@
 
 Cette page détaille l'ensemble des paramètres configurables pour les modèles `#tp` (Rapport de TP) et `#projet` (Rapport de Projet).
 
+> **Interchangeabilité totale** : Tous les paramètres ci-dessous sont **100 % partagés et interchangeables**. Vous pouvez basculer entre `#show: tp.with(...)` et `#show: projet.with(...)` sans modifier vos options.
+
 ---
 
-## 🤝 Paramètres communs (`tp` & `projet`)
+## 🤝 Paramètres du moteur commun (`tp` & `projet`)
 
 | Paramètre | Type | Valeur par défaut | Description |
 | :--- | :--- | :--- | :--- |
@@ -13,13 +15,22 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | `major` | `str` / `none` | `none` | Nom de la majeure / filière ECE (alias : `majeure`, ex: `"Systèmes Embarqués"`) |
 | `groupe` | `str` / `none` | `none` | Numéro ou nom du groupe (ex: `"Groupe 02"`, `"TD 1"`) |
 | `authors` | `array` / `str` | `("A. AMPÈRE", ...)` | Auteurs sous forme de liste de chaînes simples ou de dictionnaires `(name, email, role)` |
-| `supervisor` | `str` / `dictionary` / `none` | `none` | Nom et email du tuteur (`"Dr. ..." ` ou `(name: "...", email: "...")`, alias : `tuteur`, `enseignant`) |
+| `supervisor` | `str` / `dictionary` / `none` | `none` | Nom et email du tuteur (`"Dr. ..."` ou `(name: "...", email: "...")`, alias : `tuteur`, `enseignant`) |
 | `date` | `auto` / `str` | `auto` | Date d'édition (`auto` génère la date du jour dynamique via `datetime.today()`) |
 | `city` | `str` / `none` | `none` | Campus / Ville (défaut : `"Paris"` en FR, `"City"` en EN) |
 | `lang` | `str` | `"fr"` | Langue du document (`"fr"` pour français, `"en"` pour anglais) |
+| `abstract` | `content` / `none` | `none` | Résumé / Abstract encadré sur la page de garde (max ~20 lignes) |
+| `cover-image` | `auto` / `none` / `image` | `auto` (TP) / `none` (Projet) | Illustration optionnelle sur la page de titre (`elec.png` par défaut en TP) |
+| `tp-num` | `str` / `none` | `"[X]"` (TP) / `none` (Projet) | Numéro de TP (ex: `"1"`). Pris en compte par `tp`, ignoré proprement par `projet` |
+| `doc-prefix` | `str` / `none` | `none` | Préfixe du type de document (défaut : `"TP"` en FR, `"LAB"` en EN) |
 | `attestation` | `auto` / `str` / `content` / `none` | `auto` | Déclaration sur l'honneur (`auto` = texte officiel ECE, `none` ou `false` pour masquer) |
 | `table-of-contents` | `bool` | `false` (TP) / `true` (Projet) | Activer ou désactiver la génération de la table des matières |
+| `table-of-figures` | `bool` | `false` | Génération automatique de la liste des figures |
+| `table-of-tables` | `bool` | `false` | Génération automatique de la liste des tableaux |
+| `same-page-figures-tables` | `bool` | `true` | Regrouper la liste des figures et des tableaux sur la même page si les deux sont activées (alias : `group-figures-tables`) |
+| `same-page-toc` | `bool` | `false` | Regrouper le sommaire général, la liste des figures et des tableaux sur la même page si court (alias : `group-outlines`) |
 | `toc-depth` | `int` | `3` | Profondeur d'imbrication des titres dans le sommaire |
+| `numbering-format` | `str` / `auto` | `auto` (TP : I, A, a) / `"1.1"` (Projet) | Format de numérotation des sections et sous-sections |
 | `draft` | `bool` | `false` | Affiche un filigrane diagonal *"BROUILLON"* (FR) ou *"DRAFT"* (EN) |
 | `show-roles` | `bool` | `true` | Afficher ou masquer le rôle/titre sous les auteurs (alias : `show-role`) |
 | `show-emails` | `bool` | `true` | Afficher ou masquer les liens e-mail sous les auteurs (alias : `show-email`) |
@@ -28,29 +39,6 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | `font` | `str` / `array` | `"New Computer Modern"` | Famille(s) de polices typographiques du document |
 | `font-size` | `length` | `11pt` | Taille de la police du corps de texte |
 | `logo` | `auto` / `none` / `image` | `auto` | Logo vectoriel ECE officiel en en-tête et page de garde |
-
----
-
-## 🧪 Paramètres spécifiques au Rapport de TP (`tp`)
-
-| Paramètre | Type | Valeur par défaut | Description |
-| :--- | :--- | :--- | :--- |
-| `tp-num` | `str` | `"[X]"` | Numéro de la séance de TP (ex: `"1"`, `"02"`) |
-| `doc-prefix` | `str` / `none` | `none` | Préfixe du type de document (défaut : `"TP"` en FR, `"LAB"` en EN) |
-| `cover-image` | `auto` / `none` / `image` | `auto` | Illustration centrale optionnelle sur la page de titre |
-
----
-
-## 📁 Paramètres spécifiques au Rapport de Projet (`projet`)
-
-| Paramètre | Type | Valeur par défaut | Description |
-| :--- | :--- | :--- | :--- |
-| `abstract` | `content` / `none` | `none` | Résumé / Abstract encadré sur la page de garde (max ~20 lignes) |
-| `table-of-figures` | `bool` | `false` | Génération automatique de la liste des figures |
-| `table-of-tables` | `bool` | `false` | Génération automatique de la liste des tableaux |
-| `same-page-figures-tables` | `bool` | `true` | Regrouper la liste des figures et des tableaux sur la même page si les deux sont activées (alias : `group-figures-tables`) |
-| `same-page-toc` | `bool` | `false` | Regrouper le sommaire général, la liste des figures et des tableaux sur la même page si court (alias : `group-outlines`) |
-| `numbering-format` | `str` | `"1.1"` | Format de numérotation des sections et sous-sections |
 
 ---
 

@@ -10,6 +10,7 @@ compile:
     typst compile examples/rapport-tp/rapport-tp-en.typ /tmp/rapport-tp-en.pdf
     typst compile examples/rapport-projet/rapport-projet-fr.typ /tmp/rapport-projet-fr.pdf
     typst compile examples/rapport-projet/rapport-projet-en.typ /tmp/rapport-projet-en.pdf
+    typst compile examples/organigrammes.typ /tmp/organigrammes.pdf
     @echo "✅ Tous les documents Typst compilent sans erreur."
 
 # Générer les images de prévisualisation et vignettes (PNG)
@@ -25,4 +26,4 @@ watch file="template/main.typ":
 
 # Nettoyer les fichiers de sortie temporaires
 clean:
-    rm -f /tmp/template.pdf /tmp/rapport-tp-*.pdf /tmp/rapport-projet-*.pdf /tmp/test_*.png
+    rm -f /tmp/template.pdf /tmp/rapport-tp-*.pdf /tmp/rapport-projet-*.pdf /tmp/organigrammes.pdf /tmp/test_*.png

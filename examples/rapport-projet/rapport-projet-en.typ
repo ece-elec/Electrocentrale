@@ -1,25 +1,11 @@
 #import "@preview/ece-reports:0.1.0": *
 
-// =============================================================================
-// TYPOGRAPHY AND FONT OPTIONS (CUSTOMIZE HERE)
-// =============================================================================
-// Available presets:
-// - "latex"        : Classic LaTeX scientific style (New Computer Modern serif)
-// - "typst-modern" : Modern Typst scientific style (Libertinus Serif - clean and elegant)
-// - "modern-sans"  : Modern Sans-Serif / Tech style (Helvetica Neue / Arial)
-// - "editorial"    : Editorial / Journal style (Charter / PT Serif)
-// =============================================================================
-#let style-police = "latex" // Change to: "latex" | "typst-modern" | "modern-sans" | "editorial"
+// Font preset: "latex" | "typst-modern" | "modern-sans" | "editorial"
+#let style-police = "latex"
 
-#let polices-presets = (
-  "latex": "New Computer Modern",
-  "typst-modern": "Libertinus Serif",
-  "modern-sans": ("Helvetica Neue", "Arial"),
-  "editorial": ("Charter", "PT Serif", "Times New Roman"),
-)
-
+// Project report model (can be switched to `tp.with` without modifying arguments)
 #show: projet.with(
-  lang: "fr",
+  lang: "en",
   title: "Autonomous Embedded Node",
   promo: "ING5",
   major: "Embedded Systems",
@@ -35,14 +21,14 @@
   date: auto,  // or date: "October 15, 2026" for a fixed date
   city: "Paris",
   draft: true, // Set to true to enable "DRAFT" watermark
-  table-of-figures: false, // Set to true to enable list of figures
-  table-of-tables: false, // Set to true to enable list of tables
+  table-of-figures: true, // Automatic list of figures and diagrams
+  table-of-tables: true,  // Automatic list of tables
   // equation-numbering: "(1)",  // Uncomment to number equations
   abstract: [
     What is the context and problem statement of the project? What are the technical objectives?
     In what context are you carrying out this project? [maximum 20 lines]
   ],
-  font: polices-presets.at(style-police, default: "New Computer Modern"),
+  font: font-presets.at(style-police, default: "New Computer Modern"),
 )
 
 = Objectives
@@ -79,17 +65,40 @@ Provide the main acronyms, their meanings, and explanations in table format.
 
 == Team Presentation
 
-Who are the team members?
+The team hierarchy and responsibilities are shown in @fig:orga_en :
 
-What are their skills and strengths?
+#figure(
+  orga-equipe(
+    responsable: carte-membre("Dr. John DOE", role: "Academic Advisor & Supervisor", affiliation: "Department of Electronics & Physics", responsable: true),
+    membres: (
+      carte-membre("André-Marie AMPÈRE", role: "Project Lead & Hardware PCB", affiliation: "ING5 Embedded Systems", tag: "HARDWARE"),
+      carte-membre("Alessandro VOLTA", role: "Firmware Engineer C / STM32", affiliation: "ING5 Embedded Systems", tag: "FIRMWARE"),
+    ),
+  ),
+  caption: [Project team organizational structure],
+) <fig:orga_en>
 
 == Team Organization
 
-How is the team organized? How is work divided?
+Responsibilities and deliverables are structured across three technical pillars:
+- *Hardware & Power Pillar*: Power rail dimensioning, KiCad PCB routing, bench testing.
+- *Firmware & Drivers Pillar*: I2C HAL driver development (STM32), FreeRTOS scheduler, and signal processing.
+- *Integration & QA Pillar*: Continuous integration, unit test suite, and technical documentation.
 
-== Gantt Chart
+== Project Schedule & Gantt Chart
 
-How is the allocated project time utilized?
+#figure(
+  gantt(
+    unites: ("W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"),
+    taches: (
+      (nom: "Theoretical Study & Specifications", debut: 1, fin: 3),
+      (nom: "Schematic Design & PCB Layout", debut: 2, fin: 5, couleur: darkpowderblue),
+      (nom: "Firmware Development (I2C/SPI Drivers)", debut: 4, fin: 7),
+      (nom: "Bench Testing & Lab Validation", debut: 6, fin: 8, couleur: gamboge),
+    ),
+  ),
+  caption: [Project task schedule and milestones (Gantt chart)],
+) <fig:gantt_en>
 
 = Context and Problem Statement
 
@@ -125,15 +134,22 @@ Functional requirements and operational constraints are summarized in @tab:spec 
 
 == Functional Architecture
 
-What is the functional architecture of the project?
+The overall system functional pipeline covering acquisition, processing, and communication is illustrated in @fig:chaine_fonc_en :
 
-#note[Functions should be infinitive verbs followed by direct objects.]
+#figure(
+  chaine-blocs(
+    bloc-fonctionnel("Measure", sous-titre: "Physical parameter (accel)"),
+    "Analog Signal",
+    bloc-fonctionnel("Condition & Sample", sous-titre: "Anti-aliasing filter & ADC"),
+    "Raw Samples",
+    bloc-fonctionnel("Process & Compute", sous-titre: "Digital filter and calibration"),
+    "Packets",
+    bloc-fonctionnel("Transmit", sous-titre: "2.4 GHz RF Link"),
+  ),
+  caption: [System functional pipeline synoptic],
+) <fig:chaine_fonc_en>
 
-At this stage, no technical implementation choices are made yet.
-
-== Hardware Architecture
-
-What hardware is used and why? How are the different technical building blocks interconnected?
+== Hardware Architecture (HW Synoptic)
 
 Analog signal conditioning and power subsystems are designed according to standard electronics literature @horowitz2015art. The main microcontroller and peripherals are configured following the manufacturer reference manual @stm32f401_datasheet. The IoT wireless communication stack follows modern protocols outlined in @al2015internet.
 
@@ -142,8 +158,18 @@ Analog signal conditioning and power subsystems are designed according to standa
 ]
 
 #figure(
-  logo-ece(width: 5.5cm),
-  caption: [Overall hardware architecture block diagram],
+  chaine-blocs(
+    bloc-fonctionnel("Li-Po Battery", sous-titre: "3.7 V / 1200 mAh"),
+    "V_bat",
+    bloc-fonctionnel("LDO Regulator", sous-titre: "3.3 V low-noise"),
+    "3.3 V",
+    bloc-fonctionnel("MPU-6050 Sensor", sous-titre: "6-axis IMU"),
+    "I2C",
+    bloc-fonctionnel("STM32F401RE", sous-titre: "ARM Cortex-M4 MCU"),
+    "SPI",
+    bloc-fonctionnel("LoRa / RF Transceiver", sous-titre: "SX1276 (868 MHz)"),
+  ),
+  caption: [Hardware architecture synoptic and bus interconnections (I2C and SPI)],
 ) <fig:archi_en>
 
 === Bill of Materials (BOM)
@@ -178,11 +204,57 @@ The complete component bill is listed in @tab:bom and the microcontroller pin co
   caption: [Microcontroller pinout and peripheral mapping],
 ) <tab:pinout>
 
-== Software Architecture
+== Software Architecture & Flowchart
 
-How does the embedded software operate?
+The bare-metal firmware runs on a hardware timer interrupt configured as a finite state machine:
 
-#note[Present a flowchart or state machine diagram of your firmware.]
+#figure(
+  algorigramme(
+    algo-debut("System Startup"),
+    "",
+    algo-action("Hardware Init", sous-titre: "Clocks, GPIOs, I2C1, SPI1"),
+    "",
+    algo-action("IMU Configuration", sous-titre: "±2g range, internal LPF"),
+    "",
+    algo-action("Read Accelerometer Registers"),
+    "",
+    algo-decision("Valid Data?"),
+    "YES",
+    algo-action("Compute Moving Average Filter"),
+    "YES",
+    algo-action("Transmit Radio Packet"),
+    "",
+    algo-fin("Enter Low-Power Sleep"),
+  ),
+  caption: [Firmware sensor acquisition and transmission flowchart],
+) <fig:algo_en>
+
+== Data Modeling & Relational Database (IoT & Telemetry)
+
+For projects featuring an IoT gateway or software backend, telemetry records are persisted in a relational SQL database:
+
+#figure(
+  grid(
+    columns: (auto, auto),
+    gutter: 20pt,
+    align: top,
+    table-bdd("SENSOR", (
+      ("id", "INT", "PK"),
+      ("name", "VARCHAR(50)", ""),
+      ("mac_address", "VARCHAR(17)", "UNIQUE"),
+      ("sample_rate", "INT", ""),
+    )),
+    table-bdd("TELEMETRY_RECORD", (
+      ("id", "BIGINT", "PK"),
+      ("sensor_id", "INT", "FK"),
+      ("timestamp", "DATETIME", ""),
+      ("val_x", "FLOAT", ""),
+      ("val_y", "FLOAT", ""),
+      ("val_z", "FLOAT", ""),
+    )),
+  ),
+  caption: [Relational schema for telemetry records (SQL tables)],
+) <fig:bdd_en>
 
 The I2C communication driver implementation is shown in @code:i2c :
 

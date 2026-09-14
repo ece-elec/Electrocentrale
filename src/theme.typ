@@ -1,29 +1,21 @@
-// ECE Paris - Thème, Couleurs, Polices et Notations Scientifiques
-
-// =============================================================================
-// COULEURS OFFICIELLES & SECONDAIRES DE L'ÉCOLE
-// =============================================================================
+// Couleurs de la charte ECE
 #let ece = rgb("#007A7B")
 #let gamboge = rgb("#E39B0F")
 #let darkpowderblue = rgb("#003399")
 #let verylightgray = rgb("#F0F0F0")
 #let warning-red = rgb("#D32F2F")
 
-// =============================================================================
-// PRESETS DE POLICES RECOMMANDÉES
-// =============================================================================
+// Polices recommandées
 #let font-presets = (
   "latex": "New Computer Modern",
   "typst-modern": "Libertinus Serif",
   "modern-sans": ("Helvetica Neue", "Arial"),
   "editorial": ("Charter", "PT Serif", "Times New Roman"),
 )
-#let polices-presets = font-presets // Alias de compatibilité
+#let polices-presets = font-presets
 
-// =============================================================================
-// RACCOURCIS & NOTATIONS D'INGÉNIERIE SCIENTIFIQUE
-// =============================================================================
-// Résistances & Impédances
+// Raccourcis de notation scientifique
+// Résistances & impédances
 #let ohm = $Omega$
 #let kohm = $k Omega$
 #let mohm = $M Omega$
@@ -59,12 +51,12 @@
 #let ns = $upright("ns")$
 #let ps = $upright("ps")$
 
-// Puissances & Décibels
+// Puissances & décibels
 #let mw = $upright("mW")$
 #let uw = $mu upright("W")$
 #let db = $upright("dB")$
 #let dbm = $upright("dBm")$
 
-// Température & Notations
+// Température
 #let degc = $degree upright("C")$
 #let celsius = $degree upright("C")$
