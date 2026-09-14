@@ -1,9 +1,9 @@
 // Modèle 2 : Rapport de Projet pour l'ECE Paris
 
-#import "theme.typ": *
-#import "utils.typ": *
-#import "i18n.typ": *
-#import "base.typ": *
+#import "../theme.typ": *
+#import "../utils.typ": *
+#import "../i18n.typ": *
+#import "../base.typ": *
 
 // Page de garde spécifique au rapport de Projet
 #let projet-cover(ctx) = {

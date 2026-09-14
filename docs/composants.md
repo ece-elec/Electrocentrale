@@ -16,20 +16,20 @@ Le paquet `ece-reports` inclut un ensemble d'outils et de composants prêts à l
 | `#table(...)`                          | `#table(columns: ..., ...)`                                                                                                   | Tableaux standards Typst (automatiquement stylisés aux couleurs ECE)                                |
 | `#table-double-entree(...)`            | `#table-double-entree(headers: (...), ...)`                                                                                   | Tableaux à double entrée (en-tête haut + en-tête de côté)                                      |
 | `#show: annexes`                       | `#show: annexes`                                                                                                              | Mode Annexes (A, B, A.1...) + préfixage auto des figures/tableaux (`Figure A.1`, `Tableau A.1`) |
-| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |
-| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |
-| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |
+| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |                                                                                                      |
+| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |                                                                                                      |
+| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |                                                                                                      |
 | `#vpp`, `#vrms`, `#vdc`, `#vac`  | `$V_("in") = 2.5#vpp$`                                                                                                        | Tensions caractéristiques, millivolt (`#mv`), microvolt (`#uv`)                                 |
 | `#db`, `#dbm`, `#degc`             | `$G = -20#db$`                                                                                                                | Décibels, puissances RF (`#dbm`, `#mw`), température (`#degc`)                               |
-| `#orga-equipe(...)`                | `#orga-equipe(responsable: ..., membres: (...))`                                                                               | Organigramme d'équipe projet avec connecteur arborescent vectoriel                            |
-| `#orga-entreprise(...)`            | `#orga-entreprise(direction: ..., poles: (...))`                                                                             | Organigramme d'entreprise/stage hiérarchique multi-pôles                                      |
-| `#gantt(...)`                      | `#gantt(unites: (...), taches: (...))`                                                                                        | Diagramme de Gantt pour plannings projet et stage                                             |
-| `#chaine-blocs(...)`               | `#chaine-blocs(bloc-fonctionnel(...), ...)`                                                                                   | Chaîne de blocs fonctionnels et flux de signaux                                               |
-| `#table-bdd(...)`                  | `#table-bdd("Nom", ((col, type, key), ...))`                                                                                 | Schéma relationnel de base de données avec clés PK/FK                                         |
-| `#algorigramme(...)`               | `#algorigramme(algo-debut(...), ...)`                                                                                         | Algorigramme et logigramme séquentiel                                                         |
-| `#attention[...]`                  | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                           |
-| `#nb[...]`                         | `#nb[Remarque]`                                                                                                               | Encart **NB :**                                                                               |
-| `#todo[...]`                       | `#todo[Section à compléter]`                                                                                                  | Surlignage TODO jaune                                                                         |
+| `#orga-equipe(...)`                    | `#orga-equipe(responsable: ..., membres: (...))`                                                                              | Organigramme d'équipe projet avec connecteur arborescent vectoriel                                  |
+| `#orga-entreprise(...)`                | `#orga-entreprise(direction: ..., poles: (...))`                                                                              | Organigramme d'entreprise/stage hiérarchique multi-pôles                                           |
+| `#gantt(...)`                          | `#gantt(unites: (...), taches: (...))`                                                                                        | Diagramme de Gantt pour plannings projet et stage                                                    |
+| `#chaine-blocs(...)`                   | `#chaine-blocs(bloc-fonctionnel(...), ...)`                                                                                   | Chaîne de blocs fonctionnels et flux de signaux                                                     |
+| `#table-bdd(...)`                      | `#table-bdd("Nom", ((col, type, key), ...))`                                                                                  | Schéma relationnel de base de données avec clés PK/FK                                             |
+| `#algorigramme(...)`                   | `#algorigramme(algo-debut(...), ...)`                                                                                         | Algorigramme et logigramme séquentiel                                                               |
+| `#attention[...]`                      | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                                  |
+| `#nb[...]`                             | `#nb[Remarque]`                                                                                                               | Encart**NB :**                                                                                 |
+| `#todo[...]`                           | `#todo[Section à compléter]`                                                                                                | Surlignage TODO jaune                                                                                |
 
 ---
 
@@ -254,6 +254,7 @@ Conçu pour illustrer la structure hiérarchique d'un projet étudiant (tuteur /
 ```
 
 **Options de `#carte-membre` :**
+
 - `nom` : Nom complet (texte ou contenu).
 - `role` : Rôle ou fonction dans le projet ou le service.
 - `affiliation` / `service` : Majeure, département, ou laboratoire.
@@ -369,20 +370,42 @@ Permet de représenter les phases d'un projet ou stage avec des barres colorées
 
 ### 4. Chaîne de blocs fonctionnels (`#chaine-blocs`)
 
-Idéal pour modéliser le synoptique d'un système matériel ou logiciel, avec des blocs rectangulaires et des bus de liaison :
+Idéal pour modéliser le synoptique d'un système matériel ou d'un pipeline logiciel. La grille s'adapte automatiquement à 100 % de la largeur disponible (sans dépassement de marge) et connecte les blocs par des liaisons bus vectorielles :
 
 ```typst
 #figure(
   chaine-blocs(
-    bloc-fonctionnel("Mesurer", sous-titre: "Capteurs IMU"),
-    "I2C (400 kHz)",
-    bloc-fonctionnel("Traiter", sous-titre: "STM32F4 / FreeRTOS"),
-    "UART (115200 bps)",
-    bloc-fonctionnel("Transmettre", sous-titre: "Module LoRa"),
+    bloc-fonctionnel("Batterie Li-Po", sous-titre: "3.7 V / 1200 mAh"),
+    "V_bat",
+    bloc-fonctionnel("Régulateur LDO", sous-titre: "3.3 V faible bruit"),
+    "3.3 V",
+    bloc-fonctionnel("Capteur MPU-6050", sous-titre: "IMU 6 axes"),
+    fleche-bus(label: "I2C", bidirectionnelle: true),
+    bloc-fonctionnel("STM32F401RE", sous-titre: "MCU ARM Cortex-M4"),
+    "SPI",
+    bloc-fonctionnel("Module LoRa / RF", sous-titre: "SX1276 (868 MHz)"),
   ),
-  caption: [Synoptique fonctionnel de la chaîne de mesure],
-) <fig:chaine>
+  caption: [Synoptique de l'architecture matérielle et des bus d'interconnexion],
+) <fig:archi>
 ```
+
+**Options de `#bloc-fonctionnel` :**
+
+- `titre` : Nom du bloc fonctionnel (texte ou contenu).
+- `sous-titre` : Précision technique, référence de composant ou débit.
+- `tag` : Badge facultatif en pilule (ex : `"HW"`, `"SW"`, `"PHY"`).
+- `couleur` : Couleur d'accentuation (cadre et titre).
+- `fill` : Couleur de fond (par défaut : gris très clair `#F8FAFC`).
+- `hauteur` : Hauteur uniforme du bloc (`48pt` par défaut pour garantir un alignement collinéaire parfait sur toute la ligne).
+- `compact` : Si `true`, réduit l'encombrement pour les chaînes denses.
+
+**Options de `#fleche-bus` :**
+
+- `label` : Nom du signal ou du bus (affiché au-dessus de la flèche). Peut aussi être passé directement en chaîne : `"I2C"`.
+- `bidirectionnelle` : Si `true`, affiche une double flèche `<--->` (idéal pour bus I2C, liaisons full-duplex).
+- `couleur` : Couleur de la ligne et des pointes de flèche.
+- `width` : Largeur minimale de la flèche (`auto` par défaut).
+- `pill` : Si `true`, affiche le label dans une pilule d'accentuation au lieu de la typographie technique directe (`false` par défaut).
 
 ---
 
@@ -407,18 +430,31 @@ Affiche une table de base de données avec typage des attributs et mise en évid
 
 ### 6. Algorigrammes & Logigrammes (`#algorigramme`)
 
-Permet de structurer des organigrammes de traitement séquentiel (initialisation, action, prise de décision conditionnelle, fin) :
+Permet de structurer des logigrammes conformes aux normes d'ingénierie (ISO 5807) avec des formes géométriques dédiées, des flèches vectorielles directes et la gestion intelligente des branchements conditionnels :
 
 ```typst
-#algorigramme(
-  algo-debut("Mise sous tension du système"),
-  "Démarrage bootloader",
-  algo-action("Initialisation des horloges & bus I2C"),
-  "Vérification communication",
-  algo-decision("Capteur IMU détecté"),
-  "Oui",
-  algo-action("Lancement de la tâche FreeRTOS"),
-  "Prêt",
-  algo-fin("Boucle principale active"),
-)
+#figure(
+  algorigramme(
+    algo-debut("Démarrage du système"),
+    algo-action("Initialisation matérielle", sous-titre: "Horloges, GPIO, I2C1, SPI1"),
+    algo-sous-programme("Configuration capteur IMU", sous-titre: "Plage ±2g, filtre interne"),
+    algo-es("Lecture des registres accéléromètre", sous-titre: "Trame brute I2C 6 octets"),
+    algo-decision("Données valides", non: "Rejet & Sommeil"),
+    "OUI",
+    algo-action("Calcul de la moyenne glissante", sous-titre: "Filtrage numérique FIR"),
+    algo-es("Téléversement de la trame radio", sous-titre: "Paquet LoRa SX1276"),
+    algo-fin("Mise en veille temporaire (Low Power)"),
+  ),
+  caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],
+) <fig:algo>
 ```
+
+**Symboles disponibles (ISO 5807) :**
+
+- `#algo-debut(texte)` / `#algo-fin(texte)` : Nœuds terminaux en capsule arrondie (début en vert ECE, fin/veille en rouge).
+- `#algo-action(texte, sous-titre: none)` : Traitement ou calcul standard (rectangle).
+- `#algo-es(texte, sous-titre: none)` (alias `#algo-io`) : Opération d'Entrée / Sortie (parallélogramme bleu).
+- `#algo-sous-programme(texte)` (alias `#algo-sous-routine`) : Sous-programme ou processus prédéfini (rectangle à doubles barres latérales).
+- `#algo-decision(question, non: none, pill: false)` : Prise de décision conditionnelle (losange ambre). Le paramètre optionnel `non:` génère une branche de déroutement latérale vers une action ou un rejet avec label `NON` / `NO` automatique selon la langue du document (typographie directe ou pilule avec `pill: true`).
+- `#algo-branche(condition, oui: (...), non: (...), pill: false)` : Bifurcation complète en 2 colonnes parallèles (Oui / Non).
+- `#fleche-algo(label, pill: false)` : Connecteur vertical vectoriel direct avec indication de condition (`OUI`, `NON`, `YES`, `NO`, ou durée). L'insertion des flèches est automatique entre deux blocs consécutifs.

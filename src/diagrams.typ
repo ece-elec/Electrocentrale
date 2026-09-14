@@ -444,48 +444,159 @@
 #let bloc-fonctionnel(
   titre,
   sous-titre: none,
-  fill: rgb("#EBF5F5"),
+  tag: none,
+  fill: rgb("#F8FAFC"),
   stroke: ece,
-  width: auto,
+  couleur: none,
+  width: 100%,
+  hauteur: 48pt,
+  min-height: auto,
+  compact: false,
 ) = {
+  let c = if couleur != none { couleur } else { stroke }
+  let h = if min-height != auto { min-height } else { hauteur }
   box(
     fill: fill,
-    stroke: 1.2pt + stroke,
+    stroke: 1.2pt + c,
     radius: 4pt,
-    inset: (x: 10pt, y: 8pt),
+    inset: (x: if compact { 3.5pt } else { 4.5pt }, y: 4pt),
     width: width,
-    align(center)[
-      #text(weight: "bold", size: 9.5pt, fill: stroke)[#titre]
+    height: if h != none and h != auto and h != 0pt { h } else { auto },
+    align(center + horizon)[
+      #set par(justify: false, leading: 2.2pt)
+      #set text(hyphenate: false)
+      #if tag != none [
+        #box(
+          fill: rgb("#F1F5F9"),
+          stroke: 0.5pt + rgb("#CBD5E1"),
+          radius: 2.5pt,
+          inset: (x: 3.5pt, y: 1pt),
+          text(size: 5.5pt, weight: "bold", fill: rgb("#475569"))[#tag]
+        )
+        #v(2pt)
+      ]
+      #text(weight: "bold", size: if compact { 7pt } else { 7.5pt }, fill: c)[#titre]
       #if sous-titre != none [
         #v(2pt)
-        #text(size: 7.5pt, fill: rgb("#555555"))[#sous-titre]
+        #text(size: if compact { 5.8pt } else { 6.2pt }, fill: rgb("#64748B"), weight: "regular")[#sous-titre]
       ]
     ]
   )
 }
+#let bloc = bloc-fonctionnel
 
-#let fleche-bus(label: none, couleur: ece) = {
-  box(
-    inset: (x: 4pt),
-    align(center)[
-      #if label != none { text(size: 7pt, fill: rgb("#666666"), weight: "bold")[#label \ ] }
-      #text(fill: couleur, size: 14pt)[#sym.arrow.r]
-    ]
-  )
-}
+#let fleche-bus(
+  ..args,
+  label: none,
+  couleur: ece,
+  bidirectionnelle: false,
+  width: auto,
+  pill: false,
+  min-width: 32pt,
+) = [
+  #metadata("fleche-bus")
+  #{
+    let l = if args.pos().len() > 0 { args.pos().at(0) } else { label }
+    let has-label = l != none and l != ""
+    let arrow-head-w = 4.8pt
+    let arrow-head-h = 5pt
 
-#let chaine-blocs(..elements) = {
-  align(center)[
-    #stack(
-      dir: ltr,
-      spacing: 6pt,
-      ..elements.pos().map(el => {
-        if type(el) == str {
-          fleche-bus(label: el)
+    let label-content = if has-label {
+      if pill [
+        #box(
+          inset: (x: 4pt, y: 1.2pt),
+          radius: 3pt,
+          fill: rgb("#F1F5F9"),
+          stroke: 0.5pt + rgb("#CBD5E1"),
+          text(size: 6pt, weight: "bold", fill: rgb("#334155"))[#l]
+        )
+      ] else [
+        #text(size: 6.5pt, weight: "bold", fill: rgb("#475569"))[#l]
+      ]
+    } else {
+      none
+    }
+
+    align(center + horizon)[
+      #set par(justify: false)
+      #context {
+        let label-w = if has-label { measure(label-content).width + 8pt } else { 0pt }
+        let total-w = if width != auto {
+          width
         } else {
-          el
+          calc.max(min-width, label-w)
         }
-      })
+
+        box(width: total-w)[
+          #stack(
+            spacing: 2.5pt,
+            if has-label {
+              align(center)[#label-content]
+            },
+            box(width: 100%, height: 8pt)[
+              #let line-start = if bidirectionnelle { arrow-head-w - 1.5pt } else { 0pt }
+              #let line-end = 100% - 1.5pt
+              #place(horizon)[#line(start: (line-start, 0pt), end: (line-end, 0pt), stroke: 1.2pt + couleur)]
+              #if bidirectionnelle [
+                #place(left + horizon)[
+                  #polygon(
+                    fill: couleur,
+                    (arrow-head-w, 0pt),
+                    (0pt, arrow-head-h / 2),
+                    (arrow-head-w, arrow-head-h),
+                  )
+                ]
+              ]
+              #place(right + horizon)[
+                #polygon(
+                  fill: couleur,
+                  (0pt, 0pt),
+                  (arrow-head-w, arrow-head-h / 2),
+                  (0pt, arrow-head-h),
+                )
+              ]
+            ]
+          )
+        ]
+      }
+    ]
+  }
+]
+
+#let is-bus-arrow(el) = type(el) == str or (type(el) == content and "fleche-bus" in repr(el))
+
+#let chaine-blocs(..elements, largeur-fleche: auto, pill: false) = {
+  let raw = elements.pos()
+  let cols = ()
+  let cells = ()
+  let i = 0
+  while i < raw.len() {
+    let el = raw.at(i)
+    if type(el) == str {
+      cols.push(auto)
+      cells.push(fleche-bus(label: el, width: largeur-fleche, pill: pill))
+      i += 1
+    } else if type(el) == content and "fleche-bus" in repr(el) {
+      cols.push(auto)
+      cells.push(el)
+      i += 1
+    } else {
+      cols.push(1fr)
+      cells.push(el)
+      if i + 1 < raw.len() and not is-bus-arrow(raw.at(i + 1)) {
+        cols.push(auto)
+        cells.push(fleche-bus(width: largeur-fleche, pill: pill))
+      }
+      i += 1
+    }
+  }
+
+  box(width: 100%)[
+    #grid(
+      columns: cols,
+      align: horizon + center,
+      column-gutter: 0pt,
+      ..cells
     )
   ]
 }
@@ -525,62 +636,370 @@
 #let schema-bdd = table-bdd
 
 // Algorigrammes et logigrammes
-#let algo-debut(texte) = box(
-  fill: rgb("#EBF5F5"),
-  stroke: 1.2pt + ece,
-  radius: 12pt,
-  inset: (x: 14pt, y: 6pt),
-  text(weight: "bold", size: 8.5pt, fill: ece)[#texte]
-)
+#let fleche-algo(
+  ..args,
+  label: none,
+  longueur: 22pt,
+  couleur: rgb("#64748B"),
+  pill: false,
+) = {
+  let l = if args.pos().len() > 0 { args.pos().at(0) } else { label }
+  let has-label = l != none and l != ""
+  let is-oui = l in ("OUI", "Oui", "oui", "YES", "Yes", "yes", "VRAI", "True")
+  let is-non = l in ("NON", "Non", "non", "NO", "No", "no", "FAUX", "False")
+  let badge-color = if is-oui { rgb("#15803D") } else if is-non { warning-red } else { rgb("#475569") }
+  let badge-bg = if is-oui { rgb("#F0FDF4") } else if is-non { rgb("#FEF2F2") } else { rgb("#F1F5F9") }
+  let badge-border = if is-oui { rgb("#86EFAC") } else if is-non { rgb("#FECACA") } else { rgb("#CBD5E1") }
 
-#let algo-action(texte, sous-titre: none) = box(
-  fill: white,
-  stroke: 0.8pt + rgb("#64748B"),
-  radius: 3pt,
-  inset: (x: 12pt, y: 7pt),
-  align(center)[
-    #text(weight: "medium", size: 8.5pt)[#texte]
-    #if sous-titre != none [ \ #text(size: 7pt, fill: rgb("#94A3B8"))[#sous-titre] ]
+  let vw = 5.2pt
+  let vh = 4.8pt
+
+  box(width: 80pt, height: longueur)[
+    #place(center + top)[
+      #line(start: (0pt, 0pt), end: (0pt, longueur - 1.5pt), stroke: 1.2pt + couleur)
+    ]
+    #place(center + bottom)[
+      #polygon(
+        fill: couleur,
+        (0pt, 0pt),
+        (vw, 0pt),
+        (vw / 2, vh),
+      )
+    ]
+    #if has-label [
+      #place(center + horizon, dx: 18pt)[
+        #if pill [
+          #box(
+            inset: (x: 4.5pt, y: 1.5pt),
+            radius: 3pt,
+            fill: badge-bg,
+            stroke: 0.6pt + badge-border,
+            text(size: 6.2pt, weight: "bold", fill: badge-color)[#l]
+          )
+        ] else [
+          #text(size: 7.2pt, weight: "bold", fill: badge-color)[#l]
+        ]
+      ]
+    ]
+  ]
+}
+
+#let algo-debut(texte, sous-titre: none, couleur: ece) = box(
+  fill: rgb("#EBF5F5"),
+  stroke: 1.2pt + couleur,
+  radius: 20pt,
+  inset: (x: 16pt, y: 6.5pt),
+  [
+    #set par(justify: false, leading: 2.2pt)
+    #set text(hyphenate: false)
+    #align(center)[
+      #text(weight: "bold", size: 8.5pt, fill: couleur)[#texte]
+      #if sous-titre != none [
+        #v(2pt)
+        #text(size: 7pt, fill: rgb("#555555"))[#sous-titre]
+      ]
+    ]
   ]
 )
 
-#let algo-decision(question) = box(
-  fill: rgb("#FFFBEB"),
-  stroke: 1pt + gamboge,
-  radius: 2pt,
-  inset: (x: 10pt, y: 6pt),
-  text(weight: "bold", size: 8.5pt, fill: rgb("#B45309"))[#question ?]
-)
-
-#let algo-fin(texte) = box(
+#let algo-fin(texte, sous-titre: none, couleur: warning-red) = box(
   fill: rgb("#FEF2F2"),
-  stroke: 1.2pt + warning-red,
-  radius: 12pt,
-  inset: (x: 14pt, y: 6pt),
-  text(weight: "bold", size: 8.5pt, fill: warning-red)[#texte]
+  stroke: 1.2pt + couleur,
+  radius: 20pt,
+  inset: (x: 16pt, y: 6.5pt),
+  [
+    #set par(justify: false, leading: 2.2pt)
+    #set text(hyphenate: false)
+    #align(center)[
+      #text(weight: "bold", size: 8.5pt, fill: couleur)[#texte]
+      #if sous-titre != none [
+        #v(2pt)
+        #text(size: 7pt, fill: rgb("#555555"))[#sous-titre]
+      ]
+    ]
+  ]
 )
 
-#let fleche-algo(label: none) = {
+#let algo-action(texte, sous-titre: none, width: 140pt, couleur: rgb("#64748B"), fill: white) = box(
+  width: width,
+  fill: fill,
+  stroke: 1pt + couleur,
+  radius: 3.5pt,
+  inset: (x: 8pt, y: 6.5pt),
+  [
+    #set par(justify: false, leading: 2.2pt)
+    #set text(hyphenate: false)
+    #align(center)[
+      #text(weight: "medium", size: 8.5pt, fill: rgb("#1E293B"))[#texte]
+      #if sous-titre != none [
+        #v(2pt)
+        #text(size: 7pt, fill: rgb("#64748B"))[#sous-titre]
+      ]
+    ]
+  ]
+)
+
+#let algo-es(texte, sous-titre: none, width: 154pt, height: 32pt, couleur: darkpowderblue) = {
+  let slant = 10pt
   box(
-    align(center)[
-      #if label != none [ #text(size: 7pt, weight: "bold", fill: rgb("#475569"))[#label \ ] ]
-      #text(fill: ece, size: 12pt)[#sym.arrow.b]
+    width: width,
+    height: if sous-titre != none { height + 10pt } else { height },
+    [
+      #set par(justify: false, leading: 2.2pt)
+      #set text(hyphenate: false)
+      #align(center + horizon)[
+        #place(top + left)[
+          #layout(size => {
+            let w = size.width
+            let h = size.height
+            polygon(
+              fill: rgb("#F0F7FF"),
+              stroke: 1.1pt + couleur,
+              (slant, 0pt),
+              (w, 0pt),
+              (w - slant, h),
+              (0pt, h),
+            )
+          })
+        ]
+        #box(width: width - slant * 2)[
+          #align(center)[
+            #text(weight: "semibold", size: 8.2pt, fill: couleur)[#texte]
+            #if sous-titre != none [
+              #v(1.5pt)
+              #text(size: 6.8pt, fill: rgb("#64748B"))[#sous-titre]
+            ]
+          ]
+        ]
+      ]
+    ]
+  )
+}
+#let algo-io = algo-es
+
+#let algo-decision(
+  question,
+  non: none,
+  label-non: auto,
+  width: 140pt,
+  height: 44pt,
+  couleur: rgb("#D97706"),
+  pill: false,
+) = {
+  let q = if type(question) == str and not question.ends-with("?") { question + " ?" } else { question }
+  box(
+    width: width,
+    height: height,
+    [
+      #set par(justify: false, leading: 2.2pt)
+      #set text(hyphenate: false)
+      #place(top + left)[
+        #polygon(
+          fill: rgb("#FFFBEB"),
+          stroke: 1.2pt + couleur,
+          (width / 2, 0pt),
+          (width, height / 2),
+          (width / 2, height),
+          (0pt, height / 2),
+        )
+      ]
+      #place(center + horizon)[
+        #box(width: width * 0.74)[
+          #align(center)[#text(weight: "bold", size: 7.8pt, fill: rgb("#B45309"))[#q]]
+        ]
+      ]
+      #if non != none [
+        #place(left + horizon, dx: width)[
+          #box(height: height)[
+            #context {
+              let lbl = if label-non != auto {
+                label-non
+              } else if text.lang == "en" {
+                "NO"
+              } else {
+                "NON"
+              }
+              let arrow-l = 42pt
+              let arrow-hw = 4.8pt
+              let arrow-hh = 5pt
+
+              grid(
+                columns: (arrow-l, auto),
+                align: horizon,
+                column-gutter: 4pt,
+                box(width: arrow-l, height: height)[
+                  #place(center + horizon, dy: -9pt)[
+                    #if pill [
+                      #box(
+                        fill: rgb("#FEF2F2"),
+                        inset: (x: 4pt, y: 1.2pt),
+                        radius: 2.5pt,
+                        stroke: 0.5pt + rgb("#FECACA")
+                      )[
+                        #text(size: 6pt, weight: "bold", fill: warning-red)[#lbl]
+                      ]
+                    ] else [
+                      #text(size: 7.2pt, weight: "bold", fill: warning-red)[#lbl]
+                    ]
+                  ]
+                  #place(center + horizon)[
+                    #line(start: (0pt, 0pt), end: (100% - 1.5pt, 0pt), stroke: 1.2pt + rgb("#64748B"))
+                    #place(right + horizon)[
+                      #polygon(
+                        fill: rgb("#64748B"),
+                        (0pt, 0pt),
+                        (arrow-hw, arrow-hh / 2),
+                        (0pt, arrow-hh),
+                      )
+                    ]
+                  ]
+                ],
+                if type(non) == str [
+                  #box(
+                    fill: rgb("#FEF2F2"),
+                    stroke: 1.1pt + warning-red,
+                    radius: 3.5pt,
+                    inset: (x: 8pt, y: 6pt),
+                    [
+                      #set par(justify: false)
+                      #set text(hyphenate: false)
+                      #text(size: 7.8pt, weight: "semibold", fill: warning-red)[#non]
+                    ]
+                  )
+                ] else {
+                  non
+                }
+              )
+            }
+          ]
+        ]
+      ]
     ]
   )
 }
 
-#let algorigramme(..etapes) = {
+#let algo-sous-programme(texte, sous-titre: none, width: 140pt, couleur: ece) = box(
+  width: width,
+  fill: rgb("#F8FAFC"),
+  stroke: 1pt + couleur,
+  radius: 3.5pt,
+  clip: true,
+  [
+    #set par(justify: false, leading: 2.2pt)
+    #set text(hyphenate: false)
+    #place(left + top)[#line(start: (6pt, 0pt), end: (6pt, 100%), stroke: 1pt + couleur)]
+    #place(right + top)[#line(start: (-6pt, 0pt), end: (-6pt, 100%), stroke: 1pt + couleur)]
+    #box(width: 100%, inset: (x: 12pt, y: 6.5pt), align(center)[
+      #text(weight: "bold", size: 8.5pt, fill: couleur)[#texte]
+      #if sous-titre != none [
+        #v(2pt)
+        #text(size: 7pt, fill: rgb("#64748B"))[#sous-titre]
+      ]
+    ])
+  ]
+)
+#let algo-sous-routine = algo-sous-programme
+
+#let algo-branche(
+  condition,
+  oui: (),
+  non: (),
+  label-oui: auto,
+  label-non: auto,
+  largeur-noeud: 120pt,
+  pill: false,
+) = {
+  let w = largeur-noeud
+  let g = 24pt
+  let arm = (w + g) / 2
+  let total-w = w * 2 + g
+  let oui-items = if type(oui) == array { oui } else { (oui,) }
+  let non-items = if type(non) == array { non } else { (non,) }
+
+  box(width: total-w)[
+    #align(center)[
+      #algo-decision(condition, width: w, pill: pill)
+      
+      #context {
+        let lbl-oui = if label-oui != auto { label-oui } else if text.lang == "en" { "YES" } else { "OUI" }
+        let lbl-non = if label-non != auto { label-non } else if text.lang == "en" { "NO" } else { "NON" }
+        let vw = 5.2pt
+        let vh = 4.8pt
+        box(width: total-w, height: 22pt)[
+          #place(center + top)[#line(start: (0pt, 0pt), end: (0pt, 9pt), stroke: 1.2pt + rgb("#64748B"))]
+          #place(center + top, dy: 9pt)[#line(start: (-arm, 0pt), end: (arm, 0pt), stroke: 1.2pt + rgb("#64748B"))]
+          #place(center + top, dx: -arm, dy: 9pt)[
+            #line(start: (0pt, 0pt), end: (0pt, 13pt - 1.5pt), stroke: 1.2pt + rgb("#64748B"))
+            #place(center + bottom)[#polygon(fill: rgb("#64748B"), (0pt, 0pt), (vw, 0pt), (vw / 2, vh))]
+          ]
+          #place(center + top, dx: arm, dy: 9pt)[
+            #line(start: (0pt, 0pt), end: (0pt, 13pt - 1.5pt), stroke: 1.2pt + rgb("#64748B"))
+            #place(center + bottom)[#polygon(fill: rgb("#64748B"), (0pt, 0pt), (vw, 0pt), (vw / 2, vh))]
+          ]
+          #place(center + top, dx: -arm / 2, dy: 0pt)[
+            #if pill [
+              #box(fill: rgb("#F0FDF4"), inset: (x: 4pt, y: 1.2pt), radius: 2.5pt, stroke: 0.5pt + rgb("#86EFAC"))[
+                #text(size: 6pt, weight: "bold", fill: rgb("#15803D"))[#lbl-oui]
+              ]
+            ] else [
+              #text(size: 7.2pt, weight: "bold", fill: rgb("#15803D"))[#lbl-oui]
+            ]
+          ]
+          #place(center + top, dx: arm / 2, dy: 0pt)[
+            #if pill [
+              #box(fill: rgb("#FEF2F2"), inset: (x: 4pt, y: 1.2pt), radius: 2.5pt, stroke: 0.5pt + rgb("#FECACA"))[
+                #text(size: 6pt, weight: "bold", fill: warning-red)[#lbl-non]
+              ]
+            ] else [
+              #text(size: 7.2pt, weight: "bold", fill: warning-red)[#lbl-non]
+            ]
+          ]
+        ]
+      }
+
+      #grid(
+        columns: (w, w),
+        column-gutter: g,
+        align: top + center,
+        stack(
+          spacing: 0pt,
+          ..oui-items.map(el => if type(el) == str { fleche-algo(label: el, pill: pill) } else { el })
+        ),
+        stack(
+          spacing: 0pt,
+          ..non-items.map(el => if type(el) == str { fleche-algo(label: el, pill: pill) } else { el })
+        )
+      )
+    ]
+  ]
+}
+
+#let algorigramme(..etapes, pill: false) = {
+  let raw = etapes.pos()
+  let items = ()
+  let i = 0
+  while i < raw.len() {
+    let current = raw.at(i)
+    if type(current) == str {
+      items.push(fleche-algo(label: if current != "" { current } else { none }, pill: pill))
+      i += 1
+    } else {
+      items.push(current)
+      if i + 1 < raw.len() {
+        let next-el = raw.at(i + 1)
+        if type(next-el) != str {
+          items.push(fleche-algo(pill: pill))
+        }
+      }
+      i += 1
+    }
+  }
+
   align(center)[
     #stack(
       dir: ttb,
-      spacing: 4pt,
-      ..etapes.pos().map(el => {
-        if type(el) == str {
-          fleche-algo(label: el)
-        } else {
-          el
-        }
-      })
+      spacing: 0pt,
+      ..items
     )
   ]
 }

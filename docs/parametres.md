@@ -1,12 +1,12 @@
 # ⚙️ Référence des Paramètres de Configuration
 
-Cette page détaille l'ensemble des paramètres configurables pour les modèles `#tp` (Rapport de TP) et `#projet` (Rapport de Projet).
+Cette page détaille l'ensemble des paramètres configurables pour les modèles `#tp` (Rapport de TP), `#projet` (Rapport de Projet) et `#conception` (Document de Conception).
 
-> **Interchangeabilité totale** : Tous les paramètres ci-dessous sont **100 % partagés et interchangeables**. Vous pouvez basculer entre `#show: tp.with(...)` et `#show: projet.with(...)` sans modifier vos options.
+> **Interchangeabilité totale** : Tous les paramètres ci-dessous sont **100 % partagés et interchangeables**. Vous pouvez basculer entre `#show: tp.with(...)`, `#show: projet.with(...)` et `#show: conception.with(...)` sans modifier vos options.
 
 ---
 
-## 🤝 Paramètres du moteur commun (`tp` & `projet`)
+## 🤝 Paramètres du moteur commun (`tp`, `projet` & `conception`)
 
 | Paramètre | Type | Valeur par défaut | Description |
 | :--- | :--- | :--- | :--- |
@@ -19,18 +19,18 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | `date` | `auto` / `str` | `auto` | Date d'édition (`auto` génère la date du jour dynamique via `datetime.today()`) |
 | `city` | `str` / `none` | `none` | Campus / Ville (défaut : `"Paris"` en FR, `"City"` en EN) |
 | `lang` | `str` | `"fr"` | Langue du document (`"fr"` pour français, `"en"` pour anglais) |
-| `abstract` | `content` / `none` | `none` | Résumé / Abstract encadré sur la page de garde (max ~20 lignes) |
-| `cover-image` | `auto` / `none` / `image` | `auto` (TP) / `none` (Projet) | Illustration optionnelle sur la page de titre (`elec.png` par défaut en TP) |
-| `tp-num` | `str` / `none` | `"[X]"` (TP) / `none` (Projet) | Numéro de TP (ex: `"1"`). Pris en compte par `tp`, ignoré proprement par `projet` |
+| `abstract` | `content` / `none` | `none` | Résumé / Avant-propos encadré sur la page de garde (max ~20 lignes) |
+| `cover-image` | `auto` / `none` / `image` | `auto` (TP) / `none` (Projet, Conception) | Illustration optionnelle sur la page de titre (`elec.png` par défaut en TP) |
+| `tp-num` | `str` / `none` | `"[X]"` (TP) / `none` | Numéro de TP (ex: `"1"`). Pris en compte par `tp`, ignoré proprement par `projet` et `conception` |
 | `doc-prefix` | `str` / `none` | `none` | Préfixe du type de document (défaut : `"TP"` en FR, `"LAB"` en EN) |
-| `attestation` | `auto` / `str` / `content` / `none` | `auto` | Déclaration sur l'honneur (`auto` = texte officiel ECE, `none` ou `false` pour masquer) |
-| `table-of-contents` | `bool` | `false` (TP) / `true` (Projet) | Activer ou désactiver la génération de la table des matières |
+| `attestation` | `auto` / `str` / `content` / `none` | `auto` | Déclaration sur l'honneur (`auto` = texte officiel adapté au document, `none` ou `false` pour masquer) |
+| `table-of-contents` | `bool` | `false` (TP) / `true` (Projet & Conception) | Activer ou désactiver la génération de la table des matières |
 | `table-of-figures` | `bool` | `false` | Génération automatique de la liste des figures |
 | `table-of-tables` | `bool` | `false` | Génération automatique de la liste des tableaux |
 | `same-page-figures-tables` | `bool` | `true` | Regrouper la liste des figures et des tableaux sur la même page si les deux sont activées (alias : `group-figures-tables`) |
 | `same-page-toc` | `bool` | `false` | Regrouper le sommaire général, la liste des figures et des tableaux sur la même page si court (alias : `group-outlines`) |
 | `toc-depth` | `int` | `3` | Profondeur d'imbrication des titres dans le sommaire |
-| `numbering-format` | `str` / `auto` | `auto` (TP : I, A, a) / `"1.1"` (Projet) | Format de numérotation des sections et sous-sections |
+| `numbering-format` | `str` / `auto` | `auto` (TP : I, A, a) / `"1.1"` (Projet & Conception) | Format de numérotation des sections et sous-sections |
 | `draft` | `bool` | `false` | Affiche un filigrane diagonal *"BROUILLON"* (FR) ou *"DRAFT"* (EN) |
 | `show-roles` | `bool` | `true` | Afficher ou masquer le rôle/titre sous les auteurs (alias : `show-role`) |
 | `show-emails` | `bool` | `true` | Afficher ou masquer les liens e-mail sous les auteurs (alias : `show-email`) |

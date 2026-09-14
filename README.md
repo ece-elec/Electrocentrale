@@ -13,12 +13,14 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/v0.1.0/assets/preview-tp.png" width="46%" alt="Aperçu Rapport de TP" />
-    
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/v0.1.0/assets/preview-projet.png" width="46%" alt="Aperçu Rapport de Projet" />
+  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/v0.1.0/assets/preview-tp.png" width="31%" alt="Aperçu Rapport de TP" />
+   
+  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/v0.1.0/assets/preview-projet.png" width="31%" alt="Aperçu Rapport de Projet" />
+   
+  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/v0.1.0/assets/preview-conception.png" width="31%" alt="Aperçu Document de Conception" />
 </p>
 
-Modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)** et de **Rapports de Projet (`projet`)** à l'**ECE (École Centrale d'Électronique)**.
+Modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)** et **Documents de Conception (`conception`)** à l'**ECE (École Centrale d'Électronique)**.
 
 > **Avertissement** : Ce projet est un template **non officiel**, non affilié à l'administration de l'établissement.
 
@@ -44,6 +46,7 @@ cd ece-reports
 # Tester les exemples complets
 typst watch examples/rapport-tp/rapport-tp-fr.typ
 typst watch examples/rapport-projet/rapport-projet-fr.typ
+typst watch examples/document-conception/document-conception-fr.typ
 ```
 
 ---
@@ -52,17 +55,19 @@ typst watch examples/rapport-projet/rapport-projet-fr.typ
 
 La documentation détaillée est disponible sur le dépôt GitHub du projet :
 
-- [⚙️ **Référence des Paramètres de Configuration**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/parametres.md) : options communes, spécifiques `tp` et `projet`, encadrant/tuteur (`supervisor`), styles de polices commutables (`font-presets`), auteurs structurés, mode filigrane `draft`.
-- [🛠️ **Utilitaires & Composants d'Ingénierie**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/composants.md) : questions `#t()` / `#e()`, encarts `#callout`, tableaux au style ECE (`#table`, `#table-double-entree`), figures intelligentes et gestionnaire d'annexes `#show: annexes`.
-- [📂 **Exemples prêts à l'emploi**](https://github.com/leonpwd/ece-reports/tree/v0.1.0/examples) : rapports en français et en anglais avec bibliographie BibTeX.
+- [⚙️ **Référence des Paramètres de Configuration**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/parametres.md) : options communes, modèles `tp`, `projet` et `conception`, encadrant/tuteur (`supervisor`), styles de polices commutables (`font-presets`), auteurs structurés, mode filigrane `draft`.
+- [🛠️ **Utilitaires & Composants d'Ingénierie**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/composants.md) : organigrammes vectoriels (`#orga-equipe`, `#orga-entreprise`), chaînes de blocs (`#chaine-blocs`), algorigrammes (`#algorigramme`), bases de données (`#table-bdd`), diagrammes de Gantt (`#gantt`), questions `#t()` / `#e()`, encarts `#callout`, tableaux au style ECE (`#table`, `#table-double-entree`), et gestionnaire d'annexes `#show: annexes`.
+- [📂 **Exemples prêts à l'emploi**](https://github.com/leonpwd/ece-reports/tree/v0.1.0/examples) : rapports de TP, projets et documents de conception bilingues (FR/EN) avec bibliographie IEEE.
 
 ---
 
 ## Fonctionnalités clés
 
-- **Deux modèles académiques** : Rapport de TP (`tp`) et Rapport de Projet complet (`projet`).
+- **Trois modèles académiques** : Rapport de TP (`tp`), Rapport de Projet complet (`projet`) et Document de Conception matériel & logiciel (`conception`).
+- **Composants d'ingénierie vectoriels** : Organigrammes hiérarchiques avec liens orthogonaux, synoptiques matériels `#chaine-blocs`, logigrammes et algorigrammes `#algorigramme`, schémas de BDD `#table-bdd` et diagrammes de Gantt `#gantt`.
 - **Styles typographiques** : `latex` (Computer Modern), `typst-modern` (Libertinus), `modern-sans` (Helvetica/Arial) et `editorial` (Charter).
 - **Suppléments de figures intelligents** : renvois automatiques *Figure*, *Tableau* (`@tab:...`) et *Code* (`@code:...`).
+
 
 ---
 

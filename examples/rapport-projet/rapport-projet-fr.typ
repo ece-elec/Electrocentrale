@@ -5,7 +5,7 @@
 
 // Modèle de Projet (changeable en `tp.with` sans modifier les arguments)
 #show: projet.with(
-  lang: "en",
+  lang: "fr",
   title: "Système Embarqué Autonome",
   promo: "ING5",
   major: "Systèmes Embarqués",
@@ -165,7 +165,7 @@ L'étage analogique et les alimentations sont dimensionnés selon les règles de
     bloc-fonctionnel("Régulateur LDO", sous-titre: "3.3 V faible bruit"),
     "3.3 V",
     bloc-fonctionnel("Capteur MPU-6050", sous-titre: "IMU 6 axes"),
-    "I2C",
+    fleche-bus(label: "I2C", bidirectionnelle: true),
     bloc-fonctionnel("STM32F401RE", sous-titre: "MCU ARM Cortex-M4"),
     "SPI",
     bloc-fonctionnel("Module LoRa / RF", sous-titre: "SX1276 (868 MHz)"),
@@ -211,19 +211,13 @@ L'ordonnancement de la boucle principale de mesure et de transmission radio est 
 #figure(
   algorigramme(
     algo-debut("Démarrage du système"),
-    "",
     algo-action("Initialisation matérielle", sous-titre: "Horloges, GPIO, I2C1, SPI1"),
-    "",
-    algo-action("Configuration du capteur IMU", sous-titre: "Plage ±2g, filtre passe-bas interne"),
-    "",
-    algo-action("Lecture des registres accéléromètre"),
-    "",
-    algo-decision("Données valides"),
+    algo-sous-programme("Configuration du capteur IMU", sous-titre: "Plage ±2g, filtre passe-bas interne"),
+    algo-es("Lecture des registres accéléromètre", sous-titre: "Trame brute I2C 6 octets"),
+    algo-decision("Données valides", non: "Rejet & Sommeil"),
     "OUI",
-    algo-action("Calcul de la moyenne glissante"),
-    "OUI",
-    algo-action("Téléversement de la trame radio"),
-    "",
+    algo-action("Calcul de la moyenne glissante", sous-titre: "Filtrage numérique FIR"),
+    algo-es("Téléversement de la trame radio", sous-titre: "Paquet LoRa SX1276 (868 MHz)"),
     algo-fin("Mise en veille temporaire (Low Power)"),
   ),
   caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],

@@ -1,9 +1,9 @@
 // Modèle 1 : Rapport de Travaux Pratiques (TP) pour l'ECE Paris
 
-#import "theme.typ": *
-#import "utils.typ": *
-#import "i18n.typ": *
-#import "base.typ": *
+#import "../theme.typ": *
+#import "../utils.typ": *
+#import "../i18n.typ": *
+#import "../base.typ": *
 
 // Page de garde spécifique au rapport de TP (sans encart résumé)
 #let tp-cover(ctx) = {
@@ -23,7 +23,6 @@
   line(length: 100%, stroke: 1.5pt + black)
   v(0.8cm)
 
-  // Illustration centrale (circuit)
   if ctx.cover-image != none {
     align(center)[
       #_render-cover(ctx.cover-image)

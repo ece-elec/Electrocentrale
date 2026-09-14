@@ -81,3 +81,53 @@
     draft_text: "DRAFT",
   ),
 )
+
+#let i18n-conception = (
+  "fr": (
+    type_doc: "DOCUMENT DE CONCEPTION",
+    groupe_prefix: "Groupe",
+    default_title: "[Nom du projet]",
+    default_date: "JJ/MM/AAAA",
+    default_city: "Ville",
+    date_connector: ", le ",
+    supervisor_prefix: "Sous la direction de : ",
+    abstract_title: "AVANT-PROPOS",
+    default_abstract: [Quel est le contexte et la problématique du projet ? Quels sont les objectifs techniques et fonctionnels ? [maximum 20 lignes]
+
+Ce document doit donner toutes les informations nécessaires à quelqu’un pour comprendre et éventuellement reprendre le développement de votre projet.
+
+Ce genre de documentation est une brique fondamentale du travail en milieu professionnel, où l’on ne sait jamais qui va être amené un jour à retravailler sur un projet.],
+    attestation: "Nous attestons que ce travail est original, qu’il est le fruit\nd’un travail commun à l’équipe de projet et qu’il a été rédigé de manière autonome.",
+    toc_title: "Table des matières",
+    tof_title: "Liste des figures",
+    tot_title: "Liste des tableaux",
+    supp_figure: [Figure],
+    supp_table: [Tableau],
+    supp_code: [Code],
+    draft_text: "BROUILLON",
+  ),
+  "en": (
+    type_doc: "DESIGN DOCUMENT",
+    groupe_prefix: "Group",
+    default_title: "[Project Name]",
+    default_date: "MM/DD/YYYY",
+    default_city: "City",
+    date_connector: ", ",
+    supervisor_prefix: "Supervised by: ",
+    abstract_title: "FOREWORD",
+    default_abstract: [What is the context and problem statement of the project? What are the technical and functional objectives? [maximum 20 lines]
+
+This document must provide all necessary information for someone to understand and potentially take over the development of your project.
+
+This kind of documentation is a fundamental building block in a professional environment, where you never know who might work on a project in the future.],
+    attestation: "We certify that this submission is our own original work,\nand meets the Faculty’s Expectation and Originality.",
+    toc_title: "Table of Contents",
+    tof_title: "List of Figures",
+    tot_title: "List of Tables",
+    supp_figure: [Figure],
+    supp_table: [Table],
+    supp_code: [Listing],
+    draft_text: "DRAFT",
+  ),
+)
+
