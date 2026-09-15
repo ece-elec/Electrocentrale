@@ -35,9 +35,11 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 | `show-roles` | `bool` | `true` | Afficher ou masquer le rôle/titre sous les auteurs (alias : `show-role`) |
 | `show-emails` | `bool` | `true` | Afficher ou masquer les liens e-mail sous les auteurs (alias : `show-email`) |
 | `show-supervisor-email` | `auto` / `bool` | `auto` | Afficher ou masquer l'adresse e-mail du tuteur/enseignant (`auto` suit `show-emails`) |
+| `show-header` | `bool` | `true` (`false` pour stage) | Afficher ou masquer l'en-tête courant sur les pages normales (`header: none` si `false`) |
 | `equation-numbering` | `str` / `none` | `none` | Format de numérotation des équations mathématiques (ex: `"(1)"`) |
-| `font` | `str` / `array` | `"New Computer Modern"` | Famille(s) de polices typographiques du document |
-| `font-size` | `length` | `11pt` | Taille de la police du corps de texte |
+| `font` | `str` / `array` | `"New Computer Modern"` (`"Arial"` pour stage) | Famille(s) de polices typographiques du document |
+| `font-size` | `length` | `11pt` (`10pt` pour stage) | Taille de la police du corps de texte |
+| `leading` | `length` | `0.65em` | Interligne des paragraphes (`0.65em` = interligne simple standard) |
 | `logo` | `auto` / `none` / `image` | `auto` | Logo vectoriel ECE officiel en en-tête et page de garde |
 
 ---
@@ -47,7 +49,7 @@ Cette page détaille l'ensemble des paramètres configurables pour les modèles 
 Le paquet intègre des styles typographiques prédéfinis accessibles via le dictionnaire `font-presets` :
 
 ```typst
-#let style-police = "latex" // "latex" | "typst-modern" | "modern-sans" | "editorial"
+#let style-police = "arial" // "arial" | "latex" | "typst-modern" | "modern-sans" | "editorial"
 
 #show: tp.with(
   font: font-presets.at(style-police, default: "New Computer Modern"),
@@ -57,6 +59,7 @@ Le paquet intègre des styles typographiques prédéfinis accessibles via le dic
 
 | Preset | Famille de polices | Rendu |
 | :--- | :--- | :--- |
+| `"arial"` | *Arial* | Police officielle recommandée pour les rapports de stage ECE |
 | `"latex"` | *New Computer Modern* | Style scientifique LaTeX classique avec sérifs |
 | `"typst-modern"` | *Libertinus Serif* | Style moderne, aéré et élégant |
 | `"modern-sans"` | *Helvetica Neue / Arial* | Style clean et contemporain sans empattement |
@@ -122,3 +125,62 @@ Vous pouvez piloter précisément la visibilité de l'e-mail de l'encadrant via 
 - `show-supervisor-email: auto` (défaut) : suit automatiquement la valeur globale de `show-emails`.
 - `show-supervisor-email: false` : masque l'e-mail du tuteur même si `show-emails: true`.
 - `show-supervisor-email: true` : affiche l'e-mail du tuteur même si les e-mails des étudiants sont masqués.
+
+---
+
+## 🏢 Paramètres spécifiques au modèle de stage (`#stage`)
+
+Le modèle `#stage` reproduit fidèlement la page de garde officielle ECE et insère automatiquement en dernière page la fiche d'évaluation entreprise obligatoire.
+Il applique par défaut les normes de rédaction ECE pour les rapports de stage :
+- **Police** : Arial en taille 10pt (`font: "Arial"`, `font-size: 10pt`)
+- **Interligne** : simple (`leading: 0.65em`)
+- **En-têtes** : aucun texte ni logo sur les pages intérieures normales (`show-header: false`)
+
+```typst
+#show: stage.with(
+  student: (
+    firstname: "Camille",
+    lastname: "MARTIN",
+    major: "Systèmes Embarqués",
+  ),
+  cycle: "Cycle Ingénieur",
+  annee-cycle: "2e année",
+  annee-universitaire: "2025-2026",
+  company: (
+    name: "Innovatech Solutions SAS",
+    address: "12 rue de l'Innovation, 75015 Paris",
+  ),
+  confidential: false,           // true = oui, false = non (case à cocher)
+  return-to-supervisor: false,   // remettre le rapport au tuteur après correction
+  mission-description: [Objectifs globaux du stage...],
+  missions: (
+    [Mission 1...],
+    [Mission 2...],
+  ),
+  maitre-de-stage: (
+    name: "Dr. Thomas BERNARD",
+    email: "thomas.bernard@innovatech-solutions.fr",
+    phone: "01 40 00 00 00",
+  ),
+  signature-maitre-de-stage: none, // image("signature.png", width: 4cm) ou none
+  city: "Paris",
+)
+```
+
+| Paramètre | Type | Valeur par défaut | Description |
+| :--- | :--- | :--- | :--- |
+| `student` | `dictionary` / `str` | `none` | Informations élève : `firstname`, `lastname`, `major` (alias : `first-name`, `last-name`) |
+| `company` | `dictionary` / `str` | `none` | Entreprise d'accueil : `name`, `address` (alias : `entreprise`, `company-name`, `company-address`) |
+| `confidential` | `bool` / `none` | `none` | Case à cocher Confidentialité (alias : `confidentiel`) |
+| `return-to-supervisor` | `bool` / `none` | `none` | Case à cocher Rapport à remettre au maître de stage (alias : `remettre-maitre-de-stage`, `remettre-tuteur`) |
+| `mission-description` | `content` / `str` | `none` | Paragraphe d'objectifs (alias : `mission`, `description-mission`) |
+| `missions` | `array` | `()` | Liste des missions confiées (puces automatiques) |
+| `maitre-de-stage` | `dictionary` / `str` | `none` | Nom, email et téléphone du maître de stage (alias : `supervisor`, `tuteur`) |
+| `signature-maitre-de-stage` | `image` / `content` / `none` | `none` | Signature du maître de stage (espace blanc si `none`, alias : `supervisor-signature`, `signature`) |
+| `maitre-de-stage-phone` | `str` / `none` | `none` | Téléphone du maître de stage pour la fiche d'évaluation (alias : `supervisor-phone`) |
+| `cycle` | `str` | `"Cycle Ingénieur"` | Cycle d'études (ex : `"Cycle Ingénieur"`, `"Master in Engineering"`) |
+| `annee-cycle` | `str` | `"2e année"` | Année du cycle (ex : `"1ère année"`, `"2e année"`, `"3e année"`, alias : `cycle-year`) |
+| `annee-universitaire` | `str` | `"2025-2026"` | Année universitaire (alias : `academic-year`) |
+| `evaluation-sections` | `array` / `none` | `none` (officiel ECE) | Grille de critères modifiable : `(title, total, criteria: ((label, max), ...))` (alias : `grille-evaluation`) |
+| `evaluation-final-scale` | `int` / `float` | `20` | Barème final ramené (ex : `20` pour "Soit /20") |
+| `evaluation-observations` | `content` / `str` | `none` | Remarques pré-remplies dans le cadre Observations de la fiche d'évaluation |

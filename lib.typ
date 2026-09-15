@@ -8,4 +8,5 @@
 #import "src/models/tp.typ": *
 #import "src/models/projet.typ": *
 #import "src/models/conception.typ": *
+#import "src/models/stage.typ": *
 #import "src/diagrams.typ": *

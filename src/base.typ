@@ -98,6 +98,10 @@
   show-emails: true,
   show-email: true,
   show-supervisor-email: auto,
+  show-header: true,
+  header: auto,
+  show-footer: true,
+  footer: auto,
   draft: false,
 
   // Sommaires et listes
@@ -113,6 +117,7 @@
   // Typographie & Numérotation
   font: "New Computer Modern",
   font-size: 11pt,
+  leading: 0.65em,
   lang: "fr",
   numbering-format: auto,
   equation-numbering: none,
@@ -193,31 +198,43 @@
     } else {
       none
     },
-    header: context {
-      let current_page = counter(page).get().first()
-      if current_page > 1 {
-        let headings = query(heading.where(level: 1))
-        let has_h1_on_page = headings.any(h => h.location().page() == current_page)
-        let current_heading = headings.rev().find(h => h.location().page() <= current_page)
-        let promo_label = if actual_major != none { promo + " – " + actual_major } else { promo }
-        grid(
-          columns: (auto, 1fr, auto),
-          align: (left + horizon, center + horizon, right + horizon),
-          _render-logo(logo, width: 2.5cm),
-          if not has_h1_on_page and current_heading != none [
-            #text(size: 9pt, fill: rgb("#666666"), style: "italic")[
-              #current_heading.body
-            ]
-          ],
-          text(size: 9.5pt, weight: "bold", hyphenate: false)[#promo_label #h(0.4em) #actual_groupe],
-        )
+    header: if not show-header or header == none {
+      none
+    } else if header != auto {
+      header
+    } else {
+      context {
+        let current_page = counter(page).get().first()
+        if current_page > 1 {
+          let headings = query(heading.where(level: 1))
+          let has_h1_on_page = headings.any(h => h.location().page() == current_page)
+          let current_heading = headings.rev().find(h => h.location().page() <= current_page)
+          let promo_label = if actual_major != none { promo + " – " + actual_major } else { promo }
+          grid(
+            columns: (auto, 1fr, auto),
+            align: (left + horizon, center + horizon, right + horizon),
+            _render-logo(logo, width: 2.5cm),
+            if not has_h1_on_page and current_heading != none [
+              #text(size: 9pt, fill: rgb("#666666"), style: "italic")[
+                #current_heading.body
+              ]
+            ],
+            text(size: 9.5pt, weight: "bold", hyphenate: false)[#promo_label #h(0.4em) #actual_groupe],
+          )
+        }
       }
     },
-    footer: context {
-      let i = counter(page).get().first()
-      let total = counter(page).final().first()
-      if i > 1 {
-        align(center, text(size: 10pt)[#i / #total])
+    footer: if not show-footer or footer == none {
+      none
+    } else if footer != auto {
+      footer
+    } else {
+      context {
+        let i = counter(page).get().first()
+        let total = counter(page).final().first()
+        if i > 1 {
+          align(center, text(size: 10pt)[#i / #total])
+        }
       }
     }
   )
@@ -231,7 +248,7 @@
 
   set par(
     justify: true,
-    leading: 0.65em,
+    leading: leading,
     first-line-indent: 0pt,
   )
 

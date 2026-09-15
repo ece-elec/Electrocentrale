@@ -6,13 +6,10 @@ Modèle Typst bilingue (Français / Anglais) pour la rédaction de documents de 
 
 ```bash
 # Compiler la version française
-typst compile document-conception-fr.typ
-
-# Compiler la version anglaise
-typst compile document-conception-en.typ
+typst compile document-conception.typ
 
 # Mode live-reload pendant la rédaction
-typst watch document-conception-fr.typ
+typst watch document-conception.typ
 ```
 
 ## ⚙️ Structure et particularités

@@ -6,10 +6,7 @@ Modèle Typst bilingue (Français / Anglais) pour la rédaction de rapports de T
 
 ```bash
 # Compiler la version française
-typst compile rapport-tp-fr.typ
-
-# Compiler la version anglaise
-typst compile rapport-tp-en.typ
+typst compile rapport-tp.typ
 
 # Mode live-reload pendant la rédaction
 typst watch rapport-tp-fr.typ

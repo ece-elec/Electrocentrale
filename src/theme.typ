@@ -7,6 +7,7 @@
 
 // Polices recommandées
 #let font-presets = (
+  "arial": "Arial",
   "latex": "New Computer Modern",
   "typst-modern": "Libertinus Serif",
   "modern-sans": ("Helvetica Neue", "Arial"),

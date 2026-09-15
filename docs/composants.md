@@ -458,3 +458,146 @@ Permet de structurer des logigrammes conformes aux normes d'ingénierie (ISO 580
 - `#algo-decision(question, non: none, pill: false)` : Prise de décision conditionnelle (losange ambre). Le paramètre optionnel `non:` génère une branche de déroutement latérale vers une action ou un rejet avec label `NON` / `NO` automatique selon la langue du document (typographie directe ou pilule avec `pill: true`).
 - `#algo-branche(condition, oui: (...), non: (...), pill: false)` : Bifurcation complète en 2 colonnes parallèles (Oui / Non).
 - `#fleche-algo(label, pill: false)` : Connecteur vertical vectoriel direct avec indication de condition (`OUI`, `NON`, `YES`, `NO`, ou durée). L'insertion des flèches est automatique entre deux blocs consécutifs.
+
+---
+
+### 7. Diagrammes UML (`#classe-uml`, `#sequence-uml`)
+
+Le paquet fournit un ensemble de diagrammes UML 100 % vectoriels en Typst natif, sans aucune dépendance externe (`cetz`, `pintorita`, etc.) et respectant la charte visuelle de l'ECE Paris.
+
+#### A. Diagramme de classes (`#diagramme-classes`, `#classe-uml`, `#relation-uml`)
+
+Affiche des classes à 3 compartiments (en-tête, attributs, méthodes) avec parsing automatique des modificateurs de visibilité (`+` vert public, `-` rouge privé, `#` orange protégé, `~` bleu package) et connecteurs vectoriels standardisés.
+
+```typst
+#figure(
+  diagramme-classes(
+    classe-uml(
+      "Capteur",
+      stereotype: "abstract",
+      abstrait: true,
+      attributs: (
+        "# id: int",
+        "# i2c_addr: uint8_t",
+        "- is_calibrated: bool",
+      ),
+      methodes: (
+        "+ init(): bool",
+        "+ read_raw(): uint16_t",
+        "# calibrate(): void",
+      ),
+    ),
+    relation-uml(type-rel: "heritage", label: "hérite de", direction: "gauche"),
+    classe-uml(
+      "BME280",
+      attributs: (
+        "- oversampling: uint8_t",
+        "- standby_time: uint8_t",
+      ),
+      methodes: (
+        "+ init(): bool",
+        "+ read_temperature(): float",
+        "+ read_pressure(): float",
+      ),
+    ),
+  ),
+  caption: [Spécialisation de capteurs en programmation orientée objet],
+)
+```
+
+**Types de relations supportés (`type-rel:`) :**
+- `"heritage"` : Flèche creuse fermée (héritage / généralisation).
+- `"implementation"` : Trait pointillé avec flèche creuse fermée (réalisation d'interface).
+- `"composition"` : Losange plein noir/accentué (composition forte).
+- `"aggregation"` : Losange creux (agrégation faible).
+- `"association"` : Trait plein avec flèche ouverte `->`.
+- `"dependance"` : Trait pointillé avec flèche ouverte `..>`.
+
+#### B. Diagramme de séquence (`#sequence-uml` / `#diagramme-sequence`)
+
+Représente l'échange chronologique de messages entre composants, microservices ou tâches logicielles.
+
+```typst
+#figure(
+  sequence-uml(
+    participants: (
+      (nom: "Client Web", tag: "Frontend"),
+      (nom: "API Gateway", tag: "NestJS"),
+      (nom: "Base de Données", tag: "PostgreSQL"),
+    ),
+    messages: (
+      (de: 1, vers: 2, label: "POST /auth/login", type: "sync"),
+      (de: 2, vers: 3, label: "SELECT * FROM users", type: "sync"),
+      (de: 3, vers: 2, label: "UserRecord", type: "retour"),
+      (de: 2, vers: 2, label: "verifyPassword()", type: "sync"),
+      (de: 2, vers: 1, label: "200 OK (JWT Cookie)", type: "retour"),
+    ),
+  ),
+  caption: [Flux d'authentification et interactions inter-services],
+)
+```
+
+---
+
+### 8. Graphes d'Appels & Architectures Logicielles (`#arbre-appels`, `#call-graph`)
+
+Indispensable pour documenter la structure des projets en Informatique, Logiciel et Systèmes Embarqués (firmware C/C++, RTOS, architectures multi-couches).
+
+#### A. Arbre d'appels hiérarchique (`#arbre-appels` / `#call-tree`)
+
+Affiche une arborescence d'exécution avec lignes de dérivation vectorielles, badges contextuels (`RESET`, `WHILE(1)`, `HAL`, `SPI`) et typographie mono-espacée.
+
+```typst
+#figure(
+  arbre-appels(
+    noeud-appel("main()", tag: "RESET", enfants: (
+      noeud-appel("SystemClock_Config()", tag: "RCC"),
+      noeud-appel("MX_GPIO_Init()"),
+      noeud-appel("App_MainLoop()", tag: "WHILE(1)", enfants: (
+        noeud-appel("BME280_AcquireAll()", enfants: (
+          noeud-appel("HAL_I2C_Mem_Read()", tag: "HAL"),
+        )),
+        noeud-appel("LoRa_TransmitPacket()", enfants: (
+          noeud-appel("SX1276_WriteFIFO()", tag: "SPI"),
+        )),
+      )),
+    )),
+  ),
+  caption: [Arbre d'appels d'exécution du microcontrôleur],
+)
+```
+
+#### B. Graphe d'appels par couches architecturales (`#call-graph` / `#call-graph-couches`)
+
+Visualise l'organisation logicielle en couches superposées (*Application $\rightarrow$ Middleware $\rightarrow$ Pilotes HAL/CMSIS*) avec flèches de dépendance descendante.
+
+```typst
+#figure(
+  call-graph(
+    couches: (
+      (
+        nom: "1. Couche Application",
+        fonctions: (
+          (nom: "main()", tag: "ENTRY"),
+          (nom: "App_TaskMeteo()", tag: "10 Hz"),
+        ),
+      ),
+      (
+        nom: "2. Couche Middleware & Pilotes",
+        fonctions: (
+          (nom: "BME280_Driver()", tag: "Driver"),
+          (nom: "LoRaWAN_Stack()", tag: "Stack"),
+        ),
+      ),
+      (
+        nom: "3. Couche Matérielle (HAL)",
+        fonctions: (
+          (nom: "HAL_I2C_Transfer()", tag: "I2C1"),
+          (nom: "HAL_SPI_Transmit()", tag: "SPI2"),
+        ),
+      ),
+    ),
+  ),
+  caption: [Architecture logicielle et flux d'appels entre couches],
+)
+```

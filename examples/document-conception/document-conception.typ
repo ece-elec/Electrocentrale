@@ -5,7 +5,7 @@
 
 // Modèle de Document de Conception ECE Paris
 #show: conception.with(
-  lang: "fr",
+  lang: "en",
   title: "Station Météo Autonome Connectée",
   promo: "ING5",
   major: "Systèmes Embarqués",
