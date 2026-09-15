@@ -9,7 +9,7 @@ Modèle Typst bilingue (Français / Anglais) pour la rédaction de rapports de T
 typst compile rapport-tp.typ
 
 # Mode live-reload pendant la rédaction
-typst watch rapport-tp-fr.typ
+typst watch rapport-tp.typ
 ```
 
 ## ⚙️ Options principales

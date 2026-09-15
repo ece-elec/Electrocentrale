@@ -109,7 +109,7 @@ cd mon-rapport
 Le dossier contient le template et des exemples prets a l'emploi. Copier un exemple comme point de depart :
 
 ```bash
-cp examples/rapport-tp/rapport-tp-fr.typ main.typ
+cp examples/rapport-tp/rapport-tp.typ main.typ
 ```
 
 ### Ouvrir le dossier dans VS Code

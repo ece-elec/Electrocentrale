@@ -46,10 +46,10 @@ git clone https://github.com/leonpwd/ece-reports.git
 cd ece-reports
 
 # Tester les exemples complets
-typst watch examples/rapport-tp/rapport-tp-fr.typ
-typst watch examples/rapport-projet/rapport-projet-fr.typ
-typst watch examples/document-conception/document-conception-fr.typ
-typst watch examples/rapport-stage/rapport-stage-fr.typ
+typst watch examples/rapport-tp/rapport-tp.typ
+typst watch examples/rapport-projet/rapport-projet.typ
+typst watch examples/document-conception/document-conception.typ
+typst watch examples/rapport-stage/rapport-stage.typ
 ```
 
 ---

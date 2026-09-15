@@ -69,6 +69,8 @@ Des boîtes d'information colorées avec bordures arrondies facilitent la mise e
 ]
 ```
 
+![Aperçu des encarts callout](assets/callouts.png)
+
 Encarts rapides :
 
 ```typst
@@ -157,6 +159,8 @@ Pour créer des matrices, bilans énergétiques ou tableaux de correspondance av
   caption: [Matrice de consommation énergétique selon les modes de fonctionnement],
 ) <tab:modes>
 ```
+
+![Aperçu du tableau à double entrée](assets/table-double-entree.png)
 
 > **Astuce - Pleine largeur dans un document à deux colonnes :** Si votre document utilise une mise en page à deux colonnes (`#show: columns.with(2)`), étendez un tableau sur les deux colonnes via `#figure(placement: top, scope: "parent")[ #table(...) ]`.
 
@@ -252,6 +256,8 @@ Conçu pour illustrer la structure hiérarchique d'un projet étudiant (tuteur /
   caption: [Organigramme fonctionnel de l'équipe projet],
 ) <fig:orga>
 ```
+
+![Aperçu de l'organigramme d'équipe](assets/orga-equipe.png)
 
 **Options de `#carte-membre` :**
 
@@ -366,6 +372,8 @@ Permet de représenter les phases d'un projet ou stage avec des barres colorées
 ) <fig:gantt>
 ```
 
+![Aperçu du diagramme de Gantt](assets/gantt.png)
+
 ---
 
 ### 4. Chaîne de blocs fonctionnels (`#chaine-blocs`)
@@ -388,6 +396,8 @@ Idéal pour modéliser le synoptique d'un système matériel ou d'un pipeline lo
   caption: [Synoptique de l'architecture matérielle et des bus d'interconnexion],
 ) <fig:archi>
 ```
+
+![Aperçu de la chaîne de blocs](assets/chaine-blocs.png)
 
 **Options de `#bloc-fonctionnel` :**
 
@@ -426,6 +436,8 @@ Affiche une table de base de données avec typage des attributs et mise en évid
 )
 ```
 
+![Aperçu du schéma relationnel](assets/table-bdd.png)
+
 ---
 
 ### 6. Algorigrammes & Logigrammes (`#algorigramme`)
@@ -448,6 +460,8 @@ Permet de structurer des logigrammes conformes aux normes d'ingénierie (ISO 580
   caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],
 ) <fig:algo>
 ```
+
+![Aperçu de l'algorigramme](assets/algorigramme.png)
 
 **Symboles disponibles (ISO 5807) :**
 
@@ -505,6 +519,8 @@ Affiche des classes à 3 compartiments (en-tête, attributs, méthodes) avec par
 )
 ```
 
+![Aperçu du diagramme de classes UML](assets/uml-classes.png)
+
 **Types de relations supportés (`type-rel:`) :**
 - `"heritage"` : Flèche creuse fermée (héritage / généralisation).
 - `"implementation"` : Trait pointillé avec flèche creuse fermée (réalisation d'interface).
@@ -537,6 +553,8 @@ Représente l'échange chronologique de messages entre composants, microservices
 )
 ```
 
+![Aperçu du diagramme de séquence UML](assets/uml-sequence.png)
+
 ---
 
 ### 8. Graphes d'Appels & Architectures Logicielles (`#arbre-appels`, `#call-graph`)
@@ -566,6 +584,8 @@ Affiche une arborescence d'exécution avec lignes de dérivation vectorielles, b
   caption: [Arbre d'appels d'exécution du microcontrôleur],
 )
 ```
+
+![Aperçu de l'arbre d'appels](assets/arbre-appels.png)
 
 #### B. Graphe d'appels par couches architecturales (`#call-graph` / `#call-graph-couches`)
 
@@ -601,3 +621,5 @@ Visualise l'organisation logicielle en couches superposées (*Application $\righ
   caption: [Architecture logicielle et flux d'appels entre couches],
 )
 ```
+
+![Aperçu du graphe d'appels par couches](assets/call-graph.png)

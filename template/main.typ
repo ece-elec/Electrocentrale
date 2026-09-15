@@ -4,11 +4,13 @@
 #let langue = "fr" // "fr" ou "en"
 #let style-police = "latex" // "arial" | "latex" | "typst-modern" | "modern-sans" | "editorial"
 
-// Choix du modèle : changez simplement `tp.with` en `projet.with`, `conception.with` ou `stage.with`
+// Choix du modèle (décommentez le modèle souhaité pour votre document)
+
+// --- Modèle 1 : Rapport de Travaux Pratiques (TP) ---
 #show: tp.with(
   lang: langue,
   title: "Filtres Actifs et Traitement du Signal",
-  tp-num: "1", // utilisé par le modèle tp, ignoré automatiquement par projet/conception
+  tp-num: "1", // numéro de TP
   promo: "ING5",
   major: "Systèmes Embarqués", // ou none
   groupe: "Groupe 02",
@@ -16,17 +18,57 @@
     (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Électronique analogique"),
     (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Mesures et banc de test"),
   ),
-  supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"), // ou "Dr. Jean DUPONT" ou none
-  show-roles: true, // masquer les rôles en passant à false
-  show-emails: true, // masquer les adresses email en passant à false
-  show-supervisor-email: true, // masquer l'email de l'encadrant en passant à false
-  date: auto,  // ou date: "15 octobre 2026" pour une date fixe
+  supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"), // ou string ou none
+  show-roles: true,
+  show-emails: true,
+  date: auto,
   city: "Paris",
-  draft: false, // passer à true pour activer le filigrane "BROUILLON"
-  abstract: [Contexte, problématique et objectifs techniques du travail réalisé.],
-  // equation-numbering: "(1)",  // décommenter pour numéroter les équations
+  draft: false,
   font: font-presets.at(style-police, default: "New Computer Modern"),
 )
+
+// --- Modèle 2 : Rapport de Projet ---
+// #show: projet.with(
+//   lang: langue,
+//   title: "Système de Télémétrie et Surveillance Temps Réel",
+//   promo: "ING5",
+//   major: "Systèmes Embarqués",
+//   groupe: "Groupe 02",
+//   authors: (
+//     (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Chef de projet"),
+//     (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Architecture logicielle"),
+//   ),
+//   supervisor: "Dr. Jean DUPONT",
+//   abstract: [Contexte, problématique et objectifs techniques du projet.],
+//   font: font-presets.at(style-police, default: "New Computer Modern"),
+// )
+
+// --- Modèle 3 : Document de Conception (Architecture technique / CDC) ---
+// #show: conception.with(
+//   lang: langue,
+//   title: "Dossier de Conception Matérielle et Logicielle",
+//   promo: "ING5",
+//   major: "Systèmes Embarqués",
+//   authors: (
+//     (name: "André-Marie AMPÈRE", email: "ampere@ece.fr"),
+//     (name: "Alessandro VOLTA", email: "volta@ece.fr"),
+//   ),
+//   abstract: [Avant-propos et spécifications fonctionnelles du système.],
+//   font: font-presets.at(style-police, default: "New Computer Modern"),
+// )
+
+// --- Modèle 4 : Rapport de Stage (avec fiche d'évaluation officielle) ---
+// #show: stage.with(
+//   title: "Virtualisation et Sécurisation d'une Plateforme Embarquée",
+//   student: (firstname: "Camille", lastname: "MARTIN", major: "Systèmes Embarqués"),
+//   company: (name: "Innovatech Solutions SAS", address: "12 rue de l'Innovation, 75015 Paris"),
+//   confidential: false,
+//   return-to-supervisor: false,
+//   mission-description: [Objectif principal et cadre de la mission de stage.],
+//   missions: ([Qualifier l'environnement Linux], [Déployer la solution]),
+//   maitre-de-stage: (name: "Dr. Thomas BERNARD", email: "thomas.bernard@innovatech.fr", phone: "01 40 00 00 00"),
+//   city: "Paris",
+// )
 
 = Première partie : Étude théorique et expérimentale
 == Analyse fréquentielle
