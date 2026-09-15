@@ -14,11 +14,11 @@
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-tp.png" width="23.5%" alt="Aperçu Rapport de TP" />
-  &nbsp;
+   
   <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-projet.png" width="23.5%" alt="Aperçu Rapport de Projet" />
-  &nbsp;
+   
   <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-conception.png" width="23.5%" alt="Aperçu Document de Conception" />
-  &nbsp;
+   
   <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
 </p>
 
@@ -54,13 +54,14 @@ typst watch examples/rapport-stage/rapport-stage.typ
 
 ---
 
-## 📚 Documentation
+## Documentation
 
-La documentation détaillée est disponible sur le dépôt GitHub du projet :
+La documentation détaillée est structurée en plusieurs guides thématiques :
 
-- [⚙️ **Référence des Paramètres de Configuration**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/parametres.md) : options communes, modèles `tp`, `projet`, `conception` et `stage`, encadrant/tuteur (`supervisor`), styles de polices commutables (`font-presets`), auteurs structurés, mode filigrane `draft`.
-- [🛠️ **Utilitaires & Composants d'Ingénierie**](https://github.com/leonpwd/ece-reports/blob/v0.1.0/docs/composants.md) : organigrammes vectoriels (`#orga-equipe`, `#orga-entreprise`), chaînes de blocs (`#chaine-blocs`), algorigrammes (`#algorigramme`), bases de données (`#table-bdd`), diagrammes de Gantt (`#gantt`), questions `#t()` / `#e()`, encarts `#callout`, tableaux au style ECE (`#table`, `#table-double-entree`), et gestionnaire d'annexes `#show: annexes`.
-- [📂 **Exemples prêts à l'emploi**](https://github.com/leonpwd/ece-reports/tree/v0.1.0/examples) : rapports de TP, projets, documents de conception et rapports de stage avec bibliographie IEEE.
+- [**Guide de démarrage pas à pas (Tutoriel)**](docs/tutoriel.md) : installation de Typst (macOS, Windows, Linux), configuration de VS Code avec Tinymist, collaboration sur typst.app et rédaction d'un premier document pas à pas.
+- [**Référence des Paramètres de Configuration**](docs/parametres.md) : options communes, modèles `tp`, `projet`, `conception` et `stage`, maître de stage / encadrant (`supervisor`), styles de polices commutables (`font-presets`), auteurs structurés, mode filigrane `draft`.
+- [**Utilitaires & Composants d'Ingénierie**](docs/composants.md) : organigrammes vectoriels (`#orga-equipe`, `#orga-entreprise`), chaînes de blocs (`#chaine-blocs`), algorigrammes (`#algorigramme`), diagrammes UML (`#classe-uml`, `#sequence-uml`), graphes d'appels (`#call-graph`), bases de données (`#table-bdd`), diagrammes de Gantt (`#gantt`), questions `#t()` / `#e()`, encarts `#callout`, tableaux au style ECE (`#table`, `#table-double-entree`), et gestionnaire d'annexes `#show: annexes`.
+- [**Exemples complets prêts à l'emploi**](examples/) : rapports complets de TP, projets, documents de conception, rapports de stage et galeries de diagrammes.
 
 ---
 
@@ -70,7 +71,6 @@ La documentation détaillée est disponible sur le dépôt GitHub du projet :
 - **Composants d'ingénierie vectoriels** : Organigrammes hiérarchiques avec liens orthogonaux, synoptiques matériels `#chaine-blocs`, logigrammes et algorigrammes `#algorigramme`, schémas de BDD `#table-bdd` et diagrammes de Gantt `#gantt`.
 - **Styles typographiques** : `latex` (Computer Modern), `typst-modern` (Libertinus), `modern-sans` (Helvetica/Arial) et `editorial` (Charter).
 - **Suppléments de figures intelligents** : renvois automatiques *Figure*, *Tableau* (`@tab:...`) et *Code* (`@code:...`).
-
 
 ---
 

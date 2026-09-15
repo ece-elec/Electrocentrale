@@ -1,6 +1,8 @@
 # ⚙️ Référence des Paramètres de Configuration
 
-Cette page détaille l'ensemble des paramètres configurables pour les modèles `#tp` (Rapport de TP), `#projet` (Rapport de Projet) et `#conception` (Document de Conception).
+[📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
+
+Cette page détaille l'ensemble des paramètres configurables pour les modèles `#tp` (Rapport de TP), `#projet` (Rapport de Projet), `#conception` (Document de Conception) et `#stage` (Rapport de Stage).
 
 > **Interchangeabilité totale** : Tous les paramètres ci-dessous sont **100 % partagés et interchangeables**. Vous pouvez basculer entre `#show: tp.with(...)`, `#show: projet.with(...)` et `#show: conception.with(...)` sans modifier vos options.
 

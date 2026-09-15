@@ -1,5 +1,7 @@
 # 🛠️ Utilitaires & Composants d'Ingénierie
 
+[📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
+
 Le paquet `ece-reports` inclut un ensemble d'outils et de composants prêts à l'emploi pour enrichir vos rapports scientifiques et d'ingénierie.
 
 ---

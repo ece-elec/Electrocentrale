@@ -5,7 +5,7 @@ Modèle Typst bilingue (Français / Anglais) pour la rédaction de documents de 
 ## 🚀 Utilisation rapide
 
 ```bash
-# Compiler la version française
+# Compiler le document
 typst compile document-conception.typ
 
 # Mode live-reload pendant la rédaction

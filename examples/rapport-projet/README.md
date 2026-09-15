@@ -5,7 +5,7 @@ Modèle Typst bilingue (Français / Anglais) pour la rédaction de rapports de p
 ## 🚀 Utilisation rapide
 
 ```bash
-# Compiler la version française
+# Compiler le document
 typst compile rapport-projet.typ
 
 # Mode live-reload pendant la rédaction

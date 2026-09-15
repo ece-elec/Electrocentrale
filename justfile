@@ -29,6 +29,7 @@ watch file="template/main.typ":
 
 # Nettoyer les fichiers de sortie temporaires
 clean:
-    rm -f /tmp/template.pdf /tmp/rapport-tp-*.pdf /tmp/rapport-projet-*.pdf /tmp/document-conception-*.pdf /tmp/rapport-stage-*.pdf /tmp/organigrammes.pdf /tmp/diagrammes-uml.pdf /tmp/test_*.png
+    rm -f /tmp/template.pdf /tmp/rapport-*.pdf /tmp/document-*.pdf /tmp/organigrammes.pdf /tmp/diagrammes-uml.pdf /tmp/test_*.png
+    @echo "🧹 Fichiers temporaires nettoyés."
 
 

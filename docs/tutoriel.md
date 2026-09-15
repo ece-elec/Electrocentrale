@@ -1,5 +1,7 @@
 # Tutoriel : Ecrire son premier rapport ECE avec Typst
 
+[📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
+
 Ce guide s'adresse aux etudiants qui n'ont jamais utilise Typst. Il couvre l'installation, la configuration de l'editeur et la redaction d'un rapport complet avec le template `ece-reports`.
 
 ---
@@ -373,6 +375,7 @@ Creer un fichier `refs.bib` dans le meme dossier, puis ajouter en fin de documen
 
 ## Ressources
 
-- [Documentation Typst](https://typst.app/docs/) -- reference officielle du langage
+- [Documentation Typst](https://typst.app/docs/) -- référence officielle du langage Typst
 - [Typst Universe](https://typst.app/universe/) -- packages et templates communautaires
-- [Documentation ece-reports](https://github.com/leonpwd/ece-reports) -- parametres et composants disponibles
+- [⚙️ Référence des paramètres](parametres.md) -- tableau exhaustif des options des 4 modèles
+- [🛠️ Composants d'ingénierie](composants.md) -- schémas vectoriels, diagrammes UML et utilitaires ECE

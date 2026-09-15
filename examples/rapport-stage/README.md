@@ -14,7 +14,7 @@ typst watch rapport-stage.typ
 
 ## 📋 Caractéristiques du modèle `stage`
 
-- **Page de garde officielle** : Reproduction fidèle de la couverture ECE (Élève ingénieur, Entreprise d'accueil, Confidentialité avec cases à cocher, Description de la mission, Signature du tuteur).
-- **Fiche d'évaluation entreprise** : Toujours incluse en dernière page avec le barème officiel (Technique /20, Qualités humaines /20, Total /40 ramené sur /20, Observations, Date, Signature tuteur et Cachet entreprise).
+- **Page de garde officielle** : Reproduction fidèle de la couverture ECE (Élève ingénieur, Entreprise d'accueil, Confidentialité avec cases à cocher, Description de la mission, Signature du maître de stage).
+- **Fiche d'évaluation entreprise** : Toujours incluse en dernière page avec le barème officiel (Technique /20, Qualités humaines /20, Total /40 ramené sur /20, Observations, Date, Signature maître de stage et Cachet entreprise).
 - **Table des matières automatique** : Activée par défaut avec numérotation hiérarchique `1.1`.
-- **Styles de police interchangeables** : `"latex"`, `"typst-modern"`, `"modern-sans"`, `"editorial"`.
+- **Styles de police interchangeables** : `"arial"` (recommandé et par défaut pour le stage), `"latex"`, `"typst-modern"`, `"modern-sans"`, `"editorial"`.
