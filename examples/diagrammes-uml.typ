@@ -1,4 +1,4 @@
-#import "@preview/ece-reports:0.1.0": *
+#import "@preview/electrocentrale:0.1.0": *
 
 #set page(
   paper: "a4",

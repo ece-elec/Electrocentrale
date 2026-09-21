@@ -1,4 +1,4 @@
-# Justfile - Command runner pour ece-reports
+# Justfile - Command runner pour electrocentrale
 
 default:
     @just --list

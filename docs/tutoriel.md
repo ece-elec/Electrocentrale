@@ -2,7 +2,7 @@
 
 [📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
 
-Ce guide s'adresse aux etudiants qui n'ont jamais utilise Typst. Il couvre l'installation, la configuration de l'editeur et la redaction d'un rapport complet avec le template `ece-reports`.
+Ce guide s'adresse aux etudiants qui n'ont jamais utilise Typst. Il couvre l'installation, la configuration de l'editeur et la redaction d'un rapport complet avec le template `electrocentrale`.
 
 ---
 
@@ -68,7 +68,7 @@ Tinymist est l'extension de reference pour editer du Typst dans VS Code. Elle fo
 Téléchargez la dernière version du template :
 
 ```Shell
-git clone github.com/leonpwd/ece-reports.git
+git clone https://github.com/ece-elec/ece-reports.git
 ```
 
 Une fois le document ouvert sur Typst.app, suivez la procédure suivante pour importer le template ECE :
@@ -82,7 +82,7 @@ Une fois le document ouvert sur Typst.app, suivez la procédure suivante pour im
 Sur `main.typ`, vous pouvez maintenant importer le template avec un chemin relatif vers `lib.typ` :
 
 ```typst
-#import "ece-reports/lib.typ": *
+#import "electrocentrale/lib.typ": *
 ```
 
 Le reste du fichier s'utilise exactement comme avec `@preview` (voir section 4). Remplacez simplement la ligne d'import.
@@ -104,7 +104,7 @@ Note : l'apercu PDF n'est visible que sur la machine du host. Les guests editent
 Ouvrir un terminal et executer :
 
 ```bash
-git clone https://github.com/leonpwd/ece-reports.git mon-rapport
+git clone https://github.com/ece-elec/ece-reports.git mon-rapport
 cd mon-rapport
 ```
 
@@ -146,7 +146,7 @@ Cela recompile le PDF a chaque sauvegarde.
 Le fichier `main.typ` genere par `typst init` ressemble a ceci :
 
 ```typst
-#import "@preview/ece-reports:0.1.0": *
+#import "@preview/electrocentrale:0.1.0": *
 
 #let langue = "fr"
 #let style-police = "latex"

@@ -1,4 +1,4 @@
-<h1 align="center">🎓 ECE — Modèles Typst Non Officiels</h1>
+<h1 align="center">⚡ electrocentrale — Modèles Typst (ECE Paris)</h1>
 
 <p align="center">
   <a href="https://typst.app">
@@ -7,24 +7,19 @@
   <a href="LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg" />
   </a>
-  <a href="#-avertissement">
-    <img alt="Status: Unofficial" src="https://img.shields.io/badge/Status-Non%20Officiel-lightgrey.svg" />
-  </a>
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-tp.png" width="23.5%" alt="Aperçu Rapport de TP" />
+  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-tp.png" width="23.5%" alt="Aperçu Rapport de TP" />
    
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-projet.png" width="23.5%" alt="Aperçu Rapport de Projet" />
+  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-projet.png" width="23.5%" alt="Aperçu Rapport de Projet" />
    
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-conception.png" width="23.5%" alt="Aperçu Document de Conception" />
+  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-conception.png" width="23.5%" alt="Aperçu Document de Conception" />
    
-  <img src="https://raw.githubusercontent.com/leonpwd/ece-reports/main/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
+  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
 </p>
 
-Modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)**, **Documents de Conception (`conception`)** et **Rapports de Stage (`stage`)** à l'**ECE (École Centrale d'Électronique)**.
-
-> **Avertissement** : Ce projet est un template **non officiel**, non affilié à l'administration de l'établissement.
+**electrocentrale** propose des modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)**, **Documents de Conception (`conception`)** et **Rapports de Stage (`stage`)** à l'**ECE (École Centrale d'Électronique)**.
 
 ---
 
@@ -34,7 +29,7 @@ Modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)*
 
 ```bash
 # Initialiser un nouveau rapport
-typst init @preview/ece-reports mon-rapport
+typst init @preview/electrocentrale mon-rapport
 cd mon-rapport
 typst watch main.typ
 ```
@@ -42,7 +37,7 @@ typst watch main.typ
 ### Option B : Utilisation locale directe
 
 ```bash
-git clone https://github.com/leonpwd/ece-reports.git
+git clone https://github.com/ece-elec/ece-reports.git
 cd ece-reports
 
 # Tester les exemples complets
@@ -76,7 +71,7 @@ La documentation détaillée est structurée en plusieurs guides thématiques :
 
 ## 🤝 Contributions
 
-Les contributions, signalements de bugs et suggestions sont les bienvenus via [Issues](https://github.com/leonpwd/ece-reports/issues) ou [Pull Requests](https://github.com/leonpwd/ece-reports/pulls).
+Les contributions, signalements de bugs et suggestions sont les bienvenus via [Issues](https://github.com/ece-elec/ece-reports/issues) ou [Pull Requests](https://github.com/ece-elec/ece-reports/pulls).
 
 ---
 

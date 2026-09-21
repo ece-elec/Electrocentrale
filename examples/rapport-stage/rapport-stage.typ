@@ -1,4 +1,4 @@
-#import "@preview/ece-reports:0.1.0": *
+#import "@preview/electrocentrale:0.1.0": *
 
 // Choix de la typographie : "arial" (recommandé pour le rapport de stage) | "latex" | "typst-modern" | "modern-sans" | "editorial"
 #let style-police = "arial"
