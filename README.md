@@ -1,4 +1,4 @@
-<h1 align="center">⚡ electrocentrale — Modèles Typst (ECE Paris)</h1>
+<h1 align="center"> electrocentrale — Modèles Typst</h1>
 
 <p align="center">
   <a href="https://typst.app">
@@ -23,7 +23,7 @@
 
 ---
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 ### Option A : Depuis Typst Universe
 
@@ -51,31 +51,20 @@ typst watch examples/rapport-stage/rapport-stage.typ
 
 ## Documentation
 
-La documentation détaillée est structurée en plusieurs guides thématiques :
-
-- [**Guide de démarrage pas à pas (Tutoriel)**](docs/tutoriel.md) : installation de Typst (macOS, Windows, Linux), configuration de VS Code avec Tinymist, collaboration sur typst.app et rédaction d'un premier document pas à pas.
-- [**Référence des Paramètres de Configuration**](docs/parametres.md) : options communes, modèles `tp`, `projet`, `conception` et `stage`, maître de stage / encadrant (`supervisor`), styles de polices commutables (`font-presets`), auteurs structurés, mode filigrane `draft`.
-- [**Utilitaires & Composants d'Ingénierie**](docs/composants.md) : organigrammes vectoriels (`#orga-equipe`, `#orga-entreprise`), chaînes de blocs (`#chaine-blocs`), algorigrammes (`#algorigramme`), diagrammes UML (`#classe-uml`, `#sequence-uml`), graphes d'appels (`#call-graph`), bases de données (`#table-bdd`), diagrammes de Gantt (`#gantt`), questions `#t()` / `#e()`, encarts `#callout`, tableaux au style ECE (`#table`, `#table-double-entree`), et gestionnaire d'annexes `#show: annexes`.
-- [**Exemples complets prêts à l'emploi**](examples/) : rapports complets de TP, projets, documents de conception, rapports de stage et galeries de diagrammes.
+- [**Tutoriel pas à pas**](docs/tutoriel.md) : installation de Typst, configuration de VS Code (Tinymist) et rédaction d'un premier rapport.
+- [**Paramètres de configuration**](docs/parametres.md) : référence complète des options (`tp`, `projet`, `conception`, `stage`), tuteurs et styles de polices.
+- [**Composants d'ingénierie**](docs/composants.md) : organigrammes, chaînes de blocs, algorigrammes ISO, diagrammes UML, Gantt, tables BDD et encarts.
+- [**Exemples complets**](examples/) : rapports et galeries de diagrammes prêts à compiler.
 
 ---
 
-## Fonctionnalités clés
-
-- **Quatre modèles académiques** : Rapport de TP (`tp`), Rapport de Projet complet (`projet`), Document de Conception matériel & logiciel (`conception`) et Rapport de Stage avec fiche d'évaluation entreprise (`stage`).
-- **Composants d'ingénierie vectoriels** : Organigrammes hiérarchiques avec liens orthogonaux, synoptiques matériels `#chaine-blocs`, logigrammes et algorigrammes `#algorigramme`, schémas de BDD `#table-bdd` et diagrammes de Gantt `#gantt`.
-- **Styles typographiques** : `latex` (Computer Modern), `typst-modern` (Libertinus), `modern-sans` (Helvetica/Arial) et `editorial` (Charter).
-- **Suppléments de figures intelligents** : renvois automatiques *Figure*, *Tableau* (`@tab:...`) et *Code* (`@code:...`).
-
----
-
-## 🤝 Contributions
+## Contributions
 
 Les contributions, signalements de bugs et suggestions sont les bienvenus via [Issues](https://github.com/ece-elec/ece-reports/issues) ou [Pull Requests](https://github.com/ece-elec/ece-reports/pulls).
 
 ---
 
-## 📄 Licence
+## Licence
 
 - **Code source & gabarits** : sous licence [MIT](LICENSE).
 - **Logos & identité visuelle** : propriété exclusive de l'ECE.
