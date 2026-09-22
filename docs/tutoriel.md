@@ -68,7 +68,7 @@ Tinymist est l'extension de reference pour editer du Typst dans VS Code. Elle fo
 Téléchargez la dernière version du template :
 
 ```Shell
-git clone https://github.com/ece-elec/ece-reports.git
+git clone https://github.com/ece-elec/Electrocentrale.git
 ```
 
 Une fois le document ouvert sur Typst.app, suivez la procédure suivante pour importer le template ECE :
@@ -104,7 +104,7 @@ Note : l'apercu PDF n'est visible que sur la machine du host. Les guests editent
 Ouvrir un terminal et executer :
 
 ```bash
-git clone https://github.com/ece-elec/ece-reports.git mon-rapport
+git clone https://github.com/ece-elec/Electrocentrale.git mon-rapport
 cd mon-rapport
 ```
 

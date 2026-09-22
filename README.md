@@ -10,13 +10,13 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-tp.png" width="23.5%" alt="Aperçu Rapport de TP" />
+  <img src="https://raw.githubusercontent.com/ece-elec/Electrocentrale/main/assets/preview-tp.png" width="23.5%" alt="Aperçu Rapport de TP" />
    
-  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-projet.png" width="23.5%" alt="Aperçu Rapport de Projet" />
+  <img src="https://raw.githubusercontent.com/ece-elec/Electrocentrale/main/assets/preview-projet.png" width="23.5%" alt="Aperçu Rapport de Projet" />
    
-  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-conception.png" width="23.5%" alt="Aperçu Document de Conception" />
+  <img src="https://raw.githubusercontent.com/ece-elec/Electrocentrale/main/assets/preview-conception.png" width="23.5%" alt="Aperçu Document de Conception" />
    
-  <img src="https://raw.githubusercontent.com/ece-elec/ece-reports/main/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
+  <img src="https://raw.githubusercontent.com/ece-elec/Electrocentrale/main/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
 </p>
 
 **electrocentrale** propose des modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)**, **Documents de Conception (`conception`)** et **Rapports de Stage (`stage`)** à l'**ECE (École Centrale d'Électronique)**.
@@ -37,8 +37,8 @@ typst watch main.typ
 ### Option B : Utilisation locale directe
 
 ```bash
-git clone https://github.com/ece-elec/ece-reports.git
-cd ece-reports
+git clone https://github.com/ece-elec/Electrocentrale.git
+cd Electrocentrale
 
 # Tester les exemples complets
 typst watch examples/rapport-tp/rapport-tp.typ
@@ -60,7 +60,7 @@ typst watch examples/rapport-stage/rapport-stage.typ
 
 ## Contributions
 
-Les contributions, signalements de bugs et suggestions sont les bienvenus via [Issues](https://github.com/ece-elec/ece-reports/issues) ou [Pull Requests](https://github.com/ece-elec/ece-reports/pulls).
+Les contributions, signalements de bugs et suggestions sont les bienvenus via [Issues](https://github.com/ece-elec/Electrocentrale/issues) ou [Pull Requests](https://github.com/ece-elec/Electrocentrale/pulls).
 
 ---
 
