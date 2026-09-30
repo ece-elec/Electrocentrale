@@ -57,61 +57,52 @@ Tinymist est l'extension de reference pour editer du Typst dans VS Code. Elle fo
 1. Visiter : [marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist)
 2. Cliquer sur "Install" et accepter l'ouverture du lien dans VSCode
 
-### Collaborer en temps réel sur un rapport :
+### Collaborer en temps réel sur un rapport
 
-[typst.app](https://typst.app/) est le site Officiel Typst pour collaborer gratuitement en temps réel à la manière d'un Google Docs. Il suffit de créer un compte et de créer un document vierge sur le dashboard et de lui donner un nom.
+#### Option 1 : Directement sur l'application Web Typst (typst.app)
 
-**TODO : Publier le template sur Typst.app pour import rapide en une ligne**
+[typst.app](https://typst.app/) est la plateforme web officielle de Typst pour rédiger et collaborer gratuitement en temps réel à la manière d'un Google Docs ou Overleaf.
 
-#### Import du template
+Le template étant officiellement publié sur [Typst Universe](https://typst.app/universe/package/electrocentrale), son utilisation en ligne est immédiate :
 
-Téléchargez la dernière version du template :
+1. **Démarrer depuis le template** : Rendez-vous sur [Typst Universe - electrocentrale](https://typst.app/universe/package/electrocentrale) et cliquez sur **"Start from template"** (ou "Open in app"). Un projet complet prêt à l'emploi est généré automatiquement.
+2. **Ou importer dans un projet existant** : Créez un document vierge et ajoutez simplement la ligne :
+   ```typst
+   #import "@preview/electrocentrale:0.1.0": *
+   ```
 
-```Shell
-git clone https://github.com/ece-elec/Electrocentrale.git
-```
+Typst résout automatiquement le package en arrière-plan.
 
-Une fois le document ouvert sur Typst.app, suivez la procédure suivante pour importer le template ECE :
+#### Option 2 : Collaboration via VS Code (Live Share)
 
-1. File
-2. "Upload file"
-3. "Pick a Folder"
-4. Choisissez le dossier téléchargé depuis Github
-5. "Upload 45 files"
+[Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) est une extension Microsoft qui permet à plusieurs personnes d'éditer le même projet simultanément dans VS Code.
 
-Sur `main.typ`, vous pouvez maintenant importer le template avec un chemin relatif vers `lib.typ` :
+Chaque participant voit les modifications des autres en temps réel. Le host (celui qui partage) doit avoir Tinymist installé pour que l'autocomplétion et la vérification d'erreurs fonctionnent pour tout le monde.
 
-```typst
-#import "electrocentrale/lib.typ": *
-```
-
-Le reste du fichier s'utilise exactement comme avec `@preview` (voir section 4). Remplacez simplement la ligne d'import.
+> **Note** : L'aperçu PDF interactif s'affiche sur la machine du host.
 
 ---
 
-### Collaboration via VS Code (Live Share)
+## 3. Créer un nouveau rapport en local
 
-[Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) est une extension Microsoft qui permet a plusieurs personnes d'editer le meme projet simultanement dans VS Code. Le principal facteur limitant est l'impossibilite pour les invites de voir le rendu en temps reel.
+### Méthode 1 : Initialisation automatique via Typst Universe (recommandé)
 
-Chaque participant voit les modifications des autres en temps reel. Le host (celui qui partage) doit avoir Tinymist installe pour que l'autocompletion et la verification d'erreurs fonctionnent pour tout le monde.
+Ouvrir un terminal et exécuter :
 
-Note : l'apercu PDF n'est visible que sur la machine du host. Les guests editent le code mais ne voient pas le rendu en direct.
+```bash
+typst init @preview/electrocentrale mon-rapport
+cd mon-rapport
+```
 
----
+Typst télécharge automatiquement le package officiel et crée votre fichier `main.typ` configuré.
 
-## 3. Creer un nouveau rapport
+### Méthode 2 : Cloner le dépôt Git complet (avec exemples et galeries)
 
-Ouvrir un terminal et executer :
+Si vous préférez cloner l'ensemble des exemples complets (`rapport-tp`, `rapport-projet`, `document-conception`, `rapport-stage`) :
 
 ```bash
 git clone https://github.com/ece-elec/Electrocentrale.git mon-rapport
 cd mon-rapport
-```
-
-Le dossier contient le template et des exemples prets a l'emploi. Copier un exemple comme point de depart :
-
-```bash
-cp examples/rapport-tp/rapport-tp.typ main.typ
 ```
 
 ### Ouvrir le dossier dans VS Code
@@ -375,7 +366,9 @@ Creer un fichier `refs.bib` dans le meme dossier, puis ajouter en fin de documen
 
 ## Ressources
 
+- [Fiche officielle sur Typst Universe](https://typst.app/universe/package/electrocentrale) -- page du package `electrocentrale`
 - [Documentation Typst](https://typst.app/docs/) -- référence officielle du langage Typst
-- [Typst Universe](https://typst.app/universe/) -- packages et templates communautaires
+- [Typst Universe](https://typst.app/universe/) -- registre des packages et templates officiels
 - [⚙️ Référence des paramètres](parametres.md) -- tableau exhaustif des options des 4 modèles
 - [🛠️ Composants d'ingénierie](composants.md) -- schémas vectoriels, diagrammes UML et utilitaires ECE
+- [📦 Guide de publication](publication.md) -- procédure pour mettre à jour le package sur Typst Universe

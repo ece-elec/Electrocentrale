@@ -1,6 +1,9 @@
 <h1 align="center"> electrocentrale — Modèles Typst</h1>
 
 <p align="center">
+  <a href="https://typst.app/universe/package/electrocentrale">
+    <img alt="Typst Universe" src="https://img.shields.io/badge/Typst%20Universe-electrocentrale-239dad.svg" />
+  </a>
   <a href="https://typst.app">
     <img alt="Typst logo" src="https://img.shields.io/badge/Typst-%232f90ba.svg?&logo=Typst&logoColor=white" />
   </a>
@@ -19,14 +22,24 @@
   <img src="https://raw.githubusercontent.com/ece-elec/Electrocentrale/623b9e400a70dbf3d01a6814538e607f82b44570/assets/preview-stage.png" width="23.5%" alt="Aperçu Rapport de Stage" />
 </p>
 
-**electrocentrale** propose des modèles **Typst** pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)**, **Documents de Conception (`conception`)** et **Rapports de Stage (`stage`)** à l'**ECE (École Centrale d'Électronique)**.
+**electrocentrale** propose des modèles **Typst** officiels pour la rédaction de **Rapports de Travaux Pratiques (`tp`)**, **Rapports de Projet (`projet`)**, **Documents de Conception (`conception`)** et **Rapports de Stage (`stage`)** à l'**ECE (École Centrale d'Électronique)**.
+
+Le template est disponible sur **[Typst Universe](https://typst.app/universe/package/electrocentrale)**.
 
 ---
 
 ## Démarrage rapide
 
-### Option A : Depuis Typst Universe
+### Option A : Depuis Typst Universe (recommandé)
 
+#### En ligne (Typst Web App)
+Créez un nouveau projet directement depuis le template sur [Typst Universe](https://typst.app/universe/package/electrocentrale) en cliquant sur **"Start from template"**, ou importez-le dans n'importe quel document :
+
+```typst
+#import "@preview/electrocentrale:0.1.0": *
+```
+
+#### En local (CLI Typst)
 ```bash
 # Initialiser un nouveau rapport
 typst init @preview/electrocentrale mon-rapport
@@ -34,7 +47,7 @@ cd mon-rapport
 typst watch main.typ
 ```
 
-### Option B : Utilisation locale directe
+### Option B : Utilisation locale directe (dépôt Git)
 
 ```bash
 git clone https://github.com/ece-elec/Electrocentrale.git
@@ -57,6 +70,7 @@ La documentation complète est disponible sur le dépôt GitHub du projet :
 - [**Paramètres de configuration**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/parametres.md) : référence complète des options (`tp`, `projet`, `conception`, `stage`), tuteurs et styles de polices.
 - [**Composants d'ingénierie**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/composants.md) : organigrammes, chaînes de blocs, algorigrammes ISO, diagrammes UML, Gantt, tables BDD et encarts.
 - [**Exemples complets**](https://github.com/ece-elec/Electrocentrale/tree/623b9e400a70dbf3d01a6814538e607f82b44570/examples) : rapports et galeries de diagrammes prêts à compiler.
+- [**Guide de publication**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/publication.md) : procédure pour publier une mise à jour sur Typst Universe.
 
 ---
 

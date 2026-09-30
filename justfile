@@ -27,6 +27,10 @@ preview:
 watch file="template/main.typ":
     typst watch {{file}}
 
+# Vérifier la conformité du package avec typst-package-check
+check:
+    typst-package-check check .
+
 # Nettoyer les fichiers de sortie temporaires
 clean:
     rm -f /tmp/template.pdf /tmp/rapport-*.pdf /tmp/document-*.pdf /tmp/organigrammes.pdf /tmp/diagrammes-uml.pdf /tmp/test_*.png
