@@ -2,49 +2,45 @@
 
 [📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
 
-Le paquet `electrocentrale` inclut un ensemble d'outils et de composants prêts à l'emploi pour enrichir vos rapports scientifiques et d'ingénierie.
+Le paquet `electrocentrale` inclut un ensemble d'outils, de macros et de composants prêts à l'emploi pour enrichir vos rapports scientifiques et d'ingénierie à l'ECE Paris.
 
 ---
 
 ## 📑 Récapitulatif rapide
 
-| Fonction / Macro                         | Syntaxe                                                                                                                         | Rôle                                                                                                |
-| :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------- |
-| `#logo-ece(width: ...)`                | `#logo-ece(width: 4cm)`                                                                                                       | Insère le logo SVG officiel haute résolution de l'ECE                                              |
-| `#t(num)[...]`                         | `#t(1)[Calculer la fréquence...]`                                                                                            | Question théorique numérotée (ex:**T1.**)                                                   |
-| `#e(num)[...]`                         | `#e(1)[Mesurer le signal...]`                                                                                                 | Question expérimentale numérotée (ex:**E1.**)                                               |
-| `#question("Label")[...]`              | `#question("Q1")[...]`                                                                                                        | Question avec label personnalisé                                                                    |
-| `#callout(title: ..., type: ...)[...]` | `#callout(title: "Info", type: "info")[...]`                                                                                  | Encart stylisé (`"info"`, `"tip"`, `"warning"`, `"danger"`)                                 |
-| `#table(...)`                          | `#table(columns: ..., ...)`                                                                                                   | Tableaux standards Typst (automatiquement stylisés aux couleurs ECE)                                |
-| `#table-double-entree(...)`            | `#table-double-entree(headers: (...), ...)`                                                                                   | Tableaux à double entrée (en-tête haut + en-tête de côté)                                      |
-| `#show: annexes`                       | `#show: annexes`                                                                                                              | Mode Annexes (A, B, A.1...) + préfixage auto des figures/tableaux (`Figure A.1`, `Tableau A.1`) |
-| `#ohm`, `#kohm`, `#uf`, `#nf`    | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |                                                                                                      |
-| `#hz`, `#khz`, `#mhz`              | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$)                 |                                                                                                      |
-| `#ma`, `#ua`, `#na`                | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$)                                        |                                                                                                      |
-| `#vpp`, `#vrms`, `#vdc`, `#vac`  | `$V_("in") = 2.5#vpp$`                                                                                                        | Tensions caractéristiques, millivolt (`#mv`), microvolt (`#uv`)                                 |
-| `#db`, `#dbm`, `#degc`             | `$G = -20#db$`                                                                                                                | Décibels, puissances RF (`#dbm`, `#mw`), température (`#degc`)                               |
-| `#orga-equipe(...)`                    | `#orga-equipe(responsable: ..., membres: (...))`                                                                              | Organigramme d'équipe projet avec connecteur arborescent vectoriel                                  |
-| `#orga-entreprise(...)`                | `#orga-entreprise(direction: ..., poles: (...))`                                                                              | Organigramme d'entreprise/stage hiérarchique multi-pôles                                           |
-| `#gantt(...)`                          | `#gantt(unites: (...), taches: (...))`                                                                                        | Diagramme de Gantt pour plannings projet et stage                                                    |
-| `#chaine-blocs(...)`                   | `#chaine-blocs(bloc-fonctionnel(...), ...)`                                                                                   | Chaîne de blocs fonctionnels et flux de signaux                                                     |
-| `#table-bdd(...)`                      | `#table-bdd("Nom", ((col, type, key), ...))`                                                                                  | Schéma relationnel de base de données avec clés PK/FK                                             |
-| `#algorigramme(...)`                   | `#algorigramme(algo-debut(...), ...)`                                                                                         | Algorigramme et logigramme séquentiel                                                               |
-| `#attention[...]`                      | `#attention[Avertissement]`                                                                                                   | Texte d'avertissement en rouge gras                                                                  |
-| `#nb[...]`                             | `#nb[Remarque]`                                                                                                               | Encart**NB :**                                                                                 |
-| `#todo[...]`                           | `#todo[Section à compléter]`                                                                                                | Surlignage TODO jaune                                                                                |
+| Fonction / Macro | Syntaxe | Rôle |
+| :--- | :--- | :--- |
+| `#logo-ece(width: ...)` | `#logo-ece(width: 4cm)` | Insère le logo SVG officiel haute résolution de l'ECE |
+| `#t(num)[...]` | `#t(1)[Calculer la fréquence...]` | Question théorique numérotée (ex : **T1.**) |
+| `#e(num)[...]` | `#e(1)[Mesurer le signal...]` | Question expérimentale numérotée (ex : **E1.**) |
+| `#question("Label")[...]` | `#question("Q1")[...]` | Question avec label personnalisé |
+| `#callout(title: ..., type: ...)[...]` | `#callout(title: "Info", type: "info")[...]` | Encart stylisé (`"info"`, `"tip"`, `"warning"`, `"danger"`) |
+| `#table(...)` | `#table(columns: ..., ...)` | Tableaux standards Typst (automatiquement stylisés aux couleurs ECE) |
+| `#table-double-entree(...)` | `#table-double-entree(headers: (...), ...)` | Tableaux à double entrée (en-tête haut + en-tête de côté) |
+| `#gantt(...)` | `#gantt(unites: (...), taches: (...))` | Diagramme de Gantt natif pour plannings projet et stage |
+| `#table-bdd(...)` | `#table-bdd("Nom", ((col, type, key), ...))` | Schéma relationnel de base de données avec clés PK/FK |
+| `#show: annexes` | `#show: annexes` | Mode Annexes (A, B, A.1...) + préfixage auto des figures/tableaux |
+| `#ohm`, `#kohm`, `#uf`, `#nf` | `$R_1 = 10#kohm$` | Notations d'impédances et capacités ($\Omega$, $\text{k}\Omega$, $\mu\text{F}$, $\text{nF}$...) |
+| `#hz`, `#khz`, `#mhz` | `$f_0 = 3.39#khz$` | Fréquences normalisées ($\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$) |
+| `#ma`, `#ua`, `#na` | `$I_1 = 15#ua$` | Courants normalisés ($\text{mA}$, $\mu\text{A}$, $\text{nA}$) |
+| `#vpp`, `#vrms`, `#vdc`, `#vac` | `$V_("in") = 2.5#vpp$` | Tensions caractéristiques, millivolt (`#mv`), microvolt (`#uv`) |
+| `#db`, `#dbm`, `#degc` | `$G = -20#db$` | Décibels, puissances RF (`#dbm`, `#mw`), température (`#degc`) |
+| `#attention[...]` | `#attention[Avertissement]` | Texte d'avertissement en rouge gras |
+| `#nb[...]` | `#nb[Remarque]` | Encart **NB :** |
+| `#todo[...]` | `#todo[Section à compléter]` | Surlignage TODO jaune pour brouillon |
 
 ---
 
 ## ❓ Questions théoriques et expérimentales
 
-Des fonctions dédiées permettent de formater distinctement les questions de TP :
+Des fonctions dédiées permettent de formater distinctement les questions dans les comptes-rendus de TP :
 
 ```typst
 #t(1)[Calculer la fonction de transfert théorique du filtre passe-bas actif.]
 
-#e(1)[Mesurer à l'oscilloscope la tension de crête à crête en sortie pour $f = 1"kHz"$.]
+#e(1)[Mesurer à l'oscilloscope la tension de crête à crête en sortie pour $f = 1 "kHz"$.]
 
-#question("Q1")[Question personnalisée.]
+#question("Q1")[Question personnalisée non préfixée par T ou E.]
 ```
 
 ---
@@ -63,17 +59,15 @@ Des boîtes d'information colorées avec bordures arrondies facilitent la mise e
 ]
 
 #callout(title: "Note d'information", type: "info")[
-  Le protocole I2C utilise des résistances de pull-up de 4.7 kΩ.
+  Le protocole I2C requiert des résistances de tirage (*pull-up*) de 4.7 kΩ.
 ]
 
 #callout(title: "Danger électrique", type: "danger")[
-  Ne pas dépasser la tension maximale admissible de 3.3V sur les broches GPIO.
+  Ne pas dépasser la tension maximale admissible de 3.3 V sur les broches GPIO.
 ]
 ```
 
-![Aperçu des encarts callout](assets/callouts.png)
-
-Encarts rapides :
+Encarts rapides de rédaction :
 
 ```typst
 #nb[Certains projets d’électronique à l’ECE n’ont pas de cahier des charges imposé.]
@@ -85,277 +79,46 @@ Encarts rapides :
 
 ## 📊 Tableaux au style ECE (`#table`)
 
-Tous les tableaux standards de Typst créés avec `#table(...)` adoptent **automatiquement** la charte graphique de l'école lorsqu'ils sont utilisés dans un rapport (`tp` ou `projet`) :
+Tous les tableaux standards de Typst créés avec `#table(...)` adoptent **automatiquement** la charte graphique de l'école lorsqu'ils sont utilisés dans un rapport (`tp`, `projet` ou `conception`) :
 
 - **En-tête stylisé :** fond vert pastel doux (`#EBF5F5`), texte en gras automatique sur la première ligne et bordure inférieure en vert canard ECE (`1.5pt`).
 - **Alternance zébrée :** fond blanc cassé (`#FAFAFA`) sur les lignes paires pour faciliter la lecture.
 - **Grille fine :** bordures intérieures gris clair (`0.5pt`) et marge intérieure aérée (`7pt`).
-- **Aucune fonction personnalisée requise :** vous utilisez directement la syntaxe officielle de Typst !
+- **Syntaxe standard :** vous utilisez directement la syntaxe officielle `table(...)` de Typst sans surcouche inutile !
 
-### 1. Nomenclature BOM (Bill of Materials)
+### Exemple : Nomenclature de composants (BOM)
 
 ```typst
 #figure(
   table(
     columns: (1fr, 2.2fr, 2fr, 0.8fr, 2fr),
-    align: (col, row) => if col in (0, 3) { center + horizon } else { left + horizon },
-    table.header([Réf.], [Désignation], [Valeur / Boîtier], [Qté], [Remarques]),
-    [U1], [STM32F401RE], [LQFP-64], [1], [Microcontrôleur principal 84 MHz],
-    [U2], [MPU-6050], [QFN-24], [1], [Centrale inertielle 6 axes I2C],
-    [C1-C4], [Condensateurs céramiques], [100 nF, 0805], [4], [Découplage alimentations],
-    [R1-R2], [Résistances pull-up], [4.7 kΩ, 0805], [2], [Lignes I2C SDA / SCL],
+    [Réf.], [Composant], [Valeur / Boîtier], [Qté], [Rôle dans le circuit],
+    [U1], [TL072CN], [DIP-8 / Double AOP], [1], [Étage amplificateur actif],
+    [R1], [Résistance métal], [10 kΩ ±1% (0805)], [2], [Résistance d'entrée et contre-réaction],
+    [C1], [Condensateur céramique], [100 nF / 50 V (X7R)], [1], [Pôle de filtrage passe-bas],
   ),
-  caption: [Nomenclature des composants matériels principaux],
+  caption: [Nomenclature des composants du banc de test (BOM)],
 ) <tab:bom>
 ```
 
-### 2. Brochage et Pinout
+### Tableaux à double entrée (`#table-double-entree`)
+
+Pour les matrices de compatibilité ou grilles d'évaluation :
 
 ```typst
-#figure(
-  table(
-    columns: (1.2fr, 1.5fr, 1.3fr, 3fr),
-    align: (col, row) => if col in (0, 1, 2) { center + horizon } else { left + horizon },
-    table.header([Broche], [Signal], [Mode I/O], [Description]),
-    [PA5], [SPI1_SCK], [Output Alternate], [Horloge maître du bus SPI],
-    [PA7], [SPI1_MOSI], [Output Alternate], [Données maître vers esclave],
-    [PB6], [I2C1_SCL], [Open Drain], [Horloge capteur I2C],
-    [PB7], [I2C1_SDA], [Open Drain], [Données bidirectionnelles I2C],
-  ),
-  caption: [Brochage et affectation des broches du microcontrôleur],
-) <tab:pinout>
+#table-double-entree(
+  headers: ([Module], [STM32F4], [ESP32-S3], [RP2040]),
+  ([Wi-Fi / Bluetooth], [Non], [Oui], [Non]),
+  ([Cœurs & Fréquence], [1x 84 MHz], [2x 240 MHz], [2x 133 MHz]),
+  ([Consommation Deep-Sleep], [10 µA], [5 µA], [180 µA]),
+)
 ```
-
-### 3. Relevés de mesures expérimentales
-
-```typst
-#figure(
-  table(
-    columns: (1.5fr, 2fr, 2fr, 1.5fr),
-    align: (col, row) => if col == 0 { center + horizon } else { horizon },
-    table.header([Fréquence ($"Hz"$)], [$V_("out")$ ($"V"_("pp")$)], [Gain $G$ ($"dB"$)], [Écart]),
-    [10], [9.95], [-0.04], [0.4 %],
-    [100], [8.48], [-1.43], [1.2 %],
-    [1 000], [1.57], [-16.1], [0.9 %],
-  ),
-  caption: [Relevé expérimental de la réponse en fréquence],
-) <tab:mesures>
-```
-
-### 4. Tableaux à double entrée / En-tête de côté (`#table-double-entree`)
-
-Pour créer des matrices, bilans énergétiques ou tableaux de correspondance avec **à la fois un en-tête horizontal (en haut) et un en-tête vertical (de côté)**, utilisez `#table-double-entree` (alias : `#tableau-double-entree`, `#table-matrice`, `#tableau-matrice`) :
-
-- La ligne d'en-tête (haut) et la première colonne (gauche) reçoivent toutes deux le fond pastel ECE (`#EBF5F5`) et une police en gras.
-- Une double ligne en vert canard ECE sépare distinctement les deux en-têtes (en bas et à droite) des cellules intérieures.
-
-```typst
-#figure(
-  table-double-entree(
-    headers: ("Module / Bloc", "Veille", "Éco", "Actif", "Boost"),
-    [Microcontrôleur], [15 µA], [2 mA], [15 mA], [40 mA],
-    [Capteur IMU], [5 µA], [100 µA], [3.8 mA], [3.8 mA],
-    [Émetteur RF], [1 µA], [Inactif], [18 mA], [25 mA],
-    [Total estimé], [21 µA], [2.1 mA], [36.8 mA], [68.8 mA],
-  ),
-  caption: [Matrice de consommation énergétique selon les modes de fonctionnement],
-) <tab:modes>
-```
-
-![Aperçu du tableau à double entrée](assets/table-double-entree.png)
-
-> **Astuce - Pleine largeur dans un document à deux colonnes :** Si votre document utilise une mise en page à deux colonnes (`#show: columns.with(2)`), étendez un tableau sur les deux colonnes via `#figure(placement: top, scope: "parent")[ #table(...) ]`.
 
 ---
 
-## 🏷️ Différenciation intelligente des figures et renvois croisés
+## 📅 Composants natifs de gestion de projet
 
-Le paquet configure automatiquement les étiquettes et suppléments selon le contenu de la figure :
-
-| Type de contenu     | Supplément FR | Supplément EN | Exemple de renvoi | Rendu du renvoi             |
-| :------------------ | :------------- | :------------- | :---------------- | :-------------------------- |
-| Image / Graphique   | `Figure`     | `Figure`     | `@fig:montage`  | *Figure 1*                |
-| Tableau (`table`) | `Tableau`    | `Table`      | `@tab:bom`      | *Tableau 1* / *Table 1* |
-| Code brut (`raw`) | `Code`       | `Listing`    | `@code:driver`  | *Code 1* / *Listing 1*  |
-
----
-
-## 📎 Gestion des Annexes (`#show: annexes`)
-
-Placez simplement la règle `#show: annexes` (ou `#show: appendix.with(lang: "en")`) avant vos sections d'annexes :
-
-```typst
-#show: annexes
-
-= Tableaux de mesures brutes
-= Code source des scripts d'acquisition
-```
-
-La numérotation bascule automatiquement en lettres alphabétiques (**Annexe A**, **Annexe B**, sous-sections **A.1**, **A.2**). De plus, les **figures**, **tableaux**, **extraits de code** et **équations** sont automatiquement préfixés par la lettre de l'annexe correspondante (**Figure A.1**, **Tableau B.1**, équation **(A.1)**), et leurs compteurs respectifs sont réinitialisés à chaque annexe.
-
----
-
-## ⚡ Notations scientifiques & unités d'ingénierie
-
-Pour simplifier l'écriture des formules mathématiques et unités sans erreurs de casse ou d'italique :
-
-```typst
-$ R_1 = 10#kohm, quad C_1 = 100#nf, quad f_0 = 3.39#khz $
-
-$ V_("dd") = 3.3#vdc, quad I_("actif") = 15#ma, quad I_("veille") = 15#ua $
-
-$ G = -20#db, quad P_("rf") = 10#dbm, quad T = 25#degc $
-```
-
-| Raccourci                               | Rendu                                                                       | Signification                         |
-| :-------------------------------------- | :-------------------------------------------------------------------------- | :------------------------------------ |
-| `#ohm`, `#kohm`, `#mohm`          | $\Omega$, $\text{k}\Omega$, $\text{M}\Omega$                          | Résistances et impédances           |
-| `#uf`, `#nf`, `#pf`               | $\mu\text{F}$, $\text{nF}$, $\text{pF}$                               | Capacités                            |
-| `#hz`, `#khz`, `#mhz`, `#ghz`   | $\text{Hz}$, $\text{kHz}$, $\text{MHz}$, $\text{GHz}$               | Fréquences                           |
-| `#ma`, `#ua`, `#na`               | $\text{mA}$, $\mu\text{A}$, $\text{nA}$                               | Courants                              |
-| `#vpp`, `#vrms`, `#vdc`, `#vac` | $V_{\text{pp}}$, $V_{\text{rms}}$, $V_{\text{dc}}$, $V_{\text{ac}}$ | Tensions caractéristiques            |
-| `#mv`, `#uv`                        | $\text{mV}$, $\mu\text{V}$                                              | Millivolt, Microvolt                  |
-| `#ms`, `#us`, `#ns`, `#ps`      | $\text{ms}$, $\mu\text{s}$, $\text{ns}$, $\text{ps}$                | Durées et constantes de temps        |
-| `#mw`, `#uw`                        | $\text{mW}$, $\mu\text{W}$                                              | Puissances                            |
-| `#db`, `#dbm`                       | $\text{dB}$, $\text{dBm}$                                               | Gains, atténuations et puissances RF |
-| `#degc`, `#celsius`                 | $^\circ\text{C}$                                                          | Degrés Celsius                       |
-| `#fcut`                               | $f_0$                                                                     | Fréquence de coupure                 |
-
----
-
-## 📊 Diagrammes d'ingénierie & Organigrammes
-
-Le paquet intègre des générateurs de diagrammes 100 % vectoriels en Typst natif (sans dépendances externes ni compilation lourde).
-
-### 1. Organigramme d'équipe projet (`#orga-equipe`)
-
-Conçu pour illustrer la structure hiérarchique d'un projet étudiant (tuteur / chef de projet et membres de l'équipe) reliés par un connecteur arborescent vectoriel continu et des cartes stylisées avec bandeaux de couleur et badges pilules.
-
-```typst
-#figure(
-  orga-equipe(
-    responsable: carte-membre(
-      "Dr. Jean DUPONT",
-      role: "Tuteur & Enseignant-chercheur",
-      affiliation: "Département Électronique",
-      responsable: true,
-    ),
-    membres: (
-      carte-membre(
-        "André-Marie AMPÈRE",
-        role: "Chef de projet & Routage PCB",
-        affiliation: "ING5 Systèmes Embarqués",
-        tag: "HARDWARE",
-      ),
-      carte-membre(
-        "Alessandro VOLTA",
-        role: "Développement Firmware C / STM32",
-        affiliation: "ING5 Systèmes Embarqués",
-        tag: "FIRMWARE",
-      ),
-    ),
-  ),
-  caption: [Organigramme fonctionnel de l'équipe projet],
-) <fig:orga>
-```
-
-![Aperçu de l'organigramme d'équipe](assets/orga-equipe.png)
-
-**Options de `#carte-membre` :**
-
-- `nom` : Nom complet (texte ou contenu).
-- `role` : Rôle ou fonction dans le projet ou le service.
-- `affiliation` / `service` : Majeure, département, ou laboratoire.
-- `tag` : Badge textuel en pilule (ex: `"HARDWARE"`, `"FIRMWARE"`, `"LEAD"`). Facultatif.
-- `badge` : Contrôle précis de la pilule (`auto` par défaut, `false` ou `none` pour masquer la pilule, ou texte personnalisé `"CHEF"`).
-- `email` : Adresse e-mail cliquable sous forme de lien.
-- `responsable` : Si `true`, applique l'accent vert canard ECE.
-- `stagiaire` : Si `true`, applique l'accent jaune/or et la mise en valeur.
-- `couleur` : Couleur d'accentuation personnalisée (par défaut : `auto`).
-- `compact` : Si `true`, réduit le padding et la taille de police (idéal pour les grands organigrammes denses).
-
----
-
-### 2. Organigramme d'entreprise ou de stage (`#orga-entreprise`)
-
-Indispensable pour les rapports de stage (ING4, PFE/ING5) et projets avec partenaire industriel. Il modélise la Direction générale au sommet, les rôles transverses (PMO, Qualité, Adjoint), puis les Pôles / Départements en colonnes avec leurs sous-équipes et collaborateurs.
-
-```typst
-#figure(
-  orga-entreprise(
-    direction: carte-membre(
-      "Dr. Alexandre DE LA TOUR",
-      role: "Directeur Technique & R&D (CTO)",
-      responsable: true,
-      compact: true,
-    ),
-    transverse: carte-membre(
-      "Claire M.",
-      role: "PMO & Qualité",
-      tag: "TRANSVERSE",
-      couleur: rgb("#7C3AED"),
-      compact: true,
-    ),
-    poles: (
-      (
-        nom: "Pôle Systèmes Embarqués",
-        couleur: ece,
-        responsable: carte-membre(
-          "Dr. Sophie LAURENT",
-          role: "Tuteur Entreprise & Lead R&D",
-          responsable: true,
-          compact: true,
-        ),
-        sous-poles: (
-          (
-            nom: "Équipe Firmware & Capteurs",
-            membres: (
-              carte-membre(
-                "Léon P.",
-                role: "Stagiaire R&D Firmware",
-                stagiaire: true,
-                compact: true,
-              ),
-              carte-membre("Thomas D.", role: "Ingénieur Linux", tag: "FIRMWARE", compact: true),
-            ),
-          ),
-          (
-            nom: "Équipe Électronique & CAO",
-            membres: (
-              carte-membre("Camille R.", role: "Ingénieure PCB", tag: "HARDWARE", compact: true),
-            ),
-          ),
-        ),
-      ),
-      (
-        nom: "Pôle Logiciel & Cloud IoT",
-        couleur: darkpowderblue,
-        responsable: carte-membre("Marc B.", role: "Lead Cloud", compact: true),
-        membres: (
-          carte-membre("Alexandre B.", role: "Dev Full-Stack", tag: "BACKEND", compact: true),
-          carte-membre("Julie L.", role: "Dev Web / UI", tag: "FRONTEND", compact: true),
-        ),
-      ),
-      (
-        nom: "Pôle Bancs d'Essais & Validation",
-        couleur: gamboge,
-        responsable: carte-membre("Marc D.", role: "Resp. Bancs", compact: true),
-        membres: (
-          carte-membre("Sarah B.", role: "Ingénieure CEM", tag: "QUALIF", compact: true),
-          carte-membre("Julien K.", role: "Technicien Mesures", tag: "LABO", compact: true),
-        ),
-      ),
-    ),
-  ),
-  caption: [Structure organisationnelle multi-branches de l'entreprise d'accueil],
-) <fig:orga-entreprise>
-```
-
-> **Astuce - Équipe projet multi-pôles :** Vous pouvez également passer le paramètre `poles: (...)` directement à `#orga-equipe(responsable: ..., poles: (...))` pour structurer une grande équipe projet étudiante en plusieurs sous-groupes thématiques.
-
----
-
-### 3. Planning & Diagramme de Gantt (`#gantt`)
+### 1. Planning & Diagramme de Gantt (`#gantt`)
 
 Permet de représenter les phases d'un projet ou stage avec des barres colorées et des jalons :
 
@@ -374,56 +137,9 @@ Permet de représenter les phases d'un projet ou stage avec des barres colorées
 ) <fig:gantt>
 ```
 
-![Aperçu du diagramme de Gantt](assets/gantt.png)
+### 2. Schéma relationnel de base de données (`#table-bdd`)
 
----
-
-### 4. Chaîne de blocs fonctionnels (`#chaine-blocs`)
-
-Idéal pour modéliser le synoptique d'un système matériel ou d'un pipeline logiciel. La grille s'adapte automatiquement à 100 % de la largeur disponible (sans dépassement de marge) et connecte les blocs par des liaisons bus vectorielles :
-
-```typst
-#figure(
-  chaine-blocs(
-    bloc-fonctionnel("Batterie Li-Po", sous-titre: "3.7 V / 1200 mAh"),
-    "V_bat",
-    bloc-fonctionnel("Régulateur LDO", sous-titre: "3.3 V faible bruit"),
-    "3.3 V",
-    bloc-fonctionnel("Capteur MPU-6050", sous-titre: "IMU 6 axes"),
-    fleche-bus(label: "I2C", bidirectionnelle: true),
-    bloc-fonctionnel("STM32F401RE", sous-titre: "MCU ARM Cortex-M4"),
-    "SPI",
-    bloc-fonctionnel("Module LoRa / RF", sous-titre: "SX1276 (868 MHz)"),
-  ),
-  caption: [Synoptique de l'architecture matérielle et des bus d'interconnexion],
-) <fig:archi>
-```
-
-![Aperçu de la chaîne de blocs](assets/chaine-blocs.png)
-
-**Options de `#bloc-fonctionnel` :**
-
-- `titre` : Nom du bloc fonctionnel (texte ou contenu).
-- `sous-titre` : Précision technique, référence de composant ou débit.
-- `tag` : Badge facultatif en pilule (ex : `"HW"`, `"SW"`, `"PHY"`).
-- `couleur` : Couleur d'accentuation (cadre et titre).
-- `fill` : Couleur de fond (par défaut : gris très clair `#F8FAFC`).
-- `hauteur` : Hauteur uniforme du bloc (`48pt` par défaut pour garantir un alignement collinéaire parfait sur toute la ligne).
-- `compact` : Si `true`, réduit l'encombrement pour les chaînes denses.
-
-**Options de `#fleche-bus` :**
-
-- `label` : Nom du signal ou du bus (affiché au-dessus de la flèche). Peut aussi être passé directement en chaîne : `"I2C"`.
-- `bidirectionnelle` : Si `true`, affiche une double flèche `<--->` (idéal pour bus I2C, liaisons full-duplex).
-- `couleur` : Couleur de la ligne et des pointes de flèche.
-- `width` : Largeur minimale de la flèche (`auto` par défaut).
-- `pill` : Si `true`, affiche le label dans une pilule d'accentuation au lieu de la typographie technique directe (`false` par défaut).
-
----
-
-### 5. Schéma de base de données relationnelle (`#table-bdd`)
-
-Affiche une table de base de données avec typage des attributs et mise en évidence des clés primaires (`PK`) et étrangères (`FK`) :
+Affiche une table relationnelle avec typage précis des colonnes et mise en évidence des clés primaires (`PK`) et étrangères (`FK`) :
 
 ```typst
 #table-bdd(
@@ -438,190 +154,174 @@ Affiche une table de base de données avec typage des attributs et mise en évid
 )
 ```
 
-![Aperçu du schéma relationnel](assets/table-bdd.png)
+---
+
+## 🎨 Schémas d'ingénierie & Écosystème Typst Universe
+
+Plutôt que d'imposer des mini-langages de diagrammes limités, `electrocentrale` tire parti des meilleurs paquets vectoriels officiels de **Typst Universe**. Ces paquets fonctionnent nativement en ligne (sur `typst.app`) et en local, sans dépendance externe.
+
+### 1. Organigrammes et hiérarchies d'équipe (`typart`)
+
+Le paquet [`@preview/typart:0.1.1`](https://typst.app/universe/package/typart) permet de construire des organigrammes d'équipe, de projet ou de stage avec connecteurs orthogonaux élégants :
+
+```typst
+#import "@preview/typart:0.1.1": hierarchy, tree
+
+// Organigramme d'équipe avec responsable et pôles
+#hierarchy(
+  [Chef de Projet],
+  (
+    [Électronique Analogique],
+    [Architecture Firmware],
+    [Validation & Bancs de Test],
+  ),
+  box-w: 4.8,
+  box-h: 1.4,
+  level-gap: 2.0,
+  size: 8.5pt,
+)
+```
+
+Pour les structures multi-niveaux d'entreprise (direction, départements, services) :
+
+```typst
+#tree((
+  [Direction R&D],
+  (
+    ([Pôle Embarqué], ([Firmware], [Hardware])),
+    ([Pôle Logiciel], ([Cloud], [Web UI])),
+    [Qualité & Validation],
+  )
+))
+```
+
+### 2. Synoptiques matériels & Chaînes de blocs fonctionnels (`fletcher`)
+
+Le paquet [`@preview/fletcher:0.5.8`](https://typst.app/universe/package/fletcher) est la référence vectorielle pour modéliser l'interconnexion matérielle, les bus de communication et les pipelines de traitement de signal :
+
+```typst
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+
+#figure(
+  diagram(
+    spacing: (18mm, 0mm),
+    node-stroke: 0.8pt + rgb("#007B83"),
+    node-corner-radius: 4pt,
+    node-fill: white,
+    
+    node((0, 0), [Générateur BF \ #text(7.5pt, fill: gray)[Stimulus sinusoïdal]]),
+    edge((0, 0), (1, 0), "->", [$V_("in")(t)$]),
+    node((1, 0), [Filtre Actif \ #text(7.5pt, fill: gray)[AOP + R1, R2, C1]]),
+    edge((1, 0), (2, 0), "->", [$V_("out")(t)$]),
+    node((2, 0), [Étage ADC \ #text(7.5pt, fill: gray)[12-bit / DMA]]),
+    edge((2, 0), (3, 0), "<->", [USB / SCPI]),
+    node((3, 0), [Poste PC \ #text(7.5pt, fill: gray)[LabVIEW]]),
+  ),
+  caption: [Synoptique de la chaîne d'instrumentation et de mesure],
+) <fig:synoptique>
+```
+
+### 3. Algorigrammes et logigrammes d'exécution (`fletcher`)
+
+Idéal pour documenter le déroulement d'une boucle firmware ou d'un automate d'état conforme aux normes d'ingénierie :
+
+```typst
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
+
+#diagram(
+  spacing: (0mm, 10mm),
+  node-stroke: 0.8pt + rgb("#007B83"),
+  node-fill: white,
+
+  // Nœud de départ arrondi
+  node((0, 0), [Démarrage du système], corner-radius: 12pt),
+  edge((0, 0), (0, 1), "->"),
+
+  // Action de traitement
+  node((0, 1), [Initialisation matérielle (GPIO, I2C, SPI)]),
+  edge((0, 1), (0, 2), "->"),
+
+  // Condition / Test (Losange)
+  node((0, 2), [Capteur prêt ?], shape: shapes.diamond),
+  edge((0, 2), (0, 3), "->", [Oui]),
+  edge((0, 2), (1, 2), "->", [Non]),
+
+  node((1, 2), [Attente 10 ms], corner-radius: 4pt),
+  edge((1, 2), (0, 1), "->", corner: "top-right"),
+
+  // Suite séquentielle
+  node((0, 3), [Acquisition et émission radio], corner-radius: 4pt),
+  edge((0, 3), (0, 4), "->"),
+  node((0, 4), [Mise en veille (Low Power)], corner-radius: 12pt),
+)
+```
+
+### 4. Diagrammes de classes orientés objet (`sourcecraft`)
+
+Le paquet [`@preview/sourcecraft:0.1.0`](https://typst.app/universe/package/sourcecraft) permet d'écrire des diagrammes de classes UML directement à partir d'une syntaxe proche de Java/C++ :
+
+```typst
+#import "@preview/sourcecraft:0.1.0": source-diagram
+
+#source-diagram(```java
+public abstract class Capteur {
+  protected int id;
+  protected byte i2cAddr;
+  private boolean isCalibrated;
+
+  public abstract boolean init();
+  public abstract float readValue();
+  protected void calibrate();
+}
+
+public class BME280 extends Capteur {
+  private int oversampling;
+  public boolean init();
+  public float readValue();
+}
+```)
+```
+
+### 5. Diagrammes de séquence UML (`fletcher`)
+
+Pour représenter chronologiquement les échanges de trames réseau ou d'appels inter-composants avec lignes de vie pointillées :
+
+```typst
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+
+#diagram(
+  spacing: (32mm, 10mm),
+  node-stroke: 0.8pt + rgb("#007B83"),
+  node-fill: white,
+  node-corner-radius: 3pt,
+
+  // En-têtes des participants
+  node((0, 0), [Microcontrôleur]),
+  node((1, 0), [Capteur I2C]),
+  node((2, 0), [Module LoRa]),
+
+  // Lignes de vie verticales
+  edge((0, 0), (0, 4), "--", stroke: 0.6pt + rgb("#94A3B8")),
+  edge((1, 0), (1, 4), "--", stroke: 0.6pt + rgb("#94A3B8")),
+  edge((2, 0), (2, 4), "--", stroke: 0.6pt + rgb("#94A3B8")),
+
+  // Échanges de messages
+  edge((0, 1), (1, 1), "->", [Start + ReadReg(0x75)]),
+  edge((1, 2), (0, 2), "-->", [ACK + Chip_ID(0x60)]),
+  edge((0, 3), (2, 3), "->", [TX_Payload(Trame)]),
+)
+```
+
+### 6. Métrologie & Visualisation de données scientifiques
+
+Pour vos comptes-rendus expérimentaux :
+- **Boîtes à moustaches (Boxplots)** : [`@preview/moustaches:0.1.3`](https://typst.app/universe/package/moustaches) pour comparer la dispersion de mesures expérimentales.
+- **Cartographies et matrices thermiques (Heatmaps)** : [`@preview/lilaq:0.4.0`](https://typst.app/universe/package/lilaq) pour visualiser des grilles de capteurs ou matrices de corrélation.
 
 ---
 
-### 6. Algorigrammes & Logigrammes (`#algorigramme`)
+## 🔗 Ressources complémentaires
 
-Permet de structurer des logigrammes conformes aux normes d'ingénierie (ISO 5807) avec des formes géométriques dédiées, des flèches vectorielles directes et la gestion intelligente des branchements conditionnels :
-
-```typst
-#figure(
-  algorigramme(
-    algo-debut("Démarrage du système"),
-    algo-action("Initialisation matérielle", sous-titre: "Horloges, GPIO, I2C1, SPI1"),
-    algo-sous-programme("Configuration capteur IMU", sous-titre: "Plage ±2g, filtre interne"),
-    algo-es("Lecture des registres accéléromètre", sous-titre: "Trame brute I2C 6 octets"),
-    algo-decision("Données valides", non: "Rejet & Sommeil"),
-    "OUI",
-    algo-action("Calcul de la moyenne glissante", sous-titre: "Filtrage numérique FIR"),
-    algo-es("Téléversement de la trame radio", sous-titre: "Paquet LoRa SX1276"),
-    algo-fin("Mise en veille temporaire (Low Power)"),
-  ),
-  caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],
-) <fig:algo>
-```
-
-![Aperçu de l'algorigramme](assets/algorigramme.png)
-
-**Symboles disponibles (ISO 5807) :**
-
-- `#algo-debut(texte)` / `#algo-fin(texte)` : Nœuds terminaux en capsule arrondie (début en vert ECE, fin/veille en rouge).
-- `#algo-action(texte, sous-titre: none)` : Traitement ou calcul standard (rectangle).
-- `#algo-es(texte, sous-titre: none)` (alias `#algo-io`) : Opération d'Entrée / Sortie (parallélogramme bleu).
-- `#algo-sous-programme(texte)` (alias `#algo-sous-routine`) : Sous-programme ou processus prédéfini (rectangle à doubles barres latérales).
-- `#algo-decision(question, non: none, pill: false)` : Prise de décision conditionnelle (losange ambre). Le paramètre optionnel `non:` génère une branche de déroutement latérale vers une action ou un rejet avec label `NON` / `NO` automatique selon la langue du document (typographie directe ou pilule avec `pill: true`).
-- `#algo-branche(condition, oui: (...), non: (...), pill: false)` : Bifurcation complète en 2 colonnes parallèles (Oui / Non).
-- `#fleche-algo(label, pill: false)` : Connecteur vertical vectoriel direct avec indication de condition (`OUI`, `NON`, `YES`, `NO`, ou durée). L'insertion des flèches est automatique entre deux blocs consécutifs.
-
----
-
-### 7. Diagrammes UML (`#classe-uml`, `#sequence-uml`)
-
-Le paquet fournit un ensemble de diagrammes UML 100 % vectoriels en Typst natif, sans aucune dépendance externe (`cetz`, `pintorita`, etc.) et respectant la charte visuelle de l'ECE Paris.
-
-#### A. Diagramme de classes (`#diagramme-classes`, `#classe-uml`, `#relation-uml`)
-
-Affiche des classes à 3 compartiments (en-tête, attributs, méthodes) avec parsing automatique des modificateurs de visibilité (`+` vert public, `-` rouge privé, `#` orange protégé, `~` bleu package) et connecteurs vectoriels standardisés.
-
-```typst
-#figure(
-  diagramme-classes(
-    classe-uml(
-      "Capteur",
-      stereotype: "abstract",
-      abstrait: true,
-      attributs: (
-        "# id: int",
-        "# i2c_addr: uint8_t",
-        "- is_calibrated: bool",
-      ),
-      methodes: (
-        "+ init(): bool",
-        "+ read_raw(): uint16_t",
-        "# calibrate(): void",
-      ),
-    ),
-    relation-uml(type-rel: "heritage", label: "hérite de", direction: "gauche"),
-    classe-uml(
-      "BME280",
-      attributs: (
-        "- oversampling: uint8_t",
-        "- standby_time: uint8_t",
-      ),
-      methodes: (
-        "+ init(): bool",
-        "+ read_temperature(): float",
-        "+ read_pressure(): float",
-      ),
-    ),
-  ),
-  caption: [Spécialisation de capteurs en programmation orientée objet],
-)
-```
-
-![Aperçu du diagramme de classes UML](assets/uml-classes.png)
-
-**Types de relations supportés (`type-rel:`) :**
-- `"heritage"` : Flèche creuse fermée (héritage / généralisation).
-- `"implementation"` : Trait pointillé avec flèche creuse fermée (réalisation d'interface).
-- `"composition"` : Losange plein noir/accentué (composition forte).
-- `"aggregation"` : Losange creux (agrégation faible).
-- `"association"` : Trait plein avec flèche ouverte `->`.
-- `"dependance"` : Trait pointillé avec flèche ouverte `..>`.
-
-#### B. Diagramme de séquence (`#sequence-uml` / `#diagramme-sequence`)
-
-Représente l'échange chronologique de messages entre composants, microservices ou tâches logicielles.
-
-```typst
-#figure(
-  sequence-uml(
-    participants: (
-      (nom: "Client Web", tag: "Frontend"),
-      (nom: "API Gateway", tag: "NestJS"),
-      (nom: "Base de Données", tag: "PostgreSQL"),
-    ),
-    messages: (
-      (de: 1, vers: 2, label: "POST /auth/login", type: "sync"),
-      (de: 2, vers: 3, label: "SELECT * FROM users", type: "sync"),
-      (de: 3, vers: 2, label: "UserRecord", type: "retour"),
-      (de: 2, vers: 2, label: "verifyPassword()", type: "sync"),
-      (de: 2, vers: 1, label: "200 OK (JWT Cookie)", type: "retour"),
-    ),
-  ),
-  caption: [Flux d'authentification et interactions inter-services],
-)
-```
-
-![Aperçu du diagramme de séquence UML](assets/uml-sequence.png)
-
----
-
-### 8. Graphes d'Appels & Architectures Logicielles (`#arbre-appels`, `#call-graph`)
-
-Indispensable pour documenter la structure des projets en Informatique, Logiciel et Systèmes Embarqués (firmware C/C++, RTOS, architectures multi-couches).
-
-#### A. Arbre d'appels hiérarchique (`#arbre-appels` / `#call-tree`)
-
-Affiche une arborescence d'exécution avec lignes de dérivation vectorielles, badges contextuels (`RESET`, `WHILE(1)`, `HAL`, `SPI`) et typographie mono-espacée.
-
-```typst
-#figure(
-  arbre-appels(
-    noeud-appel("main()", tag: "RESET", enfants: (
-      noeud-appel("SystemClock_Config()", tag: "RCC"),
-      noeud-appel("MX_GPIO_Init()"),
-      noeud-appel("App_MainLoop()", tag: "WHILE(1)", enfants: (
-        noeud-appel("BME280_AcquireAll()", enfants: (
-          noeud-appel("HAL_I2C_Mem_Read()", tag: "HAL"),
-        )),
-        noeud-appel("LoRa_TransmitPacket()", enfants: (
-          noeud-appel("SX1276_WriteFIFO()", tag: "SPI"),
-        )),
-      )),
-    )),
-  ),
-  caption: [Arbre d'appels d'exécution du microcontrôleur],
-)
-```
-
-![Aperçu de l'arbre d'appels](assets/arbre-appels.png)
-
-#### B. Graphe d'appels par couches architecturales (`#call-graph` / `#call-graph-couches`)
-
-Visualise l'organisation logicielle en couches superposées (*Application $\rightarrow$ Middleware $\rightarrow$ Pilotes HAL/CMSIS*) avec flèches de dépendance descendante.
-
-```typst
-#figure(
-  call-graph(
-    couches: (
-      (
-        nom: "1. Couche Application",
-        fonctions: (
-          (nom: "main()", tag: "ENTRY"),
-          (nom: "App_TaskMeteo()", tag: "10 Hz"),
-        ),
-      ),
-      (
-        nom: "2. Couche Middleware & Pilotes",
-        fonctions: (
-          (nom: "BME280_Driver()", tag: "Driver"),
-          (nom: "LoRaWAN_Stack()", tag: "Stack"),
-        ),
-      ),
-      (
-        nom: "3. Couche Matérielle (HAL)",
-        fonctions: (
-          (nom: "HAL_I2C_Transfer()", tag: "I2C1"),
-          (nom: "HAL_SPI_Transmit()", tag: "SPI2"),
-        ),
-      ),
-    ),
-  ),
-  caption: [Architecture logicielle et flux d'appels entre couches],
-)
-```
-
-![Aperçu du graphe d'appels par couches](assets/call-graph.png)
+- [📖 Tutoriel pas à pas](tutoriel.md)
+- [⚙️ Paramètres des modèles](parametres.md)
+- [Fiche Typst Universe de `electrocentrale`](https://typst.app/universe/package/electrocentrale)

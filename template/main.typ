@@ -1,4 +1,4 @@
-#import "@preview/electrocentrale:0.1.0": *
+#import "@preview/electrocentrale:0.2.0": *
 
 // Configuration générale
 #let langue = "fr" // "fr" ou "en"

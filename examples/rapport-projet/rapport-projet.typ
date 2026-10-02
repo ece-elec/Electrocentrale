@@ -1,4 +1,6 @@
-#import "@preview/electrocentrale:0.1.0": *
+#import "@preview/electrocentrale:0.2.0": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
+#import "@preview/typart:0.1.1": hierarchy, tree
 
 // Style de police : "latex" | "typst-modern" | "modern-sans" | "editorial"
 #let style-police = "latex"
@@ -72,14 +74,21 @@ L'équipe projet est constituée de deux élèves-ingénieurs de la majeure Syst
 La répartition des rôles et l'organigramme fonctionnel sont détaillés sur la @fig:orga :
 
 #figure(
-  orga-equipe(
-    responsable: carte-membre("Dr. Jean DUPONT", role: "Tuteur & Enseignant-chercheur", affiliation: "Département Électronique & Physique", responsable: true),
-    membres: (
-      carte-membre("André-Marie AMPÈRE", role: "Chef de projet & Routage PCB", affiliation: "ING5 Systèmes Embarqués", tag: "HARDWARE"),
-      carte-membre("Alessandro VOLTA", role: "Développement Firmware C / STM32", affiliation: "ING5 Systèmes Embarqués", tag: "FIRMWARE"),
+  hierarchy(
+    [*Dr. Jean DUPONT* \ #text(8pt)[Tuteur projet & Enseignant-chercheur]],
+    (
+      [*André-Marie AMPÈRE* \ #text(8pt)[Chef de projet & Hardware]],
+      [*Alessandro VOLTA* \ #text(8pt)[Développement Firmware C]],
     ),
+    size: 8.5pt,
+    box-w: 4.8,
+    box-h: 1.3,
+    level-gap: 2.0,
+    accent: rgb("#002B49"),
+    root-fill: rgb("#EBF5F5"),
+    box-fill: rgb("#F8FAFC"),
   ),
-  caption: [Organigramme fonctionnel de l'équipe projet],
+  caption: [Organigramme fonctionnel de l'équipe projet (`typart`)],
 ) <fig:orga>
 
 == Diagramme de Gantt
@@ -136,16 +145,18 @@ Les exigences fonctionnelles et contraintes opérationnelles du système sont sy
 La chaîne fonctionnelle globale d'acquisition, de traitement et de communication du système est représentée sur la @fig:chaine-fonc :
 
 #figure(
-  chaine-blocs(
-    bloc-fonctionnel("Mesurer", sous-titre: "Grandeur physique (accélération)"),
-    "Signal analogique",
-    bloc-fonctionnel("Conditionner & Échantillonner", sous-titre: "Filtre anti-repliement & ADC"),
-    "Données brutes",
-    bloc-fonctionnel("Traiter & Calculer", sous-titre: "Filtrage numérique et calibration"),
-    "Trames",
-    bloc-fonctionnel("Transmettre", sous-titre: "Liaison radiofréquence"),
+  diagram(
+    node-stroke: 0.8pt,
+    spacing: (20mm, 0mm),
+    node((0, 0), [Mesure \ #text(7.5pt)[Accélération]]),
+    edge("-|>", [Signal]),
+    node((1, 0), [Acquisition \ #text(7.5pt)[Filtre & ADC]]),
+    edge("-|>", [Données]),
+    node((2, 0), [Calcul \ #text(7.5pt)[Filtrage FIR]]),
+    edge("-|>", [Trames]),
+    node((3, 0), [Émission \ #text(7.5pt)[Liaison RF]]),
   ),
-  caption: [Synoptique de la chaîne fonctionnelle globale du système],
+  caption: [Synoptique de la chaîne fonctionnelle globale (`fletcher`)],
 ) <fig:chaine-fonc>
 
 == Architecture matérielle
@@ -159,18 +170,20 @@ L'étage analogique et les alimentations sont dimensionnés selon les règles de
 ]
 
 #figure(
-  chaine-blocs(
-    bloc-fonctionnel("Batterie Li-Po", sous-titre: "3.7 V / 1200 mAh"),
-    "V_bat",
-    bloc-fonctionnel("Régulateur LDO", sous-titre: "3.3 V faible bruit"),
-    "3.3 V",
-    bloc-fonctionnel("Capteur MPU-6050", sous-titre: "IMU 6 axes"),
-    fleche-bus(label: "I2C", bidirectionnelle: true),
-    bloc-fonctionnel("STM32F401RE", sous-titre: "MCU ARM Cortex-M4"),
-    "SPI",
-    bloc-fonctionnel("Module LoRa / RF", sous-titre: "SX1276 (868 MHz)"),
+  diagram(
+    node-stroke: 0.8pt,
+    spacing: (13mm, 0mm),
+    node((0, 0), [Batterie \ #text(7.5pt)[3.7 V]]),
+    edge("-|>", [$V_("bat")$]),
+    node((1, 0), [LDO \ #text(7.5pt)[3.3 V]]),
+    edge("-|>", [3.3 V]),
+    node((2, 0), [MPU6050 \ #text(7.5pt)[IMU]]),
+    edge("<|-|>", [I2C]),
+    node((3, 0), [STM32 \ #text(7.5pt)[MCU]]),
+    edge("-|>", [SPI]),
+    node((4, 0), [SX1276 \ #text(7.5pt)[LoRa]]),
   ),
-  caption: [Synoptique de l'architecture matérielle et des bus d'interconnexion],
+  caption: [Synoptique de l'architecture matérielle et des interconnexions (`fletcher`)],
 ) <fig:archi>
 
 === Nomenclature des composants principaux (BOM)
@@ -209,18 +222,27 @@ La liste des composants nécessaires est détaillée dans le @tab:bom et le câb
 L'ordonnancement de la boucle principale de mesure et de transmission radio est synthétisé par l'algorigramme de la @fig:algo :
 
 #figure(
-  algorigramme(
-    algo-debut("Démarrage du système"),
-    algo-action("Initialisation matérielle", sous-titre: "Horloges, GPIO, I2C1, SPI1"),
-    algo-sous-programme("Configuration du capteur IMU", sous-titre: "Plage ±2g, filtre passe-bas interne"),
-    algo-es("Lecture des registres accéléromètre", sous-titre: "Trame brute I2C 6 octets"),
-    algo-decision("Données valides", non: "Rejet & Sommeil"),
-    "OUI",
-    algo-action("Calcul de la moyenne glissante", sous-titre: "Filtrage numérique FIR"),
-    algo-es("Téléversement de la trame radio", sous-titre: "Paquet LoRa SX1276 (868 MHz)"),
-    algo-fin("Mise en veille temporaire (Low Power)"),
+  diagram(
+    node-stroke: 0.8pt,
+    node((0, 0), [Démarrage du système], shape: shapes.pill),
+    edge("-|>"),
+    node((0, 1), [Initialisation matérielle \ #text(8pt)[Horloges, GPIO, I2C, SPI]], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 2), [Configuration IMU \ #text(8pt)[Plage ±2g, filtre interne]], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 3), [Lecture registres IMU], shape: shapes.parallelogram),
+    edge("-|>"),
+    node((0, 4), [Données valides ?], shape: shapes.diamond),
+    edge("-|>", [Oui]),
+    edge((0, 4), (1, 4), "-|>", [Non]),
+    edge((1, 4), (1, 7), (0, 7), "-|>"),
+    node((0, 5), [Moyenne glissante FIR], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 6), [Émission trame LoRa], shape: shapes.parallelogram),
+    edge("-|>"),
+    node((0, 7), [Mise en veille Low Power], shape: shapes.pill),
   ),
-  caption: [Algorigramme de la boucle d'acquisition du firmware embarqué],
+  caption: [Algorigramme de la boucle d'acquisition du firmware embarqué (`fletcher`)],
 ) <fig:algo>
 
 == Modélisation de la base de données (Informatique & Télémétrie)

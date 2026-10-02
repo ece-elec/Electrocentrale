@@ -1,4 +1,5 @@
-#import "@preview/electrocentrale:0.1.0": *
+#import "@preview/electrocentrale:0.2.0": *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 
 // Style de police : "latex" | "typst-modern" | "modern-sans" | "editorial"
 #let style-police = "latex"
@@ -73,16 +74,18 @@ Les abréviations et acronymes normés du projet sont détaillés dans le @tab:g
 L'architecture matérielle est subdivisée en quatre blocs fonctionnels interconnectés. La @fig:arch-hw illustre le synoptique matériel et la nature des liaisons électriques et protocoles de bus :
 
 #figure(
-  chaine-blocs(
-    bloc("Capteurs I2C", sous-titre: "BME280 & Vitesse", tag: "3.3 V"),
-    fleche-bus("I2C (400 kHz)"),
-    bloc("Microcontrôleur", sous-titre: "STM32F401RE @ 84 MHz", tag: "MCU"),
-    fleche-bus("SPI (10 MHz)"),
-    bloc("Transceiver Radio", sous-titre: "Semtech SX1276", tag: "868 MHz"),
-    fleche-bus("RF 50 Ω"),
-    bloc("Antenne", sous-titre: "Dipôle 1/4 λ", tag: "+14 dBm"),
+  diagram(
+    node-stroke: 0.8pt,
+    spacing: (14mm, 0mm),
+    node((0, 0), [Capteurs I2C \ #text(8pt)[BME280 & Vitesse]]),
+    edge("<|-|>", [I2C]),
+    node((1, 0), [Microcontrôleur \ #text(8pt)[STM32F401RE]]),
+    edge("-|>", [SPI]),
+    node((2, 0), [Transceiver Radio \ #text(8pt)[SX1276]]),
+    edge("-|>", [RF 50 Ω]),
+    node((3, 0), [Antenne \ #text(8pt)[Dipôle 1/4 λ]]),
   ),
-  caption: [Synoptique de l'architecture matérielle globale],
+  caption: [Synoptique de l'architecture matérielle globale (`fletcher`)],
 ) <fig:arch-hw>
 
 == Module Alimentation et Régulation
@@ -126,18 +129,27 @@ La capture au moyen d'un analyseur logique confirme la trame d'initialisation : 
 L'architecture logicielle repose sur une machine à états finis cadencée par interruptions temporelles afin d'optimiser l'autonomie sur batterie. Le diagramme de déroulement global de l'application est présenté sur la @fig:algo-global :
 
 #figure(
-  algorigramme(
-    algo-debut("Reset / Réveil RTC"),
-    algo-action("Configuration GPIO, I2C et SPI", sous-titre: "Phase d'amorçage"),
-    algo-es("Acquisition capteurs environnementaux", sous-titre: "BME280 & Vitesse du vent"),
-    algo-decision("Trame valide", non: "Erreur & Reset I2C"),
-    "OUI",
-    algo-action("Encodage du payload binaire", sous-titre: "Compression et calcul CRC"),
-    algo-es("Émission radio via SX1276", sous-titre: "Modulation LoRa 868 MHz"),
-    algo-action("Programmation du timer RTC Wakeup"),
-    algo-fin("Entrée en mode Stop / Standby"),
+  diagram(
+    node-stroke: 0.8pt,
+    node((0, 0), [Reset / Réveil RTC], shape: shapes.pill),
+    edge("-|>"),
+    node((0, 1), [Configuration GPIO, I2C, SPI \ #text(8pt)[Phase d'amorçage]], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 2), [Acquisition capteurs \ #text(8pt)[BME280 & Anémomètre]], shape: shapes.parallelogram),
+    edge("-|>"),
+    node((0, 3), [Trame valide ?], shape: shapes.diamond),
+    edge("-|>", [Oui]),
+    edge((0, 3), (1, 3), "-|>", [Non]),
+    edge((1, 3), (1, 7), (0, 7), "-|>"),
+    node((0, 4), [Encodage payload binaire \ #text(8pt)[Compression & CRC]], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 5), [Émission radio LoRa], shape: shapes.parallelogram),
+    edge("-|>"),
+    node((0, 6), [Programmation Wakeup RTC], shape: shapes.rect),
+    edge("-|>"),
+    node((0, 7), [Mode Stop / Standby], shape: shapes.pill),
   ),
-  caption: [Algorigramme général du logiciel embarqué],
+  caption: [Algorigramme général du logiciel embarqué (`fletcher`)],
 ) <fig:algo-global>
 
 == Module Pilote Radio LoRa

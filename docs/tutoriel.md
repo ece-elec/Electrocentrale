@@ -1,374 +1,315 @@
-# Tutoriel : Ecrire son premier rapport ECE avec Typst
+# 📖 Tutoriel : Rédiger son premier rapport ECE avec Typst
 
 [📖 Tutoriel](tutoriel.md) · [⚙️ Paramètres de configuration](parametres.md) · [🛠️ Composants d'ingénierie](composants.md)
 
-Ce guide s'adresse aux etudiants qui n'ont jamais utilise Typst. Il couvre l'installation, la configuration de l'editeur et la redaction d'un rapport complet avec le template `electrocentrale`.
+Ce guide s'adresse aux étudiants et enseignants de l'ECE Paris, qu'ils découvrent Typst pour la première fois ou qu'ils souhaitent migrer un projet existant. Il présente les deux environnements de travail possibles (**l'application Web officielle collaborative** ou **l'environnement local VS Code**) et détaille pas à pas la rédaction d'un rapport avec le modèle `electrocentrale`.
 
 ---
 
-## 1. Installer Typst
+## 1. Choisir son environnement de travail
 
-### macOS
+Deux approches s'offrent à vous selon vos préférences de travail :
 
-Brew est le [gestionnaire de paquets](https://brew.sh/) le plus populaire sur MacOS
-
-```bash
-brew install typst
+```
+┌────────────────────────────────────────────────────────┐
+│               Comment souhaitez-vous rédiger ?         │
+└────────────────────────────────────────────────────────┘
+            │                                  │
+            ▼                                  ▼
+ ┌──────────────────────┐          ┌──────────────────────┐
+ │  Option A (En ligne) │          │  Option B (En local) │
+ │     typst.app        │          │   VS Code + CLI      │
+ ├──────────────────────┤          ├──────────────────────┤
+ │ • Zéro installation  │          │ • Fonctionne offline │
+ │ • Collab en direct   │          │ • Outils Git locaux  │
+ │ • Recommandé débutant│          │ • Éditeur avancé     │
+ └──────────────────────┘          └──────────────────────┘
 ```
 
-### Windows
+---
 
-Winget est la méthode officielle d'installation de paquets sur WIndows
+### Option A (Recommandée) : Directement sur l'application Web Typst (`typst.app`)
 
-```powershell
-winget install --id Typst.Typst
-```
+[typst.app](https://typst.app/) est la plateforme web officielle de Typst pour rédiger, visualiser et **collaborer gratuitement en temps réel** à la manière d'un Google Docs ou d'un Overleaf moderne.
 
-### Linux
+Le modèle `electrocentrale` étant officiellement publié sur **Typst Universe**, son initialisation en ligne ne nécessite aucune installation de compilateur.
 
-Typst est disponible dans les dépôts officiels de : [Arch](https://archlinux.org/packages/extra/x86_64/typst/) (`pacman -S typst`), [Nix](https://search.nixos.org/packages?query=typst) (`nix-env -iA nixpkgs.typst`), [Alpine](https://pkgs.alpinelinux.org/packages?name=typst) (`apk add typst`), [Void](https://github.com/void-linux/void-packages/tree/master/srcpkgs/typst) (`xbps-install typst`), [Snap](https://snapcraft.io/typst) (`snap install typst`).
+#### Étape 1 : Démarrer le projet
+1. Rendez-vous sur la page officielle du modèle : **[Typst Universe — electrocentrale](https://typst.app/universe/package/electrocentrale)**.
+2. Cliquez sur le bouton **"Start from template"** (ou "Open in app").
+3. Connectez-vous ou créez gratuitement votre compte Typst.
+4. Votre projet est immédiatement créé avec un fichier `main.typ` préconfiguré, incluant les logos vectoriels et le squelette de rapport.
 
-Si votre distribution n'est pas listée, il faudra l'installer via Cargo, le gestionnaire de paquets Rust :
+*(Alternative : si vous avez déjà un document vierge dans l'application Web, insérez simplement en haut du fichier la ligne `#import "@preview/electrocentrale:0.2.0": *`)*.
 
-```bash
-cargo install --locked typst-cli
-```
+#### Étape 2 : Collaborer en temps réel avec son binôme / son équipe
+1. Dans l'éditeur en ligne, cliquez sur le bouton **Share** (en haut à droite).
+2. Saisissez l'adresse e-mail de vos coéquipiers de binôme ou de projet, ou activez un lien de partage avec droits d'édition.
+3. Vous pouvez désormais rédiger à plusieurs simultanément, voir les curseurs en direct de vos collègues et observer le rendu PDF se mettre à jour instantanément à chaque frappe.
 
-### Vérifier l'installation
+#### Étape 3 : Exporter le PDF final
+- Cliquez simplement sur le bouton **Export** (ou l'icône de téléchargement en haut de l'éditeur) pour récupérer le PDF prêt à être déposé sur la plateforme pédagogique de l'école (Campus / Moodle).
 
+---
+
+### Option B : En local avec VS Code & Tinymist
+
+Pour les utilisateurs préférant travailler hors-ligne, gérer leurs versions avec Git ou utiliser leur propre éditeur de code, l'écosystème local Typst est particulièrement léger et rapide.
+
+#### 1. Installer le compilateur Typst
+
+- **macOS** (via [Homebrew](https://brew.sh/)) :
+  ```bash
+  brew install typst
+  ```
+- **Windows** (via le gestionnaire officiel [Winget](https://learn.microsoft.com/fr-fr/windows/package-manager/winget/)) :
+  ```powershell
+  winget install --id Typst.Typst
+  ```
+- **Linux** :
+  - Arch Linux : `pacman -S typst`
+  - Nix : `nix-env -iA nixpkgs.typst`
+  - Alpine : `apk add typst`
+  - Snap : `snap install typst`
+  - Autres distributions (via Cargo) : `cargo install --locked typst-cli`
+
+Vérifiez l'installation dans votre terminal :
 ```bash
 typst --version
 ```
 
-La commande doit afficher un numero de version (idéalement 0.15.0 ou supérieur).
+#### 2. Installer VS Code et l'extension Tinymist
+1. Téléchargez et installez **VS Code** depuis [code.visualstudio.com](https://code.visualstudio.com/).
+2. Ouvrez l'onglet Extensions (`Ctrl+Shift+X` ou `Cmd+Shift+X`), recherchez **Tinymist Typst** (de *Myriad-Dreamin*) et cliquez sur **Install**.
+3. Tinymist offre l'autocomplétion, la coloration syntaxique, la détection d'erreurs en temps réel et un visualiseur PDF synchronisé avec défilement bi-directionnel.
 
----
+#### 3. Initialiser un nouveau rapport en local
 
-## 2. Editer un rapport
-
-### Installer VS Code
-
-Telecharger et installer VS Code depuis [code.visualstudio.com](https://code.visualstudio.com/).
-
-### Installer l'extension Tinymist
-
-Tinymist est l'extension de reference pour editer du Typst dans VS Code. Elle fournit la coloration syntaxique, l'autocompletion, la verification d'erreurs en temps reel et un apercu PDF integre.
-
-1. Visiter : [marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist)
-2. Cliquer sur "Install" et accepter l'ouverture du lien dans VSCode
-
-### Collaborer en temps réel sur un rapport
-
-#### Option 1 : Directement sur l'application Web Typst (typst.app)
-
-[typst.app](https://typst.app/) est la plateforme web officielle de Typst pour rédiger et collaborer gratuitement en temps réel à la manière d'un Google Docs ou Overleaf.
-
-Le template étant officiellement publié sur [Typst Universe](https://typst.app/universe/package/electrocentrale), son utilisation en ligne est immédiate :
-
-1. **Démarrer depuis le template** : Rendez-vous sur [Typst Universe - electrocentrale](https://typst.app/universe/package/electrocentrale) et cliquez sur **"Start from template"** (ou "Open in app"). Un projet complet prêt à l'emploi est généré automatiquement.
-2. **Ou importer dans un projet existant** : Créez un document vierge et ajoutez simplement la ligne :
-   ```typst
-   #import "@preview/electrocentrale:0.1.0": *
-   ```
-
-Typst résout automatiquement le package en arrière-plan.
-
-#### Option 2 : Collaboration via VS Code (Live Share)
-
-[Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare) est une extension Microsoft qui permet à plusieurs personnes d'éditer le même projet simultanément dans VS Code.
-
-Chaque participant voit les modifications des autres en temps réel. Le host (celui qui partage) doit avoir Tinymist installé pour que l'autocomplétion et la vérification d'erreurs fonctionnent pour tout le monde.
-
-> **Note** : L'aperçu PDF interactif s'affiche sur la machine du host.
-
----
-
-## 3. Créer un nouveau rapport en local
-
-### Méthode 1 : Initialisation automatique via Typst Universe (recommandé)
-
-Ouvrir un terminal et exécuter :
+Ouvrez un terminal et exécutez la commande d'initialisation officielle :
 
 ```bash
-typst init @preview/electrocentrale mon-rapport
+typst init @preview/electrocentrale:0.2.0 mon-rapport
 cd mon-rapport
+code .
 ```
 
 Typst télécharge automatiquement le package officiel et crée votre fichier `main.typ` configuré.
 
-### Méthode 2 : Cloner le dépôt Git complet (avec exemples et galeries)
+*(Si vous souhaitez cloner l'ensemble des exemples complets et des galeries, vous pouvez aussi cloner le dépôt complet : `git clone https://github.com/ece-elec/Electrocentrale.git`)*.
 
-Si vous préférez cloner l'ensemble des exemples complets (`rapport-tp`, `rapport-projet`, `document-conception`, `rapport-stage`) :
+#### 4. Lancer l'aperçu en direct dans VS Code
+- Ouvrez le fichier `main.typ`.
+- Cliquez sur l'icône d'aperçu en haut à droite de l'éditeur (ou faites `Cmd+Shift+P` / `Ctrl+Shift+P` > **Tinymist: Show Preview**).
+- Le visualiseur interactif s'ouvre à côté du code. Chaque enregistrement recompile le document en quelques dizaines de millisecondes.
 
-```bash
-git clone https://github.com/ece-elec/Electrocentrale.git mon-rapport
-cd mon-rapport
-```
-
-### Ouvrir le dossier dans VS Code
-
-```bash
-code mon-rapport
-```
-
-Ou bien : VS Code > Fichier > Ouvrir un dossier > selectionner `mon-rapport`.
-
-### Lancer l'apercu en temps reel
-
-Ouvrir `main.typ` dans VS Code, puis :
-
-- `Cmd+Shift+P` (macOS) ou `Ctrl+Shift+P` (Windows/Linux)
-- Taper **Tinymist: Preview** et valider
-
-Un panneau s'ouvre avec l'apercu PDF. Chaque modification du fichier met a jour l'apercu automatiquement.
-
-Alternativement, depuis le terminal :
-
-```bash
-typst watch main.typ
-```
-
-Cela recompile le PDF a chaque sauvegarde.
+*(Collaboration en local : Vous pouvez utiliser l'extension officielle Microsoft **Live Share** pour inviter vos collaborateurs dans votre session VS Code)*.
 
 ---
 
-## 4. Comprendre la structure du fichier
+## 2. Comprendre la structure du document (`main.typ`)
 
-Le fichier `main.typ` genere par `typst init` ressemble a ceci :
+Le fichier `main.typ` généré est structuré de façon claire et modulaire :
 
 ```typst
-#import "@preview/electrocentrale:0.1.0": *
+#import "@preview/electrocentrale:0.2.0": *
 
-#let langue = "fr"
-#let style-police = "latex"
+// 1. Configuration globale
+#let langue = "fr" // "fr" ou "en"
+#let style-police = "latex" // "arial" | "latex" | "typst-modern" | "modern-sans" | "editorial"
 
+// 2. Application du modèle (tp, projet, conception ou stage)
 #show: tp.with(
   lang: langue,
   title: "Filtres Actifs et Traitement du Signal",
   tp-num: "1",
   promo: "ING5",
-  major: "Systemes Embarques",
+  major: "Systèmes Embarqués",
   groupe: "Groupe 02",
   authors: (
-    (name: "Andre-Marie AMPERE", email: "ampere@ece.fr", role: "Electronique analogique"),
+    (name: "André-Marie AMPÈRE", email: "ampere@ece.fr", role: "Électronique analogique"),
     (name: "Alessandro VOLTA", email: "volta@ece.fr", role: "Mesures et banc de test"),
   ),
   supervisor: (name: "Dr. Jean DUPONT", email: "jean.dupont@ece.fr"),
   date: auto,
-  abstract: [Resume du rapport.],
   font: font-presets.at(style-police, default: "New Computer Modern"),
 )
+
+// 3. Corps du document rédigé ci-dessous
+= Première partie : Étude théorique et expérimentale
+...
 ```
 
-Les points importants :
-
-- `#import` charge le template. Ne pas modifier cette ligne.
-- `#show: tp.with(...)` applique le modele "Rapport de TP". Remplacer `tp` par `projet` ou `conception` pour changer de modele.
-- Tous les parametres entre parentheses sont optionnels sauf `title`.
+**Points clés à retenir :**
+- La ligne `#import "@preview/electrocentrale:0.2.0": *` charge l'ensemble des fonctionnalités du modèle.
+- La règle `#show: tp.with(...)` applique le modèle choisi.
+- Tous les paramètres (`promo`, `major`, `supervisor`, `authors`, etc.) sont partagés entre tous les modèles.
 
 ---
 
-## 5. Rediger le contenu
+## 3. Rédiger le contenu technique
 
-Le contenu se place **apres** le bloc `#show: tp.with(...)`.
+Le contenu se rédige directement après le bloc `#show: ...`.
 
-### Titres
-
+### Titres et hiérarchie
+Typst utilise une syntaxe très épurée inspirée du Markdown :
 ```typst
-= Titre de partie
-== Sous-partie
-=== Sous-sous-partie
+= Première partie : Titre principal
+== Analyse théorique (Sous-section)
+=== Détail du calcul (Sous-sous-section)
 ```
 
-### Questions de TP
+### Questions de Travaux Pratiques (`#t` et `#e`)
+Pour respecter les conventions des comptes-rendus de TP à l'ECE :
+```typst
+#t(1)[Calculer la fonction de transfert théorique $H(j omega)$ du filtre.]
 
-Le template fournit deux fonctions pour les questions :
+#e(1)[Mesurer à l'oscilloscope l'amplitude de sortie pour $f = 1 "kHz"$.]
+```
+`#t(n)` génère automatiquement un en-tête théorique (ex: **T1.**) et `#e(n)` un en-tête expérimental (ex: **E1.**).
+
+### Formules et notations physiques
+Les équations mathématiques se placent entre symboles `$`. Une formule seule sur sa ligne est automatiquement centrée et peut recevoir un label de référence `<...>` :
 
 ```typst
-#t(1)[Calculer la fonction de transfert du filtre.]
+$ H(j omega) = - (R_2 / R_1) 1 / (1 + j (omega / omega_0)) $ <eq:transfert>
 
-#e(1)[Relever les mesures experimentales.]
+En appliquant les valeurs numériques dans l'équation @eq:transfert, on obtient...
 ```
 
-`#t(n)` genere une question theorique numerotee, `#e(n)` une question experimentale.
-
-### Equations
-
+Le template fournit également des macros pour les unités usuelles du génie électrique :
 ```typst
-$ H(j omega) = - R_2 / R_1 dot 1 / (1 + j omega / omega_0) $ <eq:transfert>
+Soit une résistance $R_1 = 10#kohm$, une capacité $C_1 = 100#nf$ et une fréquence $f_0 = 3.39#khz$.
 ```
 
-Pour referencer l'equation dans le texte : `voir @eq:transfert`.
-
-### Figures
-
-```typst
-#figure(
-  image("schema.png", width: 80%),
-  caption: [Schema du montage],
-) <fig:schema>
-```
-
-Pour referencer la figure : `voir @fig:schema`.
-
-Placer les images dans le meme dossier que `main.typ` ou dans un sous-dossier `images/`.
-
-### Tableaux
+### Tableaux au style ECE
+Tous les tableaux `table(...)` adoptent automatiquement la charte graphique de l'école (en-tête vert ECE, zébrures douces, bordures nettes) :
 
 ```typst
 #figure(
   table(
-    columns: 3,
-    [Frequence (Hz)], [Gain (dB)], [Phase (deg)],
-    [100], [-0.2], [-5.7],
-    [1000], [-3.0], [-45],
-    [10000], [-20.1], [-84],
+    columns: (1fr, 1fr, 1.2fr),
+    [Fréquence], [Gain mesuré (dB)], [Phase (°)],
+    [100 Hz], [-0.2 dB], [-5°],
+    [1 kHz], [-3.0 dB], [-45°],
+    [10 kHz], [-20.1 dB], [-85°],
   ),
-  caption: [Mesures experimentales],
+  caption: [Relevé fréquentiel du filtre actif],
 ) <tab:mesures>
 ```
 
-### Encarts / callouts
+### Encarts et avertissements (`#callout`)
+Mettez en avant des consignes de sécurité, remarques ou astuces :
 
 ```typst
-#callout(title: "Attention", type: "warning")[
-  Verifier l'alimentation avant la mise sous tension.
+#callout(title: "Précaution expérimentale", type: "warning")[
+  Vérifier l'alimentation symétrique (+15 V / -15 V) de l'AOP avant la mise sous tension.
+]
+
+#callout(title: "Astuce de mesure", type: "tip")[
+  Utiliser une sonde atténuatrice 10x pour limiter la charge capacitive sur le circuit.
 ]
 ```
+Encarts rapides disponibles : `#nb[...]` (remarque), `#attention[...]` (danger/avertissement), `#todo[...]` (point à compléter).
 
-Les types disponibles : `"info"`, `"warning"`, `"tip"`, `"danger"`.
+### Intégration de diagrammes et schémas vectoriels
+Typst dispose d'un écosystème de paquets spécialisés très performants, immédiatement utilisables dans la Web App comme en local :
 
-### Code source
+- **Organigrammes et hiérarchies d'équipe** : paquet [`@preview/typart:0.1.1`](https://typst.app/universe/package/typart)
+  ```typst
+  #import "@preview/typart:0.1.1": hierarchy
+  #hierarchy([Chef de projet], ([Électronique], [Firmware], [Tests & Mesures]))
+  ```
+- **Synoptiques fonctionnels, logigrammes et algorigrammes** : paquet [`@preview/fletcher:0.5.8`](https://typst.app/universe/package/fletcher)
+  ```typst
+  #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+  #diagram(
+    node((0, 0), [Générateur BF], stroke: 0.8pt + rgb("#007B83"), corner-radius: 4pt),
+    edge((0, 0), (1, 0), "->", [Signal]),
+    node((1, 0), [Filtre Actif], stroke: 0.8pt + rgb("#007B83"), corner-radius: 4pt),
+  )
+  ```
+- **Plannings de Gantt et bases de données** : intégrés nativement dans `electrocentrale` via `#gantt(...)` et `#table-bdd(...)`.
 
+*(Pour des exemples complets et détaillés de chaque type de diagramme, consultez le guide [🛠️ Composants d'ingénierie](composants.md))*.
+
+### Code source et annexes
+Pour afficher des extraits de code avec coloration syntaxique :
 ````typst
 ```c
-void main(void) {
-    HAL_Init();
-    SystemClock_Config();
+void SystemClock_Config(void) {
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    HAL_RCC_OscConfig(&RCC_OscInitStruct);
 }
 ```
 ````
 
-### Annexes
-
-A la fin du document :
-
+Pour isoler les codes longs, listings complets et fiches techniques en fin de document :
 ```typst
 #show: annexes
 
-= Annexe A : Code source
-
-Le code complet du projet.
+= Annexe A : Code source du microcontrôleur
+= Annexe B : Schéma d'implantation PCB
 ```
 
 ---
 
-## 6. Changer de modele
+## 4. Changer de modèle
 
-Le template propose trois modeles interchangeables. Tous les parametres sont partages : il suffit de changer le nom de la fonction.
+Tous les modèles d'ingénierie partagent les mêmes arguments. Pour basculer d'un rapport de TP à un projet ou un document de conception, il suffit de modifier la fonction appelée :
 
-### Rapport de TP
+| Type de document | Fonction | Particularités automatiques |
+| :--- | :--- | :--- |
+| **Rapport de TP** | `#show: tp.with(...)` | En-têtes TP, pagination simple, table des matières optionnelle |
+| **Rapport de Projet** | `#show: projet.with(...)` | Sommaire complet automatique, abstract, couverture projet |
+| **Document de Conception** | `#show: conception.with(...)` | Avant-propos, matrice de conception, style technique |
+| **Rapport de Stage** | `#show: stage.with(...)` | Fiche d'évaluation officielle ECE, missions, police Arial imposée |
+
+---
+
+## 5. Personnaliser le style typographique
+
+Le paramètre `font-presets` permet de sélectionner instantanément une identité visuelle adaptée :
 
 ```typst
+#let style-police = "latex" // Choisissez parmi : "latex", "typst-modern", "modern-sans", "editorial", "arial"
+
 #show: tp.with(
-  title: "Mon TP",
-  tp-num: "3",
+  font: font-presets.at(style-police, default: "New Computer Modern"),
   ...
 )
 ```
 
-### Rapport de projet
-
-```typst
-#show: projet.with(
-  title: "Mon Projet",
-  ...
-)
-```
-
-### Document de conception
-
-```typst
-#show: conception.with(
-  title: "Conception du Systeme",
-  ...
-)
-```
-
-Les modeles `projet` et `conception` activent automatiquement la table des matieres. Le modele `tp` ne l'active pas par defaut (ajoutez `table-of-contents: true` pour la forcer).
+- `"latex"` : New Computer Modern (style académique scientifique classique, par défaut).
+- `"typst-modern"` : Libertinus Serif (moderne, clair et aéré).
+- `"modern-sans"` : Helvetica / Arial (style rapport technique épuré sans empattements).
+- `"editorial"` : Charter / PT Serif (style publication de revue).
+- `"arial"` : Police officielle requise pour les rapports de stage.
 
 ---
 
-## 7. Changer le style typographique
+## 6. Foire aux Questions & Dépannage
 
-Quatre styles de police sont disponibles :
+**Q : L'importation du package échoue ("package not found").**  
+Typst télécharge automatiquement le package officiel lors de la première compilation. Vérifiez votre connexion Internet. Si vous travaillez en local, assurez-vous d'utiliser une version récente de Typst (`typst --version` $\ge$ 0.12.0).
 
-| Valeur             | Rendu                                       |
-| :----------------- | :------------------------------------------ |
-| `"latex"`        | Style LaTeX classique (New Computer Modern) |
-| `"typst-modern"` | Style moderne (Libertinus Serif)            |
-| `"modern-sans"`  | Sans-serif contemporain (Helvetica / Arial) |
-| `"editorial"`    | Style publication scientifique (Charter)    |
+**Q : Comment insérer des images et photos de banc d'essai ?**  
+Placez vos images dans votre projet (par exemple dans un dossier `images/`) et utilisez `#figure(image("images/photo.png", width: 80%), caption: [...]) <fig:photo>`. Dans l'application Web, faites simplement glisser vos fichiers images dans l'explorateur de gauche.
 
-Pour changer :
-
+**Q : Comment gérer la bibliographie ?**  
+Créez un fichier `bibliographie.bib` au format BibTeX dans le projet, puis ajoutez à la fin de votre document :
 ```typst
-#let style-police = "modern-sans"
+#bibliography("bibliographie.bib", title: "Références bibliographiques", style: "ieee")
 ```
+Vous pouvez ensuite citer des références dans le texte avec `@cle_bibtex`.
 
 ---
 
-## 8. Compiler en PDF
+## Ressources et liens utiles
 
-### Depuis VS Code
-
-L'apercu Tinymist genere le PDF automatiquement. Pour exporter manuellement :
-
-- `Cmd+Shift+P` > **Tinymist: Export PDF**
-
-### Depuis le terminal
-
-```bash
-# Compilation unique
-typst compile main.typ
-
-# Compilation continue (recompile a chaque sauvegarde)
-typst watch main.typ
-```
-
-Le fichier `main.pdf` est genere dans le meme dossier.
-
----
-
-## 9. Problemes courants
-
-**"package not found" a la compilation**
-
-Le package se telecharge automatiquement depuis Typst Universe lors de la premiere compilation. Verifier la connexion internet.
-
-**L'apercu Tinymist ne s'affiche pas**
-
-S'assurer que l'extension Tinymist est bien installee et que le fichier ouvert a l'extension `.typ`.
-
-**Les accents s'affichent mal**
-
-Verifier que le fichier est encode en UTF-8. VS Code l'utilise par defaut.
-
-**Je veux utiliser une bibliographie**
-
-Creer un fichier `refs.bib` dans le meme dossier, puis ajouter en fin de document :
-
-```typst
-#bibliography("refs.bib", style: "ieee")
-```
-
----
-
-## Ressources
-
-- [Fiche officielle sur Typst Universe](https://typst.app/universe/package/electrocentrale) -- page du package `electrocentrale`
-- [Documentation Typst](https://typst.app/docs/) -- référence officielle du langage Typst
-- [Typst Universe](https://typst.app/universe/) -- registre des packages et templates officiels
-- [⚙️ Référence des paramètres](parametres.md) -- tableau exhaustif des options des 4 modèles
-- [🛠️ Composants d'ingénierie](composants.md) -- schémas vectoriels, diagrammes UML et utilitaires ECE
-- [📦 Guide de publication](publication.md) -- procédure pour mettre à jour le package sur Typst Universe
+- [Fiche officielle sur Typst Universe](https://typst.app/universe/package/electrocentrale) — page du package `electrocentrale`
+- [Documentation officielle Typst](https://typst.app/docs/) — référence du langage et des fonctions standard
+- [Typst Universe](https://typst.app/universe/) — catalogue de tous les packages officiels
+- [⚙️ Paramètres de configuration](parametres.md) — tableau exhaustif des options de personnalisation
+- [🛠️ Composants d'ingénierie](composants.md) — composants graphiques, mesures et schémas
+- [📦 Guide de publication](publication.md) — procédure pour contribuer et mettre à jour le package

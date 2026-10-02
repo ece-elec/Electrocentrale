@@ -15,8 +15,8 @@ typst watch document-conception.typ
 ## ⚙️ Structure et particularités
 
 - **Page de titre** : Encart `AVANT-PROPOS` (ou `FOREWORD`), attestation d'intégrité spécifique à l'équipe de projet (`"commun à l'équipe de projet"`).
-- **Architecture matérielle** : Intégration de `#chaine-blocs(...)` et `#bloc(...)`.
-- **Architecture logicielle** : Intégration de `#algorigramme(...)`, `#algo-debut(...)`, `#algo-decision(...)`, etc.
+- **Architecture matérielle** : Synoptiques fonctionnels et matériels vectoriels (`fletcher`).
+- **Architecture logicielle** : Algorigrammes et logigrammes séquentiels (`fletcher`).
 - **Protocoles et preuves de test** : Sections dédiées aux tests unitaires et d'intégration avec critères de réussite.
 - **Matrice d'exigences** : Tableau de traçabilité des exigences fonctionnelles.
 - **Bibliographie IEEE** : Style IEEE conforme au guide institutionnel avec renvois numérotés.

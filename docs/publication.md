@@ -73,7 +73,7 @@ Le registre Typst Universe n'attend dans `typst/packages` que les fichiers stric
    ```bash
    mkdir -p packages/preview/electrocentrale/X.Y.Z
    ```
-3. **Copier les 24 fichiers nécessaires** :
+3. **Copier les fichiers nécessaires** (19 fichiers au total) :
    Depuis le dépôt source `Electrocentrale` vers `packages/preview/electrocentrale/X.Y.Z/` :
 
    - `typst.toml`

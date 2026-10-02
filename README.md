@@ -36,13 +36,13 @@ Le template est disponible sur **[Typst Universe](https://typst.app/universe/pac
 Créez un nouveau projet directement depuis le template sur [Typst Universe](https://typst.app/universe/package/electrocentrale) en cliquant sur **"Start from template"**, ou importez-le dans n'importe quel document :
 
 ```typst
-#import "@preview/electrocentrale:0.1.0": *
+#import "@preview/electrocentrale:0.2.0": *
 ```
 
 #### En local (CLI Typst)
 ```bash
 # Initialiser un nouveau rapport
-typst init @preview/electrocentrale mon-rapport
+typst init @preview/electrocentrale:0.2.0 mon-rapport
 cd mon-rapport
 typst watch main.typ
 ```
@@ -66,9 +66,9 @@ typst watch examples/rapport-stage/rapport-stage.typ
 
 La documentation complète est disponible sur le dépôt GitHub du projet :
 
-- [**Tutoriel pas à pas**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/tutoriel.md) : installation de Typst, configuration de VS Code (Tinymist) et rédaction d'un premier rapport.
+- [**Tutoriel pas à pas**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/tutoriel.md) : prise en main sur l'application Web Typst (`typst.app`), configuration de VS Code (Tinymist) et rédaction d'un premier rapport.
 - [**Paramètres de configuration**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/parametres.md) : référence complète des options (`tp`, `projet`, `conception`, `stage`), tuteurs et styles de polices.
-- [**Composants d'ingénierie**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/composants.md) : organigrammes, chaînes de blocs, algorigrammes ISO, diagrammes UML, Gantt, tables BDD et encarts.
+- [**Composants d'ingénierie**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/composants.md) : Gantt, tables BDD, encarts, notations et intégration de schémas vectoriels.
 - [**Exemples complets**](https://github.com/ece-elec/Electrocentrale/tree/623b9e400a70dbf3d01a6814538e607f82b44570/examples) : rapports et galeries de diagrammes prêts à compiler.
 - [**Guide de publication**](https://github.com/ece-elec/Electrocentrale/blob/623b9e400a70dbf3d01a6814538e607f82b44570/docs/publication.md) : procédure pour publier une mise à jour sur Typst Universe.
 
