@@ -59,6 +59,7 @@
 
 // --- Modèle 4 : Rapport de Stage (avec fiche d'évaluation officielle) ---
 // #show: stage.with(
+//   preset: "ing5",  // grille de notation entreprise ING5 2026-2027
 //   title: "Virtualisation et Sécurisation d'une Plateforme Embarquée",
 //   student: (firstname: "Camille", lastname: "MARTIN", major: "Systèmes Embarqués"),
 //   company: (name: "Innovatech Solutions SAS", address: "12 rue de l'Innovation, 75015 Paris"),

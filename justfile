@@ -10,6 +10,7 @@ compile:
     typst compile examples/rapport-projet/rapport-projet.typ /tmp/rapport-projet.pdf
     typst compile examples/document-conception/document-conception.typ /tmp/document-conception.pdf
     typst compile examples/rapport-stage/rapport-stage.typ /tmp/rapport-stage.pdf
+    typst compile --root . examples/rapport-stage/rapport-stage-ing5.typ /tmp/rapport-stage-ing5.pdf
     typst compile examples/organigrammes.typ /tmp/organigrammes.pdf
     typst compile examples/diagrammes-uml.typ /tmp/diagrammes-uml.pdf
     @echo "✅ Tous les documents Typst compilent sans erreur."
