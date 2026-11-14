@@ -49,6 +49,92 @@
   ),
 )
 
+// ─────────────────────────────────────────────────────────────
+// Préréglage ING5 — notation du stage de fin d'études (livret de stage ING5 2026-2027)
+// Remplace uniquement la grille et les libellés de la fiche d'évaluation entreprise.
+// ─────────────────────────────────────────────────────────────
+
+// Grille officielle « Évaluation de l'entreprise » ING5 : notes par bloc (/10, /10, /10, /5, /5 = /40)
+#let get-ing5-sections(lang) = if lang == "en" {
+  (
+    (title: "Mastery of science and technology", total: 10, criteria: (
+      "Analytical skills / understanding of issues",
+      "Implementation of knowledge",
+      "Ability to acquire new knowledge (training or self-learning)",
+    )),
+    (title: "Mastery of the engineer's methods and tools", total: 10, criteria: (
+      "Methodology / work organization, project management: development of a tool or methodology",
+      "Synthesis and communication of results, mastery of communication tools",
+    )),
+    (title: "Conduct of action and decision making", total: 10, criteria: (
+      "Achievement of objectives, quality of work, compliance with specifications",
+      "Autonomy / initiative / creativity / openness / motivation",
+      "Compliance with procedures (quality, safety, health…)",
+    )),
+    (title: "Integration into an organization and leadership", total: 5, criteria: (
+      "Ability to integrate into a team: express expectations, give one's opinion, listen, accept criticism and question oneself",
+      "Communication about one's activities and ability to report (meetings, customer relations…)",
+      "Consideration of business and economic issues",
+    )),
+    (title: "Respect for societal, social and environmental values", total: 5, criteria: (
+      "Appropriation of the values, codes and culture of the team and the organization",
+      "Ethical behavior",
+    )),
+  )
+} else {
+  (
+    (title: "Maîtrise des domaines scientifiques et techniques", total: 10, criteria: (
+      "Capacité d’analyse / compréhension des problèmes",
+      "Mise en œuvre de ses connaissances",
+      "Aptitude à acquérir de nouvelles connaissances (formation ou autoformation)",
+    )),
+    (title: "Maîtrise des méthodes et des outils de l’ingénieur", total: 10, criteria: (
+      "Méthodologie / organisation du travail, gestion de projet : développement d’un outil ou d’une méthodologie",
+      "Synthèse et communication des résultats, maîtrise des outils de communication",
+    )),
+    (title: "Conduite de l’action et prise de décision", total: 10, criteria: (
+      "Réalisation des objectifs, qualité du travail réalisé",
+      "Autonomie / initiative / créativité / ouverture",
+      "Respect des procédures (qualité, sécurité, santé…)",
+    )),
+    (title: "Intégration dans une organisation et capacité d’animation", total: 5, criteria: (
+      "Capacité à s’intégrer dans une équipe : exprimer ses attentes, donner son point de vue, sens de l’écoute, accepter la critique et se remettre en cause",
+      "Communication sur ses activités et aptitude à rendre compte (réunion, relation client…)",
+      "Prise en compte des enjeux métiers et économiques",
+    )),
+    (title: "Respect des valeurs sociétales, sociales et environnementales", total: 5, criteria: (
+      "Appropriation des valeurs, des codes et de la culture de l’équipe et de l’organisation",
+      "Comportement éthique",
+    )),
+  )
+}
+
+// Libellés de la fiche d'évaluation propres à l'ING5 (fusionnés par-dessus `i18n-stage`)
+#let _ing5-eval-dict = (
+  "fr": (
+    eval_banner_by: "À compléter par le tuteur de stage",
+    eval_banner_insert: [À insérer *obligatoirement* en annexe du rapport de stage],
+    eval_supervisor_label: "Tuteur de stage :",
+    eval_phone_label: "Téléphone du tuteur :",
+    eval_email_label: "Email du tuteur :",
+    eval_observations: "Appréciation globale sur le stage et observations :",
+    eval_signature_supervisor: "Signature du tuteur de stage",
+  ),
+  "en": (
+    eval_banner_by: "To be completed by the internship tutor",
+    eval_banner_insert: [*Mandatory* appendix of the internship report],
+    eval_supervisor_label: "Internship tutor:",
+    eval_phone_label: "Tutor’s phone:",
+    eval_email_label: "Tutor’s email:",
+    eval_observations: "Overall assessment of the internship and observations:",
+    eval_signature_supervisor: "Internship tutor signature",
+  ),
+)
+
+#let stage-presets = (
+  "ing5": (sections: get-ing5-sections, dict: _ing5-eval-dict),
+)
+
 // Page de garde officielle de stage (reproduction fidèle du modèle ECE)
 #let stage-cover(ctx) = {
   grid(
@@ -157,6 +243,13 @@
         #text(size: 10pt, weight: "bold")[#ctx.annee-universitaire]
       ]
     )
+    #if ctx.at("preset", default: none) == "ing5" {
+      v(0.3cm)
+      block(width: 100%, inset: (x: 8pt, y: 5pt), stroke: 0.6pt + black)[
+        #set text(size: 9pt)
+        #grid(columns: (1fr, 1fr), text(weight: "bold")[#ctx.dict.eval_banner_by], align(right)[#ctx.dict.eval_banner_insert])
+      ]
+    }
 
     #v(0.6cm)
 
@@ -195,19 +288,33 @@
     )
     #let grand-total = 0
 
+    // Un critère est soit un dictionnaire (label:, max:), soit un simple libellé (str / content).
+    // Si aucun critère d'une section n'a de `max`, la section est notée en bloc :
+    // la note figure sur la ligne de titre et il n'y a pas de ligne « Total ».
+    #let _crit-label(c) = if type(c) == dictionary { c.label } else { c }
+    #let _crit-max(c) = if type(c) == dictionary { c.at("max", default: none) } else { none }
     #for sec in sections {
       let sec-criteria = sec.at("criteria", default: ())
-      let sec-total = sec.at("total", default: sec-criteria.map(c => c.at("max", default: 0)).sum())
+      let block-scored = sec-criteria.all(c => _crit-max(c) == none)
+      let sec-total = sec.at("total", default: sec-criteria.map(c => { let m = _crit-max(c); if m == none { 0 } else { m } }).sum(default: 0))
       grand-total += sec-total
 
-      table-cells.push(_c(colspan: 2, stroke: (left: stroke-box, right: stroke-box, top: stroke-box, bottom: none), text(weight: "bold", size: 9.5pt)[#sec.title]))
-      for crit in sec-criteria {
-        table-cells.push(_c(stroke: stroke-inner, pad(left: 10pt)[• #crit.label]))
-        table-cells.push(_c(stroke: stroke-inner, [/#crit.max]))
+      let title-stroke = (left: stroke-box, right: stroke-box, top: stroke-box, bottom: none)
+      if block-scored {
+        table-cells.push(_c(stroke: title-stroke, text(weight: "bold", size: 9.5pt)[#sec.title]))
+        table-cells.push(_c(stroke: title-stroke, text(weight: "bold")[/#sec-total]))
+      } else {
+        table-cells.push(_c(colspan: 2, stroke: title-stroke, text(weight: "bold", size: 9.5pt)[#sec.title]))
       }
-      let total-label = sec.at("total-label", default: "Total Note " + sec.title)
-      table-cells.push(_c(text(weight: "bold")[#total-label]))
-      table-cells.push(_c(text(weight: "bold")[/#sec-total]))
+      for crit in sec-criteria {
+        table-cells.push(_c(stroke: stroke-inner, pad(left: 10pt)[• #_crit-label(crit)]))
+        table-cells.push(_c(stroke: stroke-inner, if block-scored [] else [/#_crit-max(crit)]))
+      }
+      if not block-scored {
+        let total-label = sec.at("total-label", default: "Total Note " + sec.title)
+        table-cells.push(_c(text(weight: "bold")[#total-label]))
+        table-cells.push(_c(text(weight: "bold")[/#sec-total]))
+      }
     }
 
     #table-cells.push(_c(text(weight: "bold")[#ctx.dict.eval_total]))
@@ -322,6 +429,8 @@
   evaluation-final-scale: 20,
   evaluation-observations: none,
 
+  preset: none,
+
   title: none,
   lang: "fr",
   major: none,
@@ -341,7 +450,12 @@
   ..rest-args,
   body
 ) = {
-  let dict = if lang in i18n-stage { i18n-stage.at(lang) } else { i18n-stage.at("fr") }
+  let lang-key = if lang in i18n-stage { lang } else { "fr" }
+  // Préréglage (ex. "ing5") : grille et libellés de la fiche d'évaluation ; les paramètres explicites restent prioritaires
+  let pre = if preset == none { (:) } else if preset in stage-presets { stage-presets.at(preset) } else {
+    panic("electrocentrale: préréglage de stage inconnu « " + str(preset) + " » (disponibles : " + stage-presets.keys().join(", ") + ")")
+  }
+  let dict = i18n-stage.at(lang-key) + pre.at("dict", default: (:)).at(lang-key, default: (:))
 
   // Résolution élève
   let s_dict = if type(student) == dictionary { student } else { (:) }
@@ -379,7 +493,11 @@
   let act_cycle = _first(cycle, default: dict.cycle_default)
   let act_annee_cycle = _first(annee-cycle, cycle-year, default: dict.year_default)
   let act_annee_univ = _first(annee-universitaire, academic-year, default: dict.academic_year_default)
-  let act_eval_sections = _first(evaluation-sections, grille-evaluation, evaluation-grid, default: none)
+  let act_eval_sections = _first(
+    evaluation-sections, grille-evaluation, evaluation-grid,
+    if "sections" in pre { (pre.sections)(lang-key) } else { none },
+    default: none,
+  )
   let act_authors = _first(authors, if student_full_name != none { (student_full_name,) } else { none }, default: ("Élève Ingénieur",))
 
   let stage-ctx = (
@@ -402,6 +520,7 @@
     annee-cycle: act_annee_cycle,
     annee-universitaire: act_annee_univ,
     evaluation-sections: act_eval_sections,
+    preset: preset,
     evaluation-final-scale: evaluation-final-scale,
     evaluation-observations: evaluation-observations,
     logo: logo,

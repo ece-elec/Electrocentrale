@@ -197,3 +197,20 @@ Il applique par défaut les normes de rédaction ECE pour les rapports de stage 
 | `evaluation-sections`       | `array` / `none`               | `none` (officiel ECE) | Grille de critères modifiable :`(title, total, criteria: ((label, max), ...))` (alias : `grille-evaluation`) |
 | `evaluation-final-scale`    | `int` / `float`                | `20`                  | Barème final ramené (ex :`20` pour "Soit /20")                                                                |
 | `evaluation-observations`   | `content` / `str`              | `none`                | Remarques pré-remplies dans le cadre Observations de la fiche d'évaluation                                      |
+| `preset`                    | `str` / `none`                 | `none`                | Préréglage de notation (`"ing5"`) : voir ci-dessous                                                           |
+
+### Préréglage ING5 — notation du stage de fin d'études (`preset: "ing5"`)
+
+Remplace la grille de la fiche d'évaluation entreprise par celle du **livret de stage ING5 2026-2027** : 5 blocs notés /10, /10, /10, /5, /5 (total /40 ramené sur /20). Les libellés de la fiche s'adaptent (« Tuteur de stage », « Appréciation globale sur le stage et observations ») et un bandeau rappelle qu'elle est à compléter par le tuteur et à insérer en annexe du rapport. Disponible en français et en anglais (`lang`).
+
+La page de garde et le reste du rapport ne changent pas : renseignez `cycle`, `annee-cycle` et `annee-universitaire` comme d'habitude. Un `evaluation-sections` explicite reste prioritaire sur le préréglage.
+
+```typst
+#show: stage.with(
+  preset: "ing5",
+  cycle: "Cycle Ingénieur",
+  annee-cycle: "3ᵉ année",
+  annee-universitaire: "2026-2027",
+  // … autres paramètres habituels
+)
+```
